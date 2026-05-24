@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
 <style>
   :root{
     --bg1:#fff1f6;
@@ -1203,20 +1205,20 @@
   /* ---------- Firebase (loaded lazily so the UI never breaks) ---------- */
   function startFirebase(){
     setChip("work");
-    Promise.all([
-      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
-      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js"),
-      import("./firebase-config.js?_="+Date.now())
-    ]).then(function(m){
-      var appMod=m[0], dbMod=m[1], cfgMod=m[2];
+    import("./firebase-config.js?_="+Date.now()).then(function(cfgMod){
       var fcfg=cfgMod.firebaseConfig||{};
       if(cfgMod.GROUP_KEY) GROUP_KEY=cfgMod.GROUP_KEY;
       if(cfgMod.DATA_PATH) DATA_PATH=cfgMod.DATA_PATH;
       try{ var g=new URLSearchParams(location.search).get("g"); if(g) GROUP_KEY=g; }catch(e){}
       if(!fcfg.apiKey || fcfg.apiKey==="PASTE_HERE"){ setChip("noconfig"); return; }
-      var app=appMod.initializeApp(fcfg);
-      var db=dbMod.getDatabase(app);
-      FB={ ref:dbMod.ref(db, DATA_PATH+"/"+GROUP_KEY), set:dbMod.set, onValue:dbMod.onValue };
+      if(!window.firebase || !firebase.database){ setChip("err"); return; }
+      var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(fcfg);
+      var ref = app.database().ref(DATA_PATH+"/"+GROUP_KEY);
+      FB={
+        ref:ref,
+        set:function(dbRef, value){ return dbRef.set(value); },
+        onValue:function(dbRef, receive, reject){ dbRef.on("value", receive, reject); return function(){ dbRef.off("value", receive); }; }
+      };
       fbReady=true;
       subscribe();
     }).catch(function(e){ setChip("err"); });
