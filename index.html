@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
+<style>
+  :root{
+    --bg1:#fff1f6;
+    --bg2:#f3f0ff;
+    --bg3:#eafaf5;
+    --card:#ffffff;
+    --text:#3a2e3f;
+    --muted:#8a7e93;
+    --line:#f0e2ea;
+    --pink:#ff7eb6;
+    --pink-soft:#ffe9f2;
+    --lav:#9b87f5;
+    --lav-soft:#efeaff;
+    --mint:#34d399;
+    --mint-soft:#e7fbf2;
+    --amber:#fbbf24;
+    --amber-soft:#fff7e6;
+    --shadow:0 12px 30px rgba(155, 135, 245, 0.14);
+    --shadow-sm:0 6px 16px rgba(155, 135, 245, 0.10);
+  }
+
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;
+    background:
+      radial-gradient(1200px 500px at 10% -10%, var(--bg1), transparent 60%),
+      radial-gradient(1000px 500px at 110% 0%, var(--bg3), transparent 55%),
+      linear-gradient(180deg, var(--bg2), #fbfaff 60%);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Hiragino Sans",Arial,sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  body{padding:14px}
+  .page{width:100%;max-width:480px;margin:0 auto}
+
+  /* language visibility */
+  body.lang-ja .de{display:none}
+  body.lang-de .ja{display:none}
+  .de{color:var(--lav);font-weight:600}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#ff9ec7,#b89bff 55%,#8fd9ff);
+    color:#fff;border-radius:28px;padding:22px 18px 18px;
+    box-shadow:var(--shadow);
+  }
+  .hero .hearts{position:absolute;inset:0;pointer-events:none;font-size:20px;opacity:.35}
+  .hero .hearts span{position:absolute}
+  .hero h1{margin:0;font-size:23px;line-height:1.35;letter-spacing:.01em;text-shadow:0 2px 8px rgba(120,60,120,.25)}
+  .hero h1 .de{display:block;font-size:15px;margin-top:4px;color:#fff;opacity:.95;font-weight:700}
+  body.lang-de .hero h1 .de{font-size:21px;margin-top:0}
+  .hero .sub{margin-top:10px;font-size:12.5px;opacity:.96}
+  .flags{font-size:22px;margin-bottom:6px}
+
+  .conclusion{
+    margin-top:14px;background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.35);border-radius:18px;padding:12px 13px;
+    backdrop-filter:blur(2px);
+  }
+  .conclusion .badge{
+    display:inline-block;padding:4px 11px;border-radius:999px;background:#fff;color:var(--pink);
+    font-weight:800;font-size:11.5px;margin-bottom:7px;
+  }
+  .conclusion .main{font-size:15.5px;font-weight:800;line-height:1.5}
+  .conclusion .main .de{display:block;font-size:13px;font-weight:700;opacity:.95;margin-top:3px}
+
+  /* ---------- LANG TOGGLE ---------- */
+  .langbar{
+    display:flex;gap:6px;justify-content:center;margin:14px 0 2px;
+  }
+  .langbar button{
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:800;cursor:pointer;
+    box-shadow:var(--shadow-sm);transition:.15s;
+  }
+  .langbar button.active{background:var(--lav);color:#fff;border-color:var(--lav)}
+
+  /* ---------- PROGRESS ---------- */
+  .progress-card{
+    margin-top:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:24px;padding:16px 16px 18px;box-shadow:var(--shadow);text-align:center;
+  }
+  .progress-card .ring-wrap{display:flex;align-items:center;justify-content:center;gap:14px}
+  .ring{position:relative;width:104px;height:104px;flex:0 0 auto}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .ring .pct b{font-size:26px;font-weight:900;line-height:1}
+  .ring .pct small{font-size:10px;color:var(--muted);margin-top:2px}
+  .progress-meta{text-align:left}
+  .progress-meta .pt{font-size:14px;font-weight:800}
+  .progress-meta .pc{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .celebrate{
+    margin-top:12px;display:none;font-weight:800;color:var(--mint);
+    background:var(--mint-soft);border:1px solid #bff0da;border-radius:14px;padding:9px;font-size:13.5px;
+  }
+  body.all-done .celebrate{display:block}
+
+  /* ---------- LEAD TIME TOTALS ---------- */
+  .section{
+    margin-top:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:24px;padding:16px 14px;box-shadow:var(--shadow);
+  }
+  .section-title{display:flex;align-items:center;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+  .section-title .pill{
+    display:inline-block;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:800;
+    background:var(--pink-soft);color:var(--pink);
+  }
+  .section-title h2{margin:0;font-size:17px;line-height:1.35}
+  .section-title h2 .de{display:block;font-size:12.5px;font-weight:700;margin-top:1px}
+  body.lang-de .section-title h2 .de{font-size:17px;font-weight:700}
+
+  .totals{display:grid;gap:10px}
+  .total-card{border-radius:18px;padding:13px;border:1px solid var(--line)}
+  .total-card.pink{background:var(--pink-soft)}
+  .total-card.mint{background:var(--mint-soft)}
+  .total-card .label{font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:700}
+  .total-card .value{font-size:20px;font-weight:900;line-height:1.3}
+  .total-card .desc{margin-top:5px;font-size:12.5px}
+  .total-card .desc .de{display:block;margin-top:2px}
+  .note{font-size:11.5px;color:var(--muted);margin-top:10px}
+  .note .de{display:block;margin-top:3px}
+
+  /* ---------- STEP CARDS ---------- */
+  .timeline{margin-top:6px;position:relative;padding-left:6px}
+  .step{position:relative;margin-bottom:14px}
+  .step:last-child{margin-bottom:0}
+  .step-card{
+    border:1px solid var(--line);background:#fff;border-radius:20px;padding:14px;
+    box-shadow:var(--shadow-sm);transition:.2s;
+  }
+  .step.done .step-card{background:linear-gradient(180deg,#f3fff9,#fff);border-color:#c7f0dd}
+  .step-top{display:flex;gap:12px;align-items:flex-start}
+  .step-emoji{
+    width:48px;height:48px;flex:0 0 auto;border-radius:15px;background:var(--lav-soft);
+    display:flex;align-items:center;justify-content:center;font-size:24px;
+    position:relative;
+  }
+  .step.done .step-emoji{background:var(--mint-soft)}
+  .step-num{
+    position:absolute;top:-7px;left:-7px;width:22px;height:22px;border-radius:999px;
+    background:var(--lav);color:#fff;font-size:11px;font-weight:900;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #fff;
+  }
+  .step.done .step-num{background:var(--mint)}
+  .step-head h3{margin:0;font-size:16px;font-weight:900;line-height:1.35}
+  .step-head h3 .de{display:block;font-size:12.5px;font-weight:700;margin-top:1px}
+  body.lang-de .step-head h3 .de{font-size:16px}
+  .badges{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .leadtime{
+    display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;
+    font-size:11.5px;font-weight:800;color:#fff;
+  }
+  .lt-mint{background:var(--mint)}.lt-amber{background:var(--amber);color:#7a4d00}.lt-lav{background:var(--lav)}
+  .ministat{font-size:11.5px;font-weight:800;color:var(--muted);background:#f6f2fb;border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+
+  .checklist{margin-top:12px;display:grid;gap:8px}
+  .check-item{
+    display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;
+    background:#fcfbff;border:1px solid var(--line);border-radius:13px;padding:9px 11px;
+    cursor:pointer;user-select:none;transition:.15s;
+  }
+  .check-item:active{transform:scale(.99)}
+  .check-item input{display:none}
+  .box{
+    width:24px;height:24px;border-radius:8px;border:2px solid #d9cfe6;background:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;transition:.15s;margin-top:1px;
+  }
+  .check-item input:checked ~ .box{background:var(--mint);border-color:var(--mint)}
+  .check-item input:checked ~ .box::after{content:"✓"}
+  .ci-text{font-size:13.5px;line-height:1.45}
+  .ci-text .de{display:block;font-size:12px;margin-top:1px}
+  body.lang-de .ci-text .de{font-size:13.5px;margin-top:0}
+  .check-item input:checked ~ .ci-text{color:var(--muted);text-decoration:line-through;text-decoration-color:#cdbfe0}
+
+  .alert{
+    margin-top:10px;border-radius:13px;padding:9px 12px;background:var(--amber-soft);
+    border:1px solid #ffe3a8;color:#92560a;font-size:12.5px;font-weight:700;display:flex;gap:7px;align-items:center;
+  }
+  .alert .de{display:block;font-weight:600;margin-top:1px}
+
+  /* ---------- DOCS ---------- */
+  .doc-card{border:1px solid var(--line);border-radius:18px;padding:13px;margin-top:0}
+  .doc-card + .doc-card{margin-top:12px}
+  .doc-card.jp{background:linear-gradient(180deg,#fff5f7,#fff)}
+  .doc-card.de{background:linear-gradient(180deg,#fffaf0,#fff)}
+  .doc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+  .doc-title{font-size:15.5px;font-weight:900}
+  .doc-title .de{display:block;font-size:12px;font-weight:700;color:var(--muted)}
+  body.lang-de .doc-title .de{font-size:15.5px;color:var(--lav)}
+  .flag-badge{width:34px;height:24px;border-radius:6px;overflow:hidden;flex:0 0 auto;box-shadow:0 2px 6px rgba(0,0,0,.12);border:1px solid #eee}
+  .flag-jp{position:relative;background:#fff}
+  .flag-jp::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:13px;transform:translate(-50%,-50%);border-radius:999px;background:#dc2626}
+  .flag-de{background:linear-gradient(#1a1a1a 0 33.33%,#dd0000 33.33% 66.66%,#ffce00 66.66% 100%)}
+
+  /* ---------- CUSTOM TASKS ---------- */
+  .custom-empty{font-size:12.5px;color:var(--muted);text-align:center;padding:10px 6px}
+  .custom-empty .de{display:block;margin-top:2px}
+  .custom-item{
+    display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;
+    background:#fcfbff;border:1px solid var(--line);border-radius:13px;padding:9px 11px;margin-bottom:8px;
+  }
+  .custom-item .ci-text{cursor:pointer}
+  .custom-item .lt-tag{font-size:10.5px;font-weight:800;color:var(--lav);background:var(--lav-soft);padding:2px 8px;border-radius:999px;display:inline-block;margin-top:3px}
+  .del-btn{border:none;background:#fff0f3;color:var(--pink);width:30px;height:30px;border-radius:10px;font-size:16px;cursor:pointer;line-height:1}
+  .del-btn:hover{background:#ffe0e8}
+
+  .add-form{margin-top:12px;background:#faf8ff;border:1px dashed #d9cfe6;border-radius:16px;padding:12px}
+  .add-form .row{display:grid;gap:8px;margin-bottom:8px}
+  .add-form label{font-size:11.5px;font-weight:800;color:var(--muted)}
+  .add-form input{
+    width:100%;border:1px solid var(--line);border-radius:11px;padding:10px 12px;font-size:14px;
+    font-family:inherit;color:var(--text);background:#fff;
+  }
+  .add-form input:focus{outline:none;border-color:var(--lav);box-shadow:0 0 0 3px var(--lav-soft)}
+  .add-btn{
+    width:100%;border:none;border-radius:13px;padding:12px;font-size:14px;font-weight:900;color:#fff;cursor:pointer;
+    background:linear-gradient(135deg,var(--pink),var(--lav));box-shadow:var(--shadow-sm);
+  }
+  .add-btn:active{transform:scale(.99)}
+
+  /* ---------- PITFALLS ---------- */
+  .pit{
+    border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px;
+    display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start;margin-bottom:10px;
+  }
+  .pit:last-child{margin-bottom:0}
+  .warn{width:36px;height:36px;border-radius:11px;background:var(--amber-soft);color:#b45309;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .pit .ttl{font-size:14px;font-weight:900;margin-bottom:3px}
+  .pit .ttl .de{display:block;font-size:12px;color:var(--lav)}
+  body.lang-de .pit .ttl .de{font-size:14px}
+  .pit .txt{font-size:12.5px;color:var(--muted)}
+  .pit .txt .de{display:block;margin-top:3px}
+
+  /* ---------- TOOLBAR ---------- */
+  .tools{display:flex;gap:8px;margin-top:14px}
+  .tools button{
+    flex:1;border:1px solid var(--line);background:#fff;color:var(--muted);
+    border-radius:14px;padding:11px;font-size:12.5px;font-weight:800;cursor:pointer;box-shadow:var(--shadow-sm);
+  }
+  .tools button:active{transform:scale(.99)}
+
+  /* ---------- SYNC ---------- */
+  .syncbar{display:flex;align-items:center;gap:8px;margin-top:10px;justify-content:center;flex-wrap:wrap}
+  .sync-chip{font-size:11.5px;font-weight:800;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;display:inline-flex;gap:6px;align-items:center;box-shadow:var(--shadow-sm)}
+  .sync-chip .dot{width:8px;height:8px;border-radius:999px;background:#cbd5e1;flex:0 0 auto}
+  .sync-chip.ok .dot{background:var(--mint)}
+  .sync-chip.err .dot{background:var(--pink)}
+  .sync-chip.work .dot{background:var(--amber);animation:pulse 1s infinite}
+  @keyframes pulse{50%{opacity:.25}}
+  .syncbar > button{border:1px solid var(--line);background:#fff;color:var(--lav);border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:800;cursor:pointer;box-shadow:var(--shadow-sm)}
+  .sync-panel{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+  .sync-panel h3{margin:0 0 4px;font-size:15px}
+  .sync-panel h3 .de{display:block;font-size:12px;font-weight:700;color:var(--lav)}
+  body.lang-de .sync-panel h3 .de{font-size:15px}
+  .sp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+  .sp-sub .de{display:block;margin-top:2px}
+  .sync-panel .field{margin-bottom:10px}
+  .sync-panel label{display:block;font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:5px}
+  .sync-panel input{width:100%;border:1px solid var(--line);border-radius:11px;padding:10px 12px;font-size:13.5px;font-family:inherit;background:#fff;color:var(--text)}
+  .sync-panel input:focus{outline:none;border-color:var(--lav);box-shadow:0 0 0 3px var(--lav-soft)}
+  .sp-adv summary{font-size:11.5px;font-weight:800;color:var(--lav);cursor:pointer;margin:4px 0 10px}
+  .sp-actions{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+  .sp-actions button{flex:1;min-width:130px;border:none;border-radius:12px;padding:11px;font-size:12.5px;font-weight:900;cursor:pointer}
+  .sp-save{background:linear-gradient(135deg,var(--pink),var(--lav));color:#fff}
+  .sp-ghost{background:#f6f2fb;color:var(--lav)}
+  .sp-actions button:active{transform:scale(.99)}
+  .sp-help{font-size:11px;color:var(--lav);margin-top:12px;line-height:1.6}
+  .sp-help .de{display:block;margin-top:4px}
+  .sp-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55}
+  .sp-note .de{display:block;margin-top:3px}
+
+  .footer{
+    margin:14px 0 24px;padding:13px 15px;border-radius:16px;background:rgba(255,255,255,.7);
+    border:1px solid var(--line);color:var(--muted);font-size:11.5px;line-height:1.6;
+  }
+  .footer .de{display:block;margin-top:5px}
+
+  /* confetti */
+  .confetti{position:fixed;top:-10px;width:10px;height:14px;border-radius:2px;z-index:99;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
+</style>
+</head>
+<body class="lang-both">
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hearts">
+      <span style="left:8%;top:18%">💕</span>
+      <span style="left:82%;top:12%">💍</span>
+      <span style="left:60%;top:60%">🌸</span>
+      <span style="left:20%;top:70%">✨</span>
+    </div>
+    <div class="flags">🇯🇵 💍 🇩🇪</div>
+    <h1>
+      <span class="ja">日本で結婚するまでのチェックリスト</span>
+      <span class="de">Checkliste bis zur Heirat in Japan</span>
+    </h1>
+    <div class="sub">
+      <span class="ja">ふたりで進める、やることリスト。チェックは自動保存されます 💾</span>
+      <span class="de">Eure gemeinsame To-do-Liste. Häkchen werden automatisch gespeichert 💾</span>
+    </div>
+
+    <div class="conclusion">
+      <div class="badge">🔑 <span class="ja">いちばんの山場</span><span class="de">Größte Hürde</span></div>
+      <div class="main">
+        <span class="ja">まず先に「ドイツ側の書類」を集めるのがカギ</span>
+        <span class="de">Zuerst die deutschen Dokumente zu beschaffen ist entscheidend.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGE TOGGLE -->
+  <div class="langbar">
+    <button data-lang="both" class="active">🌍 併記 / Beide</button>
+    <button data-lang="ja">🇯🇵 日本語</button>
+    <button data-lang="de">🇩🇪 Deutsch</button>
+  </div>
+
+  <!-- SYNC BAR -->
+  <div class="syncbar">
+    <span class="sync-chip" id="syncChip"><span class="dot"></span><span id="syncChipText">…</span></span>
+    <button id="openSync">⚙️ <span class="ja">共有・同期</span><span class="de">Teilen & Sync</span></button>
+  </div>
+
+  <!-- SYNC PANEL -->
+  <section class="sync-panel" id="syncPanel" hidden>
+    <h3><span class="ja">GitHubでふたり同期 🔗</span><span class="de">Gemeinsam über GitHub 🔗</span></h3>
+    <div class="sp-sub">
+      <span class="ja">同じリンクを開くだけで、チェックや追加タスクが自動で同期されます。</span>
+      <span class="de">Öffnet ihr beide denselben Link, werden Häkchen und Aufgaben automatisch synchronisiert.</span>
+    </div>
+
+    <div class="field">
+      <label>🔑 <span class="ja">アクセストークン（この端末だけに保存）</span><span class="de">Access-Token (nur auf diesem Gerät gespeichert)</span></label>
+      <input type="password" id="cfgToken" placeholder="github_pat_..." autocomplete="off" spellcheck="false">
+    </div>
+
+    <details class="sp-adv">
+      <summary><span class="ja">詳細設定（通常は変更不要）</span><span class="de">Erweitert (meist unnötig)</span></summary>
+      <div class="field"><label>Owner</label><input type="text" id="cfgOwner" autocomplete="off" spellcheck="false"></div>
+      <div class="field"><label>Repository</label><input type="text" id="cfgRepo" autocomplete="off" spellcheck="false"></div>
+      <div class="field"><label>Branch</label><input type="text" id="cfgBranch" autocomplete="off" spellcheck="false"></div>
+      <div class="field"><label>Path</label><input type="text" id="cfgPath" autocomplete="off" spellcheck="false"></div>
+    </details>
+
+    <div class="sp-actions">
+      <button class="sp-save" id="cfgSave">💾 <span class="ja">保存して同期</span><span class="de">Speichern & Sync</span></button>
+      <button class="sp-ghost" id="cfgRefresh">🔄 <span class="ja">今すぐ更新</span><span class="de">Jetzt aktualisieren</span></button>
+      <button class="sp-ghost" id="cfgDisconnect">⏏ <span class="ja">同期を解除</span><span class="de">Trennen</span></button>
+    </div>
+
+    <div class="sp-help">
+      <span class="ja">トークンの作り方: GitHub → Settings → Developer settings → Fine-grained tokens で、このリポジトリに対し「Contents: Read and write」を許可。作ったトークンを彼女にも教えて同じものを入れれば、同じデータを見られます。</span>
+      <span class="de">Token erstellen: GitHub → Settings → Developer settings → Fine-grained tokens → für dieses Repo „Contents: Read and write" erlauben. Gib ihr denselben Token, dann seht ihr dieselben Daten.</span>
+    </div>
+    <div class="sp-note">
+      <span class="ja">※ トークンはあなたのブラウザ（localStorage）にのみ保存され、リポジトリやリンクには一切含まれません。</span>
+      <span class="de">Hinweis: Der Token wird nur in deinem Browser (localStorage) gespeichert — niemals im Repo oder im Link.</span>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="progress-card">
+    <div class="ring-wrap">
+      <div class="ring">
+        <svg width="104" height="104">
+          <circle cx="52" cy="52" r="46" fill="none" stroke="#f0e2ea" stroke-width="11"/>
+          <circle id="ringFill" cx="52" cy="52" r="46" fill="none" stroke="url(#g)" stroke-width="11"
+                  stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff7eb6"/><stop offset="1" stop-color="#9b87f5"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="pct"><b id="pctNum">0%</b><small id="pctCount">0 / 0</small></div>
+      </div>
+      <div class="progress-meta">
+        <div class="pt"><span class="ja">進み具合</span><span class="de">Fortschritt</span></div>
+        <div class="pc"><span class="ja">小さな一歩でも前進 🐢</span><span class="de">Auch kleine Schritte zählen 🐢</span></div>
+      </div>
+    </div>
+    <div class="celebrate">🎉 <span class="ja">全部おわった！おめでとう！</span><span class="de">Alles erledigt! Herzlichen Glückwunsch!</span></div>
+  </section>
+
+  <!-- TOTAL LEAD TIME -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">⏱ <span class="ja">総リードタイム</span><span class="de">Gesamtdauer</span></span>
+      <h2><span class="ja">全体の目安</span><span class="de">Grobe Schätzung</span></h2>
+    </div>
+    <div class="totals">
+      <div class="total-card pink">
+        <div class="label"><span class="ja">婚姻届の受理まで</span><span class="de">Bis zur Annahme der Eheanmeldung</span></div>
+        <div class="value"><span class="ja">最短 2〜4週間</span><span class="de">frühestens 2–4 Wochen</span></div>
+        <div class="desc">
+          <span class="ja">現実的には 4〜8週間。ほぼドイツ側書類の回収スピードで決まる。</span>
+          <span class="de">Realistisch 4–8 Wochen — hängt v. a. vom Tempo der deutschen Dokumente ab.</span>
+        </div>
+      </div>
+      <div class="total-card mint">
+        <div class="label"><span class="ja">後続手続きを含む総完了</span><span class="de">Gesamtabschluss inkl. Folgeschritte</span></div>
+        <div class="value"><span class="ja">最短 4〜6週間</span><span class="de">frühestens 4–6 Wochen</span></div>
+        <div class="desc">
+          <span class="ja">現実的には 6〜16週間。受理後の住民票・会社・在留資格・ドイツ側登録が続く。</span>
+          <span class="de">Realistisch 6–16 Wochen — danach Meldung, Arbeitgeber, Aufenthaltsstatus, Registrierung in DE.</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="ja">内訳: 事前確認 1〜3日 / ドイツ側書類 2〜6週間 / 日本語訳 1〜3日 / 婚姻届準備 1日 / 提出 当日〜1週間 / 受理後 当日〜1週間 / ドイツ側登録 2〜8週間</span>
+      <span class="de">Aufschlüsselung: Vorabklärung 1–3 T. / DE-Dokumente 2–6 Wo. / Übersetzung 1–3 T. / Anmeldung vorbereiten 1 T. / Einreichen 0–1 Wo. / nach Annahme 0–1 Wo. / Registrierung in DE 2–8 Wo.</span>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">📋 <span class="ja">手順</span><span class="de">Schritte</span></span>
+      <h2><span class="ja">やることを順番に</span><span class="de">Aufgaben der Reihe nach</span></h2>
+    </div>
+
+    <div class="timeline" id="steps">
+
+      <!-- STEP 1 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">🏛️<span class="step-num">1</span></div>
+            <div class="step-head">
+              <h3><span class="ja">役所に事前確認</span><span class="de">Vorab beim Rathaus nachfragen</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-mint">⏱ <span class="ja">当日〜3日</span><span class="de">0–3 Tage</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s1a"><span class="box"></span><span class="ci-text"><span class="ja">提出先の役所に必要書類を確認する</span><span class="de">Erforderliche Unterlagen beim zuständigen Amt erfragen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s1b"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ人との婚姻で必要な追加書類を確認する</span><span class="de">Zusätzliche Unterlagen für die Heirat mit dt. Staatsangehöriger klären</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s1c"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ要否・日本語訳の要否を確認する</span><span class="de">Klären, ob Apostille und japanische Übersetzung nötig sind</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">📑<span class="step-num">2</span></div>
+            <div class="step-head">
+              <h3><span class="ja">ドイツ側の書類を集める</span><span class="de">Deutsche Dokumente beschaffen</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-amber">⏱ <span class="ja">2〜6週間</span><span class="de">2–6 Wochen</span></span>
+                <span class="ministat" data-ministat>0/4</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">パスポート・在留カード</span><span class="de">Reisepass, Aufenthaltskarte (Zairyū-Karte)</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
+          </div>
+          <div class="alert">⚠️ <span><span class="ja">ここが一番時間がかかりやすい。早めに動こう！</span><span class="de">Das dauert erfahrungsgemäß am längsten — früh starten!</span></span></div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">🈂️<span class="step-num">3</span></div>
+            <div class="step-head">
+              <h3><span class="ja">日本語訳を作る</span><span class="de">Japanische Übersetzung erstellen</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-mint">⏱ <span class="ja">1〜3日</span><span class="de">1–3 Tage</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s3a"><span class="box"></span><span class="ci-text"><span class="ja">外国語書類に日本語訳を付ける</span><span class="de">Fremdsprachige Dokumente mit jap. Übersetzung versehen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s3b"><span class="box"></span><span class="ci-text"><span class="ja">訳者名を記入する</span><span class="de">Name der übersetzenden Person angeben</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s3c"><span class="box"></span><span class="ci-text"><span class="ja">名前などの表記ゆれをチェックする</span><span class="de">Schreibweise von Namen auf Einheitlichkeit prüfen</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">📝<span class="step-num">4</span></div>
+            <div class="step-head">
+              <h3><span class="ja">婚姻届を準備する</span><span class="de">Eheanmeldung (Kon'in-todoke) vorbereiten</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-mint">⏱ <span class="ja">1日</span><span class="de">1 Tag</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s4a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届に記入する</span><span class="de">Das Eheschließungsformular ausfüllen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s4b"><span class="box"></span><span class="ci-text"><span class="ja">証人2人に署名してもらう</span><span class="de">Zwei Trauzeugen unterschreiben lassen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">日本人側は戸籍謄本が必要な場合あり</span><span class="de">Ggf. Familienregisterauszug (Koseki) der jap. Seite</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">📮<span class="step-num">5</span></div>
+            <div class="step-head">
+              <h3><span class="ja">役所へ提出する</span><span class="de">Beim Standesamt einreichen</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-lav">⏱ <span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s5a"><span class="box"></span><span class="ci-text"><span class="ja">書類に不備がなければ受理される</span><span class="de">Bei vollständigen Unterlagen wird angenommen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s5b"><span class="box"></span><span class="ci-text"><span class="ja">確認に時間がかかると「預かり」になることも</span><span class="de">Bei längerer Prüfung ggf. zunächst Entgegennahme zur Prüfung</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s5c"><span class="box"></span><span class="ci-text"><span class="ja">提出日が婚姻成立日になる 💑</span><span class="de">Der Einreichungstag gilt als Tag der Eheschließung 💑</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">🗂️<span class="step-num">6</span></div>
+            <div class="step-head">
+              <h3><span class="ja">受理後の日本側の対応</span><span class="de">Nach der Annahme: japanische Seite</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-lav">⏱ <span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s6a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届受理証明書を取得する</span><span class="de">Bescheinigung über die Annahme der Ehe einholen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s6b"><span class="box"></span><span class="ci-text"><span class="ja">住民票・会社・保険などを必要に応じて更新</span><span class="de">Meldebescheinigung, Arbeitgeber, Versicherung etc. aktualisieren</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s6c"><span class="box"></span><span class="ci-text"><span class="ja">在留資格の変更を検討する</span><span class="de">Änderung des Aufenthaltsstatus prüfen</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step" data-step>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-emoji">🇩🇪<span class="step-num">7</span></div>
+            <div class="step-head">
+              <h3><span class="ja">ドイツ側への登録・後続手続き</span><span class="de">Registrierung in Deutschland & Folgeschritte</span></h3>
+              <div class="badges">
+                <span class="leadtime lt-amber">⏱ <span class="ja">2〜8週間</span><span class="de">2–8 Wochen</span></span>
+                <span class="ministat" data-ministat>0/3</span>
+              </div>
+            </div>
+          </div>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-id="s7a"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ側の婚姻登録を確認する</span><span class="de">Eheregistrierung in Deutschland klären</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s7b"><span class="box"></span><span class="ci-text"><span class="ja">必要なら氏名変更・旅券更新を行う</span><span class="de">Bei Bedarf Namensänderung & Reisepass aktualisieren</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s7c"><span class="box"></span><span class="ci-text"><span class="ja">今後の在留資格・海外手続きに備える</span><span class="de">Auf künftigen Aufenthaltsstatus & Auslandsformalitäten vorbereiten</span></span></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">🗃 <span class="ja">必要書類</span><span class="de">Unterlagen</span></span>
+      <h2><span class="ja">持ち物チェック</span><span class="de">Dokumenten-Check</span></h2>
+    </div>
+
+    <div class="doc-card jp">
+      <div class="doc-head">
+        <div class="doc-title"><span class="ja">あなた（日本人）</span><span class="de">Du (japanische Seite)</span></div>
+        <div class="flag-badge flag-jp"></div>
+      </div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-id="djp1"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届</span><span class="de">Eheschließungsformular (Kon'in-todoke)</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="djp2"><span class="box"></span><span class="ci-text"><span class="ja">本人確認書類</span><span class="de">Ausweisdokument</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本（本籍地以外に出す場合は必要なことあり）</span><span class="de">Familienregisterauszug (Koseki) — ggf. nötig</span></span></label>
+      </div>
+    </div>
+
+    <div class="doc-card de">
+      <div class="doc-head">
+        <div class="doc-title"><span class="ja">彼女（ドイツ人）</span><span class="de">Sie (deutsche Seite)</span></div>
+        <div class="flag-badge flag-de"></div>
+      </div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-id="dde1"><span class="box"></span><span class="ci-text"><span class="ja">パスポート</span><span class="de">Reisepass</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード</span><span class="de">Aufenthaltskarte (Zairyū-Karte)</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="dde3"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="dde5"><span class="box"></span><span class="ci-text"><span class="ja">日本語訳</span><span class="de">Japanische Übersetzung</span></span></label>
+        <label class="check-item"><input type="checkbox" data-id="dde6"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOM TASKS -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">✏️ <span class="ja">自分たちのタスク</span><span class="de">Eigene Aufgaben</span></span>
+      <h2><span class="ja">追加で入れる</span><span class="de">Selbst hinzufügen</span></h2>
+    </div>
+
+    <div id="customList"></div>
+    <div class="custom-empty" id="customEmpty">
+      <span class="ja">まだありません。下から自由に追加できます 👇</span>
+      <span class="de">Noch nichts da. Unten frei hinzufügen 👇</span>
+    </div>
+
+    <div class="add-form">
+      <div class="row">
+        <label>🇯🇵 <span class="ja">タスク名（日本語）</span><span class="de">Aufgabe (Japanisch)</span></label>
+        <input type="text" id="inJa" placeholder="例: ビザの写真を撮る">
+      </div>
+      <div class="row">
+        <label>🇩🇪 <span class="ja">ドイツ語（任意）</span><span class="de">Deutsch (optional)</span></label>
+        <input type="text" id="inDe" placeholder="z. B. Visumfoto machen">
+      </div>
+      <div class="row">
+        <label>⏱ <span class="ja">リードタイム（任意）</span><span class="de">Dauer (optional)</span></label>
+        <input type="text" id="inLt" placeholder="例: 1週間 / 1 Woche">
+      </div>
+      <button class="add-btn" id="addBtn">＋ <span class="ja">追加する</span><span class="de">Hinzufügen</span></button>
+    </div>
+  </section>
+
+  <!-- PITFALLS -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">💡 <span class="ja">つまずきポイント</span><span class="de">Stolpersteine</span></span>
+      <h2><span class="ja">先に気をつけること</span><span class="de">Vorab beachten</span></h2>
+    </div>
+    <div class="pit">
+      <div class="warn">📅</div>
+      <div>
+        <div class="ttl"><span class="ja">書類の有効期限</span><span class="de">Gültigkeit der Dokumente</span></div>
+        <div class="txt"><span class="ja">古い書類だと再取得になり時間ロス。ドイツ側書類は取得時期をそろえると安全。</span><span class="de">Veraltete Dokumente müssen neu beschafft werden. Deutsche Dokumente am besten zeitnah zusammen besorgen.</span></div>
+      </div>
+    </div>
+    <div class="pit">
+      <div class="warn">🔤</div>
+      <div>
+        <div class="ttl"><span class="ja">名前表記のズレ</span><span class="de">Abweichende Schreibweise des Namens</span></div>
+        <div class="txt"><span class="ja">Müller と Mueller のような表記ゆれで確認が長引くことがある。パスポート表記に合わせる。</span><span class="de">Varianten wie Müller / Mueller können die Prüfung verzögern. An die Schreibweise im Reisepass halten.</span></div>
+      </div>
+    </div>
+    <div class="pit">
+      <div class="warn">🏢</div>
+      <div>
+        <div class="ttl"><span class="ja">市区町村ごとの差</span><span class="de">Unterschiede je nach Gemeinde</span></div>
+        <div class="txt"><span class="ja">必要書類や運用が少し違う場合がある。最初の役所確認を飛ばさないこと。</span><span class="de">Unterlagen und Abläufe können sich unterscheiden. Die erste Rücksprache mit dem Amt nicht überspringen.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLBAR -->
+  <div class="tools">
+    <button id="resetChecks">↺ <span class="ja">チェックをリセット</span><span class="de">Häkchen zurücksetzen</span></button>
+  </div>
+
+  <div class="footer">
+    <span class="ja">※ このリードタイムは一般的な目安です。実際は市区町村の運用、ドイツ側書類の発行日数、アポスティーユの要否、在留資格の状況で変わります。最終的には必ず提出先の役所・大使館で確認してください。</span>
+    <span class="de">Hinweis: Die Angaben sind grobe Richtwerte. Tatsächliche Dauer hängt von Gemeinde, Ausstellung der dt. Dokumente, Apostille und Aufenthaltsstatus ab. Bitte abschließend immer beim zuständigen Amt / der Botschaft prüfen.</span>
+  </div>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================
+     STORAGE MODEL (timestamped for conflict-free 2-way merge)
+     doc = { v:2, checked:{ id:{v:bool,t:ms} }, custom:[ {id,ja,de,lt,t,deleted} ], updatedAt }
+     cfg = { token, owner, repo, branch, path, lang }   (device-local only)
+  ========================================================= */
+  var KEY = "marriage_checklist_v2";
+  var CFGKEY = "marriage_checklist_cfg";
+  var DEF = { owner:"masakasakasama", repo:"marriage_procedure", branch:"main", path:"data/state.json" };
+
+  var doc = { v:2, checked:{}, custom:[], updatedAt:0 };
+  var cfg = { token:"", owner:DEF.owner, repo:DEF.repo, branch:DEF.branch, path:DEF.path, lang:"both" };
+
+  // load cfg
+  try{
+    var sc = JSON.parse(localStorage.getItem(CFGKEY));
+    if(sc && typeof sc==="object"){ for(var k in cfg){ if(sc[k]!=null) cfg[k]=sc[k]; } }
+  }catch(e){}
+
+  // load doc (v2), or migrate from v1
+  try{
+    var sv = JSON.parse(localStorage.getItem(KEY));
+    if(sv && sv.checked){ doc = { v:2, checked:sv.checked||{}, custom:sv.custom||[], updatedAt:sv.updatedAt||0 }; }
+    else {
+      var old = JSON.parse(localStorage.getItem("marriage_checklist_v1"));
+      if(old && typeof old==="object"){
+        var ck={}; Object.keys(old.checked||{}).forEach(function(id){ if(old.checked[id]) ck[id]={v:true,t:1}; });
+        var cu=(old.custom||[]).map(function(it){ return {id:it.id,ja:it.ja,de:it.de,lt:it.lt,t:1,deleted:false}; });
+        doc={ v:2, checked:ck, custom:cu, updatedAt:1 };
+      }
+    }
+  }catch(e){}
+
+  function persistLocal(){ try{ localStorage.setItem(KEY, JSON.stringify(doc)); }catch(e){} }
+  function persistCfg(){ try{ localStorage.setItem(CFGKEY, JSON.stringify(cfg)); }catch(e){} }
+  function now(){ return Date.now(); }
+  function t(ja,de){ return cfg.lang==="de" ? de : ja; }
+
+  /* ---------- accessors ---------- */
+  function isChecked(id){ var e=doc.checked[id]; return !!(e && e.v); }
+  function setChecked(id, v){ doc.checked[id]={v:!!v, t:now()}; doc.updatedAt=now(); persistLocal(); updateProgress(); schedulePush(); }
+  function activeCustom(){ return doc.custom.filter(function(x){ return !x.deleted; }); }
+
+  /* ---------- language ---------- */
+  function applyLang(){
+    document.body.classList.remove("lang-both","lang-ja","lang-de");
+    document.body.classList.add("lang-"+cfg.lang);
+    document.querySelectorAll(".langbar button").forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-lang")===cfg.lang);
+    });
+  }
+  document.querySelectorAll(".langbar button").forEach(function(b){
+    b.addEventListener("click", function(){ cfg.lang=b.getAttribute("data-lang"); applyLang(); persistCfg(); });
+  });
+
+  /* ---------- custom tasks ---------- */
+  var customList  = document.getElementById("customList");
+  var customEmpty = document.getElementById("customEmpty");
+
+  function renderCustom(){
+    customList.innerHTML = "";
+    var items = activeCustom();
+    customEmpty.style.display = items.length ? "none" : "block";
+
+    items.forEach(function(item){
+      var row = document.createElement("div");
+      row.className = "custom-item";
+
+      var cb = document.createElement("input");
+      cb.type = "checkbox"; cb.style.display="none";
+      cb.setAttribute("data-id", item.id);
+      cb.checked = isChecked(item.id);
+
+      var box = document.createElement("span"); box.className="box";
+
+      var txtWrap = document.createElement("span"); txtWrap.className="ci-text";
+      var ja = document.createElement("span"); ja.className="ja"; ja.textContent=item.ja||"";
+      var de = document.createElement("span"); de.className="de"; de.textContent=item.de||item.ja||"";
+      txtWrap.appendChild(ja); txtWrap.appendChild(de);
+      if(item.lt){ var lt=document.createElement("span"); lt.className="lt-tag"; lt.textContent="⏱ "+item.lt; txtWrap.appendChild(lt); }
+
+      var clickWrap = document.createElement("label");
+      clickWrap.style.cssText="display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;cursor:pointer";
+      clickWrap.appendChild(cb); clickWrap.appendChild(box); clickWrap.appendChild(txtWrap);
+      cb.addEventListener("change", function(){ setChecked(item.id, cb.checked); });
+
+      var del = document.createElement("button");
+      del.className="del-btn"; del.type="button"; del.textContent="🗑"; del.title="削除 / Löschen";
+      del.addEventListener("click", function(){
+        var it = doc.custom.filter(function(x){ return x.id===item.id; })[0];
+        if(it){ it.deleted=true; it.t=now(); }
+        doc.updatedAt=now(); persistLocal(); renderCustom(); updateProgress(); schedulePush();
+      });
+
+      row.appendChild(clickWrap); row.appendChild(del);
+      customList.appendChild(row);
+    });
+  }
+
+  function uid(){ return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+  var inJa=document.getElementById("inJa"), inDe=document.getElementById("inDe"), inLt=document.getElementById("inLt");
+  document.getElementById("addBtn").addEventListener("click", function(){
+    var ja=inJa.value.trim(), de=inDe.value.trim(), lt=inLt.value.trim();
+    if(!ja && !de){ inJa.focus(); return; }
+    doc.custom.push({ id:uid(), ja:ja||de, de:de, lt:lt, t:now(), deleted:false });
+    doc.updatedAt=now();
+    inJa.value=""; inDe.value=""; inLt.value="";
+    persistLocal(); renderCustom(); updateProgress(); schedulePush(); inJa.focus();
+  });
+  inJa.addEventListener("keydown", function(e){ if(e.key==="Enter"){ document.getElementById("addBtn").click(); }});
+
+  /* ---------- default checkbox wiring ---------- */
+  document.querySelectorAll('.timeline [data-id], .doc-card [data-id]').forEach(function(cb){
+    cb.checked = isChecked(cb.getAttribute("data-id"));
+    cb.addEventListener("change", function(){ setChecked(cb.getAttribute("data-id"), cb.checked); });
+  });
+
+  /* ---------- progress + confetti ---------- */
+  var ringFill = document.getElementById("ringFill");
+  var CIRC = 2 * Math.PI * 46;
+  ringFill.setAttribute("stroke-dasharray", CIRC.toFixed(1));
+  var celebrated = false;
+
+  function updateProgress(){
+    var all = document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #customList [data-id]');
+    var total = all.length, done = 0;
+    all.forEach(function(cb){ if(cb.checked) done++; });
+    var pct = total ? Math.round(done/total*100) : 0;
+
+    document.getElementById("pctNum").textContent = pct + "%";
+    document.getElementById("pctCount").textContent = done + " / " + total;
+    ringFill.setAttribute("stroke-dashoffset", (CIRC * (1 - done/(total||1))).toFixed(1));
+    var allDone = total>0 && done===total;
+    document.body.classList.toggle("all-done", allDone);
+
+    document.querySelectorAll('#steps [data-step]').forEach(function(step){
+      var boxes = step.querySelectorAll('[data-id]'); var d=0;
+      boxes.forEach(function(b){ if(b.checked) d++; });
+      var ms = step.querySelector('[data-ministat]');
+      if(ms) ms.textContent = d + "/" + boxes.length;
+      step.classList.toggle("done", boxes.length>0 && d===boxes.length);
+    });
+
+    if(allDone && !celebrated){ celebrated=true; confetti(); }
+    if(!allDone) celebrated=false;
+  }
+  function confetti(){
+    var colors=["#ff7eb6","#9b87f5","#34d399","#fbbf24","#8fd9ff"];
+    for(var i=0;i<60;i++){ (function(){
+      var c=document.createElement("div"); c.className="confetti";
+      c.style.left=Math.random()*100+"vw"; c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration=(2+Math.random()*1.8)+"s"; c.style.animationDelay=(Math.random()*0.4)+"s";
+      document.body.appendChild(c); setTimeout(function(){ c.remove(); },4500);
+    })(); }
+  }
+
+  function applyDocToUI(){
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id]').forEach(function(cb){
+      cb.checked = isChecked(cb.getAttribute("data-id"));
+    });
+    renderCustom();
+    updateProgress();
+  }
+
+  /* ---------- reset ---------- */
+  document.getElementById("resetChecks").addEventListener("click", function(){
+    var msg = cfg.lang==="de"
+      ? "Alle Häkchen zurücksetzen? (Eigene Aufgaben bleiben erhalten)"
+      : "すべてのチェックを外しますか？（追加したタスクは残ります）";
+    if(!confirm(msg)) return;
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #customList [data-id]').forEach(function(cb){
+      doc.checked[cb.getAttribute("data-id")] = { v:false, t:now() };
+    });
+    doc.updatedAt=now(); persistLocal(); applyDocToUI(); schedulePush();
+  });
+
+  /* =========================================================
+     GITHUB SYNC ENGINE
+  ========================================================= */
+  function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
+  function b64decode(b){ return decodeURIComponent(escape(atob(b))); }
+  function syncEnabled(){ return !!(cfg.token && cfg.owner && cfg.repo && cfg.path); }
+  function apiUrl(){ return "https://api.github.com/repos/"+cfg.owner+"/"+cfg.repo+"/contents/"+encodeURI(cfg.path); }
+  function ghHeaders(){ return { "Authorization":"Bearer "+cfg.token, "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28" }; }
+
+  function ghGet(){
+    var url = apiUrl()+"?ref="+encodeURIComponent(cfg.branch)+"&_="+Date.now();
+    return fetch(url, { headers:ghHeaders(), cache:"no-store" }).then(function(r){
+      if(r.status===404) return { doc:null, sha:null };
+      if(!r.ok) throw new Error("GET "+r.status);
+      return r.json().then(function(j){
+        var parsed=null;
+        try{ parsed = JSON.parse(b64decode((j.content||"").replace(/\n/g,""))); }catch(e){ parsed=null; }
+        return { doc:parsed, sha:j.sha };
+      });
+    });
+  }
+  function ghPut(d, sha){
+    var body = { message:"Update marriage checklist", content:b64encode(JSON.stringify(d)), branch:cfg.branch };
+    if(sha) body.sha=sha;
+    return fetch(apiUrl(), { method:"PUT", headers:ghHeaders(), body:JSON.stringify(body) }).then(function(r){
+      if(r.status===409 || r.status===422){ var e=new Error("conflict"); e.conflict=true; throw e; }
+      if(!r.ok) throw new Error("PUT "+r.status);
+      return r.json().then(function(j){ return j.content.sha; });
+    });
+  }
+
+  function mergeDoc(a,b){
+    a=a||{}; b=b||{};
+    var m={ v:2, checked:{}, custom:[], updatedAt:Math.max(a.updatedAt||0,b.updatedAt||0) };
+    var ids={}; var ka=a.checked||{}, kb=b.checked||{};
+    Object.keys(ka).forEach(function(k){ ids[k]=1; }); Object.keys(kb).forEach(function(k){ ids[k]=1; });
+    Object.keys(ids).forEach(function(k){
+      var ea=ka[k], eb=kb[k];
+      if(!ea){ m.checked[k]=eb; } else if(!eb){ m.checked[k]=ea; }
+      else { m.checked[k] = ((eb.t||0) > (ea.t||0)) ? eb : ea; }
+    });
+    var cmap={};
+    (a.custom||[]).forEach(function(it){ cmap[it.id]=it; });
+    (b.custom||[]).forEach(function(it){ var ex=cmap[it.id]; if(!ex || (it.t||0) > (ex.t||0)) cmap[it.id]=it; });
+    m.custom = Object.keys(cmap).map(function(k){ return cmap[k]; });
+    return m;
+  }
+  function normalize(d){
+    d=d||{};
+    var c={}; Object.keys(d.checked||{}).sort().forEach(function(k){ var e=d.checked[k]; c[k]=(e&&e.v)?1:0; });
+    var cu=(d.custom||[]).slice().sort(function(x,y){ return x.id<y.id?-1:1; }).map(function(it){
+      return { id:it.id, ja:it.ja||"", de:it.de||"", lt:it.lt||"", d:it.deleted?1:0 };
+    });
+    return JSON.stringify({ c:c, cu:cu });
+  }
+
+  var remoteSha=null, syncing=false, pushTimer=null, pollTimer=null;
+
+  function setChip(s){
+    var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
+    chip.classList.remove("ok","err","work");
+    if(s==="local"){ txt.textContent = t("この端末に保存","Lokal gespeichert"); }
+    else if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
+    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("同期エラー（設定を確認）","Sync-Fehler"); }
+    else if(s==="ok"){
+      chip.classList.add("ok");
+      var n=new Date(), p=function(x){ return (x<10?"0":"")+x; };
+      txt.textContent = t("同期済 ","Sync ")+p(n.getHours())+":"+p(n.getMinutes());
+    }
+  }
+
+  function syncOnce(){
+    if(!syncEnabled()){ setChip("local"); return Promise.resolve(); }
+    if(syncing) return Promise.resolve();
+    syncing=true; setChip("work");
+    return ghGet().then(function(res){
+      var merged = mergeDoc(doc, res.doc);
+      doc = merged; persistLocal(); applyDocToUI();
+      if(normalize(merged) !== normalize(res.doc)){
+        return ghPut(merged, res.sha).then(function(sha){ remoteSha=sha; }, function(err){
+          if(err && err.conflict){
+            return ghGet().then(function(r2){
+              var m2=mergeDoc(doc, r2.doc); doc=m2; persistLocal(); applyDocToUI();
+              return ghPut(m2, r2.sha).then(function(sha){ remoteSha=sha; });
+            });
+          }
+          throw err;
+        });
+      }
+      remoteSha=res.sha;
+    }).then(function(){ setChip("ok"); }, function(){ setChip("err"); })
+      .then(function(){ syncing=false; });
+  }
+  function schedulePush(){ if(!syncEnabled()) return; clearTimeout(pushTimer); pushTimer=setTimeout(syncOnce,1500); }
+  function startPolling(){ clearInterval(pollTimer); if(syncEnabled()){ pollTimer=setInterval(syncOnce,12000); } }
+
+  /* ---------- settings panel ---------- */
+  var panel=document.getElementById("syncPanel");
+  function fillCfgInputs(){
+    document.getElementById("cfgToken").value = cfg.token||"";
+    document.getElementById("cfgOwner").value = cfg.owner||"";
+    document.getElementById("cfgRepo").value  = cfg.repo||"";
+    document.getElementById("cfgBranch").value= cfg.branch||"";
+    document.getElementById("cfgPath").value  = cfg.path||"";
+  }
+  document.getElementById("openSync").addEventListener("click", function(){
+    panel.hidden = !panel.hidden;
+    if(!panel.hidden){ fillCfgInputs(); panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }
+  });
+  document.getElementById("cfgSave").addEventListener("click", function(){
+    cfg.token  = document.getElementById("cfgToken").value.trim();
+    cfg.owner  = (document.getElementById("cfgOwner").value.trim()  || DEF.owner);
+    cfg.repo   = (document.getElementById("cfgRepo").value.trim()   || DEF.repo);
+    cfg.branch = (document.getElementById("cfgBranch").value.trim() || DEF.branch);
+    cfg.path   = (document.getElementById("cfgPath").value.trim()   || DEF.path);
+    persistCfg(); startPolling(); syncOnce();
+  });
+  document.getElementById("cfgRefresh").addEventListener("click", function(){ syncOnce(); });
+  document.getElementById("cfgDisconnect").addEventListener("click", function(){
+    cfg.token=""; persistCfg(); clearInterval(pollTimer); clearTimeout(pushTimer);
+    document.getElementById("cfgToken").value=""; setChip("local");
+  });
+
+  // re-sync when the tab becomes visible again (so both phones stay fresh)
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden) syncOnce(); });
+
+  /* ---------- init ---------- */
+  applyLang();
+  applyDocToUI();
+  if(syncEnabled()){ startPolling(); syncOnce(); }
+  else { setChip("local"); }
+})();
+</script>
+</body>
+</html>
