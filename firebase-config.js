@@ -1,16 +1,13 @@
-// Client-side Firebase configuration for the marriage checklist.
+// Client-side Firebase configuration already used by the owner's shared apps.
 // These values identify the public web app; do not store private information in tasks.
 export const firebaseConfig = {
-  apiKey: "AIzaSyCf3Bz-LZmvcmpIPftpCWGe1VyYtMdW3Qg",
-  authDomain: "warikan-codex.firebaseapp.com",
-  // ↓ Realtime Database を作成すると発行される URL。作成後にここへ貼り付けてください。
-  // 例: https://warikan-codex-default-rtdb.asia-southeast1.firebasedatabase.app
-  databaseURL: "PASTE_RTDB_URL_HERE",
-  projectId: "warikan-codex",
-  storageBucket: "warikan-codex.firebasestorage.app",
-  messagingSenderId: "180979686648",
-  appId: "1:180979686648:web:9e98cac0c5377a0a1e6f0d",
-  measurementId: "G-LS1H8BR1QC",
+  apiKey: "AIzaSyDBBD1W-zneFDNi1eZCtYqvyoXyJcmdk0k",
+  authDomain: "warikan-app-120fd.firebaseapp.com",
+  databaseURL: "https://warikan-app-120fd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "warikan-app-120fd",
+  storageBucket: "warikan-app-120fd.firebasestorage.app",
+  messagingSenderId: "43289931875",
+  appId: "1:43289931875:web:ca26551e40da813b9e4856",
 };
 
 // 婚姻チェックリストのデータ保存先（他アプリのデータとは分離）。
