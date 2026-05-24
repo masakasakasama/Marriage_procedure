@@ -122,6 +122,62 @@
   }
   .countdown .de{display:block;font-size:12px}
 
+  /* ---------- DOSSENHEIM ROUTE ---------- */
+  .route-intro{
+    margin-bottom:12px;border-radius:16px;padding:12px 13px;
+    background:linear-gradient(135deg,var(--lav-soft),var(--pink-soft));border:1px solid #e7ddff;
+    font-size:12.5px;font-weight:700;
+  }
+  .route-intro .de{display:block;margin-top:4px}
+  .route-contact{
+    margin:10px 0 13px;border:1px solid var(--line);border-radius:16px;padding:12px;
+    background:#fcfbff;font-size:12.5px;
+  }
+  .route-contact strong{display:block;font-size:14px;margin-bottom:3px}
+  .route-contact .de{display:block;margin-top:4px}
+  .vertical-schedule{position:relative;display:grid;gap:10px;margin:12px 0 14px;padding-left:27px}
+  .vertical-schedule::before{
+    content:"";position:absolute;left:11px;top:16px;bottom:16px;width:3px;border-radius:3px;
+    background:linear-gradient(var(--lav),var(--pink),var(--mint));
+  }
+  .route-step{
+    position:relative;border:1px solid var(--line);border-radius:16px;padding:11px 11px 11px 13px;background:#fff;
+    box-shadow:var(--shadow-sm);
+  }
+  .route-step::before{
+    content:"";position:absolute;left:-25px;top:16px;width:15px;height:15px;border-radius:999px;
+    background:var(--lav);border:3px solid #fff;box-shadow:0 0 0 1px #dcd2f5;
+  }
+  .route-step.last::before{background:var(--mint)}
+  .route-when{
+    display:inline-flex;gap:6px;align-items:center;border-radius:999px;padding:3px 9px;
+    background:var(--lav-soft);color:var(--lav);font-size:11px;font-weight:900;margin-bottom:5px;
+  }
+  .route-when strong{font-size:11.5px}
+  .route-step h3{font-size:14px;line-height:1.4;margin:0 0 3px}
+  .route-step h3 .de{display:block;font-size:12px}
+  body.lang-de .route-step h3 .de{font-size:14px}
+  .route-detail{font-size:11.5px;color:var(--muted)}
+  .route-detail .de{display:block;margin-top:2px}
+  .route-check{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
+  .route-check input{display:none}
+  .route-check .box{width:19px;height:19px;border-radius:6px;font-size:12px;margin-top:0}
+  .route-check input:checked ~ .box{background:var(--mint);border-color:var(--mint)}
+  .route-check input:checked ~ .box::after{content:"✓"}
+  .route-check input:checked ~ span:last-child{text-decoration:line-through;color:#b3aabf}
+  .verification-card{
+    border:1px solid #ffe3a8;background:var(--amber-soft);border-radius:16px;padding:12px;margin:12px 0;
+    font-size:12.5px;
+  }
+  .verification-card strong{display:block;color:#92560a;margin-bottom:4px}
+  .verification-card .de{display:block;margin-top:4px}
+  .subhead{font-size:14px;font-weight:900;margin:16px 0 5px}
+  .subhead .de{display:block;font-size:12px}
+  .owner{
+    display:inline-block;border-radius:999px;padding:2px 7px;margin-top:4px;font-size:10.5px;
+    font-weight:900;color:var(--lav);background:var(--lav-soft);text-decoration:none;
+  }
+
   /* ---------- LEAD TIME TOTALS ---------- */
   .section{
     margin-top:14px;background:var(--card);border:1px solid var(--line);
@@ -511,6 +567,102 @@
     </div>
   </section>
 
+  <!-- DOSSENHEIM EHEFAEHIGKEITSZEUGNIS -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">🇩🇪 <span class="ja">Dossenheim へ申請</span><span class="de">Antrag in Dossenheim</span></span>
+      <h2><span class="ja">証明書を日本へ運ぶスケジュール</span><span class="de">Zeitplan bis zur Einreichung in Japan</span></h2>
+    </div>
+    <div class="route-intro">
+      <span class="ja">上の「婚姻届を出したい日」を入れると、台東区への提出日から逆算した目標日が出ます。以下は余裕を持った計画用の期限で、Dossenheim の正式な処理期限ではありません。</span>
+      <span class="de">Nach Eingabe eures Wunschtermins oben erscheinen rückwärts berechnete Zieldaten. Das sind Planungspuffer, keine amtlichen Bearbeitungsfristen von Dossenheim.</span>
+    </div>
+    <div class="route-contact">
+      <strong>Standesamt / Friedhofsverwaltung Dossenheim</strong>
+      Rathausplatz 1, 69221 Dossenheim<br>
+      +49 (0)6221 8651-331, -332 / <span class="ja">公式ページの「E-Mail schreiben」から連絡</span><span class="de">Kontakt per „E-Mail schreiben” auf der offiziellen Seite</span>
+      <span class="de">Zuständig ist das Standesamt am Wohnsitz oder gewöhnlichen Aufenthalt der deutschen Partnerin; bei Dossenheim bitte dort die individuelle Unterlagenliste bestätigen.</span>
+    </div>
+
+    <div class="vertical-schedule" id="dossenheimSchedule">
+      <div class="route-step">
+        <div class="route-when"><span class="ja">16週前まで</span><span class="de">bis 16 Wochen vorher</span> <strong id="dosDueConfirm">希望日を入力</strong></div>
+        <h3><span class="ja">Dossenheim と台東区に必要書類を確認</span><span class="de">Unterlagen bei Dossenheim und Taito bestätigen</span></h3>
+        <div class="route-detail"><span class="ja">画像の9点で足りるか、原本・認証コピー・アポスティーユ、日本語訳の扱いを問い合わせる。</span><span class="de">Klären, ob die neun genannten Unterlagen genügen und ob Originale, Beglaubigungen, Apostillen sowie Übersetzungen erforderlich sind.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor1"><span class="box"></span><span><span class="ja">確認完了</span><span class="de">Bestätigung erledigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">14週前まで</span><span class="de">bis 14 Wochen vorher</span> <strong id="dosDueGather">希望日を入力</strong></div>
+        <h3><span class="ja">日本側・ドイツ側の原本を集める</span><span class="de">Japanische und deutsche Originale beschaffen</span></h3>
+        <div class="route-detail"><span class="ja">住民票、戸籍謄本、独身証明書、彼女の出生登録簿謄本と住民登録証明書などを準備。</span><span class="de">Juminhyo, Koseki, Ledigkeitsbescheinigung sowie deutsche Register- und Meldeunterlagen vorbereiten.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor2"><span class="box"></span><span><span class="ja">取得完了</span><span class="de">Beschaffung erledigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">12週前まで</span><span class="de">bis 12 Wochen vorher</span> <strong id="dosDueApply">希望日を入力</strong></div>
+        <h3><span class="ja">Dossenheim に申請書類一式を提出</span><span class="de">Vollständigen Antrag in Dossenheim einreichen</span></h3>
+        <div class="route-detail"><span class="ja">記入済み申請書、送付先住所、必要なら支払証明を含めて提出。審査日数は個別なので長めに確保。</span><span class="de">Antrag, Zustellanschrift und ggf. Zahlungsnachweis einreichen. Die Bearbeitungsdauer hängt vom Einzelfall ab.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor3"><span class="box"></span><span><span class="ja">申請完了</span><span class="de">Antrag eingereicht</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">8週前を目標</span><span class="de">Ziel: 8 Wochen vorher</span> <strong id="dosDueIssue">希望日を入力</strong></div>
+        <h3><span class="ja">婚姻要件具備証明書を発行・お父さまが受領</span><span class="de">Ehefähigkeitszeugnis ausstellen lassen und vom Vater entgegennehmen lassen</span></h3>
+        <div class="route-detail"><span class="ja">お父さまに受け取ってもらう場合は、Dossenheim が本人以外への交付・郵送を認めるか、委任状が必要かを先に確認。</span><span class="de">Falls ihr Vater es erhalten soll, vorher klären, ob Zustellung/Abholung durch ihn möglich ist und eine Vollmacht nötig ist.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor4"><span class="box"></span><span><span class="ja">受領完了</span><span class="de">Erhalt erledigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">6週前まで</span><span class="de">bis 6 Wochen vorher</span> <strong id="dosDueTranslate">希望日を入力</strong></div>
+        <h3><span class="ja">お父さまから翻訳者へ渡し、日本語訳を作成</span><span class="de">Vom Vater an Übersetzer weitergeben und japanische Übersetzung erstellen</span></h3>
+        <div class="route-detail"><span class="ja">台東区提出用はドイツ語の証明書に日本語訳を付け、訳文末尾に翻訳者の署名を入れる。</span><span class="de">Für Taito eine japanische Übersetzung beifügen und die Unterschrift der übersetzenden Person am Ende der Übersetzung anbringen.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor5"><span class="box"></span><span><span class="ja">翻訳完了</span><span class="de">Übersetzung erledigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">4週前まで</span><span class="de">bis 4 Wochen vorher</span> <strong id="dosDueShip">希望日を入力</strong></div>
+        <h3><span class="ja">証明書原本と日本語訳を日本へ発送</span><span class="de">Original und japanische Übersetzung nach Japan senden</span></h3>
+        <div class="route-detail"><span class="ja">追跡できる配送で余裕を確保。婚姻要件具備証明書は発行日から6か月以内に台東区へ提出する。</span><span class="de">Mit Sendungsverfolgung und Zeitpuffer senden. Das Zeugnis muss bei Einreichung in Taito noch innerhalb seiner sechsmonatigen Gültigkeit liegen.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor6"><span class="box"></span><span><span class="ja">到着確認完了</span><span class="de">Ankunft bestätigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="route-when"><span class="ja">2週前まで</span><span class="de">bis 2 Wochen vorher</span> <strong id="dosDuePrecheck">希望日を入力</strong></div>
+        <h3><span class="ja">台東区へ原本一式を事前確認</span><span class="de">Unterlagen vorab mit Taito prüfen</span></h3>
+        <div class="route-detail"><span class="ja">証明書原本、日本語訳、パスポート原本、婚姻届と追加書類の不足がないか確認。</span><span class="de">Original des Zeugnisses, Übersetzung, Reisepass, Heiratsanzeige und mögliche Zusatzunterlagen kontrollieren lassen.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor7"><span class="box"></span><span><span class="ja">事前確認完了</span><span class="de">Vorprüfung erledigt</span></span></label>
+      </div>
+      <div class="route-step last">
+        <div class="route-when"><span class="ja">提出日</span><span class="de">Abgabetag</span> <strong id="dosDueFile">希望日を入力</strong></div>
+        <h3><span class="ja">台東区役所 本庁1階へ婚姻届を提出</span><span class="de">Eheschließungsanzeige im Rathaus Taito einreichen</span></h3>
+        <div class="route-detail"><span class="ja">受理されるとこの日が婚姻日。夜間・休日提出は後日の審査を見込む。</span><span class="de">Bei Annahme wird dieser Tag zum Eheschließungsdatum; bei Abgabe außerhalb der Öffnungszeiten erfolgt die Prüfung später.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor8"><span class="box"></span><span><span class="ja">提出完了</span><span class="de">Einreichung erledigt</span></span></label>
+      </div>
+    </div>
+
+    <div class="verification-card">
+      <strong><span class="ja">翻訳者とお父さま経由について</span><span class="de">Übersetzer und Weg über ihren Vater</span></strong>
+      <span class="ja">お父さまを経由すること、ドイツの公認翻訳者へ渡すことは、現時点で台東区の公式必須条件としては確認できません。台東区の明記は「外国語証明書には日本語翻訳文を添付し、翻訳した方の署名を末尾に記載」です。ふたりが公認翻訳者を使いたい場合の実務ルートとして上の工程に入れています。</span>
+      <span class="de">Der Weg über ihren Vater und eine vereidigte Übersetzerin oder einen vereidigten Übersetzer in Deutschland ist nach den veröffentlichten Hinweisen von Taito keine bestätigte Pflicht. Taito verlangt eine japanische Übersetzung fremdsprachiger Urkunden mit Unterschrift der übersetzenden Person; der obige Weg ist eure gewünschte praktische Organisation.</span>
+    </div>
+
+    <div class="subhead"><span class="ja">Dossenheim に提出するもの（受領したリストを整理）</span><span class="de">Für Dossenheim einzureichen (eure erhaltene Liste)</span></div>
+    <div class="note">
+      <span class="ja">以下9点は画像の案内をタスク化しています。外国人側の書類は個別事情で変わるため、取得前に Dossenheim に最終確認してください。</span>
+      <span class="de">Die neun Punkte stammen aus eurer erhaltenen Unterlagenliste. Für den ausländischen Partner können Unterlagen je nach Einzelfall variieren; bitte vor der Beschaffung in Dossenheim bestätigen lassen.</span>
+    </div>
+    <div class="checklist" id="dossenheimTasks">
+      <label class="check-item"><input type="checkbox" data-id="dos1"><span class="box"></span><span class="ci-text"><span class="ja">パスポートコピー（2人分）</span><span class="de">Reisepasskopien (beide)</span><span class="owner"><span class="ja">ふたり / beide</span><span class="de">beide</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos2"><span class="box"></span><span class="ci-text"><span class="ja">出生登録簿の謄本（ドイツ人側）</span><span class="de">Abschrift aus dem Geburtenregister (deutsche Seite)</span><span class="owner"><span class="ja">彼女 / deutsche Partnerin</span><span class="de">deutsche Partnerin</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos3"><span class="box"></span><span class="ci-text"><span class="ja">ドイツの住民登録証明書（ドイツ人側）</span><span class="de">Meldebescheinigung aus Deutschland (deutsche Seite)</span><span class="owner"><span class="ja">彼女 / deutsche Partnerin</span><span class="de">deutsche Partnerin</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos4"><span class="box"></span><span class="ci-text"><span class="ja">日本の住民票（2人分）</span><span class="de">Meldebescheinigungen aus Japan / Juminhyo (beide)</span><span class="owner"><span class="ja">ふたり / beide</span><span class="de">beide</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos5"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本（日本人側）</span><span class="de">Familienregister / Koseki-tohon (japanische Seite)</span><span class="owner"><span class="ja">あなた / japanische Seite</span><span class="de">japanische Seite</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos6"><span class="box"></span><span class="ci-text"><span class="ja">独身証明書（日本人側）</span><span class="de">Ledigkeitsbescheinigung (japanische Seite)</span><span class="owner"><span class="ja">あなた / japanische Seite</span><span class="de">japanische Seite</span></span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos7"><span class="box"></span><span class="ci-text"><span class="ja">送付先住所を記載した添え状</span><span class="de">Anschreiben mit Zustellanschrift</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos8"><span class="box"></span><span class="ci-text"><span class="ja">記入済みの申請書</span><span class="de">Ausgefüllter Antrag</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="dos9"><span class="box"></span><span class="ci-text"><span class="ja">求められた場合の支払証明</span><span class="de">Zahlungsnachweis, falls verlangt</span></span></label>
+    </div>
+    <div class="note">
+      <span class="ja">法定情報: Baden-Württemberg の公式案内では、婚姻要件具備証明書は発行から6か月有効、発行処理期間は個別事情によります。</span>
+      <span class="de">Amtliche Information: Nach dem Serviceportal Baden-Württemberg ist das Ehefähigkeitszeugnis sechs Monate ab Ausstellung gültig; die Bearbeitungsdauer hängt vom Einzelfall ab.</span>
+    </div>
+  </section>
+
   <!-- TOTAL LEAD TIME -->
   <section class="section">
     <div class="section-title">
@@ -520,10 +672,10 @@
     <div class="totals">
       <div class="total-card pink">
         <div class="label"><span class="ja">婚姻届の受理まで</span><span class="de">Bis zur Annahme der Eheanmeldung</span></div>
-        <div class="value"><span class="ja">2〜3か月前に着手</span><span class="de">2–3 Monate vorher starten</span></div>
+        <div class="value"><span class="ja">4か月前に確認開始</span><span class="de">4 Monate vorher starten</span></div>
         <div class="desc">
-          <span class="ja">婚姻要件具備証明書の申請は時間を要し得ます。提出日を決めたら最初に動く項目です。</span>
-          <span class="de">Das Ehefähigkeitszeugnis kann zeitaufwendig sein. Nach Festlegung des Termins zuerst angehen.</span>
+          <span class="ja">Dossenheim での審査、お父さま経由の受領・翻訳・日本発送を含むため、16週前から準備する計画です。</span>
+          <span class="de">Die Planung beginnt 16 Wochen vorher und berücksichtigt Prüfung in Dossenheim, Übergabe über ihren Vater, Übersetzung und Versand nach Japan.</span>
         </div>
       </div>
       <div class="total-card mint">
@@ -899,6 +1051,14 @@
         <span class="ja">台東区公式案内: 届出窓口・夜間休日の取扱い</span>
         <span class="de">Stadt Taito: Abgabestelle und Behandlung nachts/an Feiertagen</span>
       </a>
+      <a class="source-link" href="https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt" target="_blank" rel="noopener">
+        <span class="ja">Dossenheim 公式: Standesamt の所在地・担当連絡先</span>
+        <span class="de">Gemeinde Dossenheim: Anschrift und Kontakt des Standesamts</span>
+      </a>
+      <a class="source-link" href="https://www.service-bw.de/zufi/leistungen/1822" target="_blank" rel="noopener">
+        <span class="ja">Baden-Württemberg 公式: 婚姻要件具備証明書の申請・有効期限・必要書類</span>
+        <span class="de">Serviceportal Baden-Württemberg: Ehefähigkeitszeugnis, Gültigkeit und Unterlagen</span>
+      </a>
       <a class="source-link" href="https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html" target="_blank" rel="noopener">
         <span class="ja">港区公式案内: 外国籍の方が関わる婚姻の一般的な提出書類例</span>
         <span class="de">Stadt Minato: allgemeines Beispiel für Unterlagen bei ausländischer Beteiligung</span>
@@ -1048,6 +1208,7 @@
     var date=parseDate(getPlan("date")), el=document.getElementById("planCountdown");
     if(!date){
       el.innerHTML='<span class="ja">希望日を入れると、あと何日か表示します。</span><span class="de">Tragt ein Wunschdatum ein, um die verbleibenden Tage zu sehen.</span>';
+      renderDossenheimSchedule(null);
       return;
     }
     var today=new Date(); today.setHours(0,0,0,0); date.setHours(0,0,0,0);
@@ -1059,6 +1220,22 @@
     } else {
       el.innerHTML='<span class="ja">提出希望日から '+Math.abs(days)+' 日経過</span><span class="de">'+Math.abs(days)+' Tage seit dem Wunschtermin</span>';
     }
+    renderDossenheimSchedule(date);
+  }
+  function scheduleDate(date, offsetDays){
+    if(!date) return "";
+    var d=new Date(date.getFullYear(), date.getMonth(), date.getDate()+offsetDays);
+    var pad=function(n){ return n<10 ? "0"+n : String(n); };
+    return d.getFullYear()+"."+pad(d.getMonth()+1)+"."+pad(d.getDate());
+  }
+  function renderDossenheimSchedule(date){
+    [
+      ["dosDueConfirm",-112], ["dosDueGather",-98], ["dosDueApply",-84], ["dosDueIssue",-56],
+      ["dosDueTranslate",-42], ["dosDueShip",-28], ["dosDuePrecheck",-14], ["dosDueFile",0]
+    ].forEach(function(item){
+      var target=document.getElementById(item[0]);
+      if(target) target.textContent=date ? scheduleDate(date,item[1]) : t("希望日を入力","Datum eingeben");
+    });
   }
   planOffice.addEventListener("input", function(){ setPlan("office", planOffice.value.trim()); });
   planDate.addEventListener("change", function(){ setPlan("date", planDate.value); });
@@ -1125,7 +1302,7 @@
   inJa.addEventListener("keydown", function(e){ if(e.key==="Enter"){ document.getElementById("addBtn").click(); }});
 
   /* ---------- default checkbox wiring ---------- */
-  document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id]').forEach(function(cb){
+  document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimTasks [data-id], #dossenheimSchedule [data-id]').forEach(function(cb){
     cb.checked = isChecked(cb.getAttribute("data-id"));
     cb.addEventListener("change", function(){ setChecked(cb.getAttribute("data-id"), cb.checked); });
   });
@@ -1142,7 +1319,7 @@
   var celebrated = false;
 
   function updateProgress(){
-    var all = document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #customList [data-id]');
+    var all = document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimTasks [data-id], #dossenheimSchedule [data-id], #customList [data-id]');
     var total = all.length, done = 0;
     all.forEach(function(cb){ if(cb.checked) done++; });
     var pct = total ? Math.round(done/total*100) : 0;
@@ -1175,7 +1352,7 @@
   }
 
   function applyDocToUI(){
-    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id]').forEach(function(cb){
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimTasks [data-id], #dossenheimSchedule [data-id]').forEach(function(cb){
       cb.checked = isChecked(cb.getAttribute("data-id"));
     });
     renderCustom();
@@ -1190,7 +1367,7 @@
       ? "Alle Häkchen zurücksetzen? (Eigene Aufgaben bleiben erhalten)"
       : "すべてのチェックを外しますか？（追加したタスクは残ります）";
     if(!confirm(msg)) return;
-    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #customList [data-id]').forEach(function(cb){
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimTasks [data-id], #dossenheimSchedule [data-id], #customList [data-id]').forEach(function(cb){
       doc.checked[cb.getAttribute("data-id")] = { v:false, t:now() };
     });
     doc.updatedAt=now(); persistLocal(); applyDocToUI(); schedulePush();

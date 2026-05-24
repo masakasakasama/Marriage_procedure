@@ -44,12 +44,22 @@ Eine zweisprachige Checkliste fuer ein deutsch-japanisches Paar, das in Japan he
 
 情報確認日: 2026年5月24日。これは計画補助であり、法的助言ではありません。
 
+## Dossenheim / Ehefaehigkeitszeugnis
+
+- ドイツ側の申請先は、彼女の担当である `Standesamt / Friedhofsverwaltung Dossenheim`, Rathausplatz 1, 69221 Dossenheim（担当電話 `+49 (0)6221 8651-331`, `-332`）を前提に更新しました。
+- 画像で受領したリストの9点（双方の旅券コピー、彼女の出生登録簿謄本・ドイツ住民登録証明、日本の住民票双方分、日本人側の戸籍謄本・独身証明書、添え状、申請書、必要時の支払証明）をチェック項目化しました。外国人側の個別要件は Dossenheim に取得前確認が必要です。
+- 台東区への希望提出日を基準に、16週前の確認開始から、Dossenheim への申請、彼女のお父さまによる受領、翻訳者への受け渡し、日本への発送、台東区事前確認、当日提出までの縦型工程表を表示します。
+- Baden-Württemberg の公式案内では `Ehefaehigkeitszeugnis` は発行日から6か月有効で、処理期間は個別事情によります。表示する週数は公式締切ではなく、父親経由と海外配送を含めた計画用の余裕です。
+- 台東区の公式案内は外国語の証明書に日本語翻訳文と翻訳者署名を求めていますが、ドイツの公認翻訳者を必須とは記載していません。父親からドイツの翻訳者へ渡す工程は、ふたりが採用する実務ルートとして掲載しています。
+
 ## Official Sources
 
 - [駐日ドイツ大使館: 日本での婚姻](https://japan.diplo.de/ja-de/service/eheschliessung-in-japan-1032018)
 - [台東区: 婚姻届](https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/konin.html)
 - [台東区: 日本人と外国人に関する届出](https://www.city.taito.lg.jp/kurashi/todokede/gaikokujin/nihonjintodokede.html)
 - [台東区: 戸籍に関する届出一覧（窓口・夜間休日の取扱い）](https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/todokede.html)
+- [Dossenheim: Standesamt / Friedhofsverwaltung](https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt)
+- [Serviceportal Baden-Württemberg: Ehefaehigkeitszeugnis - Ausstellung beantragen](https://www.service-bw.de/zufi/leistungen/1822)
 - [港区: 外国籍の方が関わる婚姻の必要書類例](https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html)
 - [港区: 婚姻届（戸籍証明書等の添付は原則不要）](https://www.city.minato.tokyo.jp/shibakoseki/kuse/kocho/faq/todokede/038.html)
 - [出入国在留管理庁: 在留資格「日本人の配偶者等」](https://www.moj.go.jp/isa/applications/status/spouseorchildofjapanese01.html)
