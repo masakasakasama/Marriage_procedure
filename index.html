@@ -306,6 +306,8 @@
   .share-row button:active{transform:scale(.98)}
   .share-hint{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55}
   .share-hint .de{display:block;margin-top:3px}
+  .sp-adv code{background:#f0e9fb;color:var(--lav);border-radius:6px;padding:1px 5px;font-size:11px}
+  .rules-box{background:#1e1b2e;color:#d6ccff;border-radius:12px;padding:11px;font-size:10.5px;line-height:1.5;overflow-x:auto;white-space:pre;margin:10px 0 0}
 
   .footer{
     margin:14px 0 24px;padding:13px 15px;border-radius:16px;background:rgba(255,255,255,.7);
@@ -365,41 +367,45 @@
   <section class="sync-panel" id="syncPanel" hidden>
     <h3><span class="ja">リンクを送るだけで自動同期 🔗</span><span class="de">Link teilen = Auto-Sync 🔗</span></h3>
     <div class="sp-sub">
-      <span class="ja">設定もログインもトークンも不要。下の「共有リンク」を彼女に送るだけ。相手が開いた瞬間から、どの端末でも自動で同期されます。</span>
-      <span class="de">Keine Einrichtung, kein Login, kein Token. Schick ihr einfach den Link unten — ab dem Öffnen synchronisiert alles automatisch, auf jedem Gerät.</span>
+      <span class="ja">Firebase（割り勘トラッカーと同じ仕組み）でリアルタイム同期。下のURLを彼女に送るだけ。両方の端末で開けば、チェック・追加タスク・有効期限が数秒で双方向に同期されます。</span>
+      <span class="de">Echtzeit-Sync über Firebase (gleiches Prinzip wie der Kostenteiler). Schick ihr die URL unten — auf beiden Geräten geöffnet, synchronisiert alles in Sekunden.</span>
     </div>
 
-    <div class="share-block" id="shareBlock" hidden>
-      <span class="share-label">📲 <span class="ja">共有リンク（これを2人で使う）</span><span class="de">Gemeinsamer Link (für euch beide)</span></span>
+    <div class="share-block">
+      <span class="share-label">📲 <span class="ja">共有リンク（このURLを2人で使う）</span><span class="de">Gemeinsamer Link</span></span>
       <div class="share-row">
         <input type="text" id="shareLink" readonly onclick="this.select()">
         <button id="copyLink">📋 <span class="ja">コピー</span><span class="de">Kopieren</span></button>
       </div>
       <div class="share-hint">
-        <span class="ja">このページのリンクそのものが共有リンクです。彼女に送るだけ。開いた瞬間から自動同期。</span>
-        <span class="de">Der Link dieser Seite IST der gemeinsame Link. Einfach senden — ab dem Öffnen automatisch synchron.</span>
+        <span class="ja">このページのURLがそのまま共有リンクです（余計なパラメータなし）。</span>
+        <span class="de">Die URL dieser Seite ist der gemeinsame Link (ohne Zusätze).</span>
       </div>
     </div>
 
     <div class="sp-actions">
-      <button class="sp-save" id="cfgRefresh">🔄 <span class="ja">今すぐ更新</span><span class="de">Jetzt aktualisieren</span></button>
+      <button class="sp-save" id="cfgRefresh">🔄 <span class="ja">今すぐ再接続</span><span class="de">Neu verbinden</span></button>
     </div>
 
     <details class="sp-adv">
-      <summary><span class="ja">うまく同期しない時 / 別の共有に切り替え</span><span class="de">Probleme / anderen Link verbinden</span></summary>
-      <div class="field">
-        <label><span class="ja">既存の共有リンクに接続（リンクを貼り付け）</span><span class="de">Mit vorhandenem Link verbinden (einfügen)</span></label>
-        <input type="text" id="joinInput" placeholder="https://...#b=xxxxxxxx" autocomplete="off" spellcheck="false">
+      <summary><span class="ja">セットアップ（最初の1回だけ）</span><span class="de">Einrichtung (einmalig)</span></summary>
+      <div class="sp-help">
+        <span class="ja">① Firebaseでプロジェクト作成 → Authenticationで「匿名」を有効化 → Firestore Database を作成<br>② プロジェクト設定のWeb SDK構成（apiKey等6項目）を <code>firebase-config.js</code> に貼り付け<br>③ Authentication → Settings → Authorized domains に <code>masakasakasama.github.io</code> を追加<br>④ Firestoreルールに下記を追加</span>
+        <span class="de">① Firebase-Projekt anlegen → Authentication „Anonym" aktivieren → Firestore erstellen<br>② Web-SDK-Konfiguration (apiKey usw.) in <code>firebase-config.js</code> einfügen<br>③ Unter Authorized domains <code>masakasakasama.github.io</code> hinzufügen<br>④ Firestore-Regel unten ergänzen</span>
       </div>
-      <div class="sp-actions">
-        <button class="sp-ghost" id="joinBtn">🔌 <span class="ja">このリンクに接続</span><span class="de">Verbinden</span></button>
-        <button class="sp-ghost" id="newShare">✨ <span class="ja">新しく作り直す</span><span class="de">Neu erstellen</span></button>
-      </div>
+      <pre class="rules-box">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /checklists/{docId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}</pre>
     </details>
 
     <div class="sp-note">
-      <span class="ja">⚠️ データは無料サービス（jsonblob.com）に保存されます。リンクを知っている人は内容を見たり編集できるので、第三者には渡さないでください。</span>
-      <span class="de">⚠️ Die Daten liegen bei einem kostenlosen Dienst (jsonblob.com). Wer den Link kennt, kann Inhalte sehen/ändern — nicht an Dritte weitergeben.</span>
+      <span class="ja">✅ データはあなたのFirebase（Google）に保存され、変更は自動で永続化されます（消えません）。<code>firebase-config.js</code> のapiKey等はクライアント公開用の情報で、秘密鍵ではありません（保護はFirestoreルールと承認ドメインで行います）。</span>
+      <span class="de">✅ Die Daten liegen in deinem Firebase (Google) und werden dauerhaft gespeichert. Die Werte in <code>firebase-config.js</code> sind öffentliche Client-Infos, kein geheimer Schlüssel (Schutz über Firestore-Regeln & Authorized Domains).</span>
     </div>
   </section>
 
@@ -806,10 +812,8 @@
   ========================================================= */
   var KEY = "marriage_checklist_v2";
   var CFGKEY = "marriage_checklist_cfg";
-  var STORE = "https://jsonblob.com/api/jsonBlob";   // free, no-signup JSON store (no tokens)
-
   var doc = { v:3, checked:{}, custom:[], dates:{}, updatedAt:0 };
-  var cfg = { bucket:"", lang:"both" };
+  var cfg = { lang:"both" };
 
   // load cfg
   try{
@@ -1037,56 +1041,18 @@
   });
 
   /* =========================================================
-     ZERO-SETUP SYNC
-     - Free, no-signup JSON store. No tokens, no login.
-     - The share link carries only a random store id (#b=<id>).
-     - Any device that opens the link auto-syncs.
+     REALTIME SYNC — Firebase Firestore
+     Same mechanism as the bill-split tracker: anonymous auth +
+     onSnapshot realtime. Data lives in your own Firebase project
+     (durable). No per-device token — config is in firebase-config.js.
+     The shared link is just this page's plain URL (fixed GROUP_KEY).
   ========================================================= */
-  var syncing=false, pushTimer=null, pollTimer=null, provisioning=null;
+  var pushTimer=null, fbReady=false, unsub=null, writing=false, dirty=false;
+  var FB=null, GROUP_KEY="marriage-procedure";
 
-  /* ---------- shareable link ---------- */
-  function buildShareLink(){ return location.origin + location.pathname + "#b=" + encodeURIComponent(cfg.bucket); }
-  function parseBucket(s){
-    s=String(s||"").trim(); if(!s) return "";
-    var i=s.indexOf("#b="); if(i>=0) return decodeURIComponent(s.slice(i+3)).trim();
-    i=s.indexOf("b="); if(i>=0 && (i===0 || s.charAt(i-1)==="#" || s.charAt(i-1)==="&")) return decodeURIComponent(s.slice(i+2)).trim();
-    if(/^https?:\/\//.test(s)) return s.slice(s.lastIndexOf("/")+1);
-    return s;
-  }
-  function importFromHash(){
-    var h=location.hash||""; if(h.charAt(0)==="#") h=h.slice(1);
-    if(h.indexOf("b=")!==0) return false;
-    var id=decodeURIComponent(h.slice(2)).trim();
-    if(id){ cfg.bucket=id; persistCfg(); return true; }
-    return false;
-  }
-  function updateShareBlock(){
-    var blk=document.getElementById("shareBlock");
-    if(cfg.bucket){
-      document.getElementById("shareLink").value=buildShareLink();
-      blk.hidden=false;
-      if(location.protocol.indexOf("http")===0){ try{ history.replaceState(null,"",buildShareLink()); }catch(e){} }
-    } else { blk.hidden=true; }
-  }
-
-  /* ---------- store adapter (jsonblob.com) ---------- */
-  function blobId(r){
-    var id=r.headers.get("X-jsonblob");
-    if(!id){ var loc=r.headers.get("Location")||""; id=loc.slice(loc.lastIndexOf("/")+1); }
-    return (id||"").trim();
-  }
-  function storeCreate(d){
-    return fetch(STORE, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(d) })
-      .then(function(r){ if(!r.ok) throw new Error("create "+r.status); var id=blobId(r); if(!id) throw new Error("no id"); return id; });
-  }
-  function storeRead(id){
-    return fetch(STORE+"/"+encodeURIComponent(id)+"?_="+Date.now(), { headers:{ "Accept":"application/json" }, cache:"no-store" })
-      .then(function(r){ if(r.status===404) return null; if(!r.ok) throw new Error("read "+r.status); return r.json().catch(function(){ return null; }); });
-  }
-  function storeWrite(id, d){
-    return fetch(STORE+"/"+encodeURIComponent(id), { method:"PUT", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(d) })
-      .then(function(r){ if(r.status===404){ var e=new Error("gone"); e.gone=true; throw e; } if(!r.ok) throw new Error("write "+r.status); return true; });
-  }
+  /* ---------- shareable link = plain page URL ---------- */
+  function buildShareLink(){ return location.origin + location.pathname; }
+  function updateShareBlock(){ var el=document.getElementById("shareLink"); if(el) el.value=buildShareLink(); }
 
   /* ---------- conflict-free merge (per-item last-write-wins) ---------- */
   function mergeMap(a,b){
@@ -1124,45 +1090,60 @@
     var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
     chip.classList.remove("ok","err","work");
     if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
-    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
     else if(s==="ok"){
       chip.classList.add("ok");
       var n=new Date(), p=function(x){ return (x<10?"0":"")+x; };
       txt.textContent = t("同期済 ","Sync ")+p(n.getHours())+":"+p(n.getMinutes());
     }
+    else if(s==="noconfig"){ chip.classList.add("err"); txt.textContent = t("Firebase未設定","Firebase nicht konfiguriert"); }
+    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
     else { txt.textContent = t("準備中…","Wird vorbereitet…"); }
   }
 
-  /* ---------- auto-provision a store id exactly once ---------- */
-  function ensureBucket(){
-    if(cfg.bucket) return Promise.resolve(cfg.bucket);
-    if(provisioning) return provisioning;
-    provisioning = storeCreate(doc).then(function(id){
-      cfg.bucket=id; persistCfg(); updateShareBlock(); provisioning=null; return id;
-    }, function(e){ provisioning=null; throw e; });
-    return provisioning;
+  /* ---------- Firebase (loaded lazily so the UI never breaks) ---------- */
+  function startFirebase(){
+    setChip("work");
+    Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"),
+      import("./firebase-config.js?_="+Date.now())
+    ]).then(function(m){
+      var appMod=m[0], authMod=m[1], fsMod=m[2], cfgMod=m[3];
+      var fcfg=cfgMod.firebaseConfig||{};
+      if(cfgMod.GROUP_KEY) GROUP_KEY=cfgMod.GROUP_KEY;
+      try{ var g=new URLSearchParams(location.search).get("g"); if(g) GROUP_KEY=g; }catch(e){}
+      if(!fcfg.apiKey || fcfg.apiKey==="PASTE_HERE"){ setChip("noconfig"); return; }
+      var app=appMod.initializeApp(fcfg);
+      var auth=authMod.getAuth(app);
+      var db=fsMod.getFirestore(app);
+      FB={ ref:fsMod.doc(db,"checklists",GROUP_KEY), setDoc:fsMod.setDoc, onSnapshot:fsMod.onSnapshot };
+      return authMod.signInAnonymously(auth).then(function(){
+        fbReady=true; subscribe(); if(dirty) pushNow();
+      });
+    }).catch(function(e){ setChip("err"); });
   }
 
-  /* ---------- core sync ---------- */
-  function syncOnce(){
-    if(syncing) return Promise.resolve();
-    syncing=true; setChip("work");
-    return ensureBucket().then(function(id){
-      return storeRead(id).then(function(remote){
-        var merged = mergeDoc(doc, remote);
-        doc = merged; persistLocal(); applyDocToUI();
-        if(normalize(merged) !== normalize(remote)){
-          return storeWrite(id, merged).catch(function(err){
-            if(err && err.gone){ cfg.bucket=""; persistCfg(); return ensureBucket().then(function(nid){ return storeWrite(nid, doc); }); }
-            throw err;
-          });
-        }
-      });
-    }).then(function(){ setChip("ok"); }, function(){ setChip("err"); })
-      .then(function(){ syncing=false; });
+  function subscribe(){
+    if(!FB) return;
+    if(unsub){ try{ unsub(); }catch(e){} }
+    unsub = FB.onSnapshot(FB.ref, function(snap){
+      var remote=null;
+      if(snap.exists()){ var d=snap.data(); if(d && d.json){ try{ remote=JSON.parse(d.json); }catch(e){ remote=null; } } }
+      doc = mergeDoc(doc, remote); persistLocal(); applyDocToUI();
+      setChip("ok");
+      if(normalize(doc) !== normalize(remote)) pushNow();
+    }, function(err){ setChip("err"); });
   }
-  function schedulePush(){ clearTimeout(pushTimer); pushTimer=setTimeout(syncOnce,1500); }
-  function startPolling(){ clearInterval(pollTimer); pollTimer=setInterval(syncOnce,20000); }
+
+  function pushNow(){
+    if(!fbReady || !FB){ dirty=true; return; }
+    if(writing){ schedulePush(); return; }
+    dirty=false; writing=true;
+    FB.setDoc(FB.ref, { json: JSON.stringify(doc), at: Date.now() })
+      .then(function(){ writing=false; }, function(){ writing=false; dirty=true; setChip("err"); });
+  }
+  function schedulePush(){ dirty=true; clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
 
   /* ---------- sync panel ---------- */
   var panel=document.getElementById("syncPanel");
@@ -1170,19 +1151,8 @@
     panel.hidden = !panel.hidden;
     if(!panel.hidden){ updateShareBlock(); panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }
   });
-  document.getElementById("cfgRefresh").addEventListener("click", function(){ syncOnce(); });
-  document.getElementById("joinBtn").addEventListener("click", function(){
-    var id=parseBucket(document.getElementById("joinInput").value);
-    if(!id) return;
-    cfg.bucket=id; persistCfg(); document.getElementById("joinInput").value="";
-    updateShareBlock(); startPolling(); syncOnce();
-  });
-  document.getElementById("newShare").addEventListener("click", function(){
-    var msg = cfg.lang==="de" ? "Neuen, leeren gemeinsamen Link erstellen? Der alte Link wird hier getrennt."
-                              : "新しい共有リンクを作り直しますか？（今のリンクとの接続はこの端末で切れます）";
-    if(!confirm(msg)) return;
-    cfg.bucket=""; provisioning=null; persistCfg(); updateShareBlock();
-    ensureBucket().then(function(){ updateShareBlock(); syncOnce(); }, function(){ setChip("err"); });
+  document.getElementById("cfgRefresh").addEventListener("click", function(){
+    if(fbReady){ subscribe(); pushNow(); } else { startFirebase(); }
   });
   document.getElementById("copyLink").addEventListener("click", function(){
     var inp=document.getElementById("shareLink"); inp.select(); inp.setSelectionRange(0,99999);
@@ -1193,18 +1163,15 @@
     } else { try{document.execCommand("copy");}catch(e){} done(); }
   });
 
-  // re-sync when the tab becomes visible again
-  document.addEventListener("visibilitychange", function(){ if(!document.hidden) syncOnce(); });
-  window.addEventListener("online", function(){ syncOnce(); });
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden && !fbReady) startFirebase(); });
+  window.addEventListener("online", function(){ if(!fbReady) startFirebase(); });
 
   /* ---------- init ---------- */
-  importFromHash();          // opening a shared link auto-connects to its store
   applyLang();
   applyDocToUI();
   updateShareBlock();
   setChip("");
-  syncOnce();                // auto-provisions a store on first run, then keeps in sync
-  startPolling();
+  startFirebase();
 })();
 </script>
 </body>

@@ -3,33 +3,48 @@
 ドイツ人パートナーと日本で結婚するための、ふたり用バイリンガル・タスクリスト。
 Zweisprachige To-do-Liste für die Heirat in Japan mit einer deutschen Partnerin.
 
-`index.html` の1ファイルだけで動きます（ビルド不要）。チェック・追加タスク・書類の有効期限を、
-**登録もトークンも不要**で2人の端末間で自動同期します。
+`index.html` の1ファイル＋`firebase-config.js` で動きます（ビルド不要）。
+チェック・追加タスク・書類の有効期限を、**Firebase Firestore でリアルタイム自動同期**します
+（割り勘トラッカーと同じ仕組み：匿名ログイン＋`onSnapshot`）。データはあなたの Firebase（Google）に
+永続保存されるので消えません。共有リンクはこのページの**素のURLそのまま**です。
+
+## セットアップ（最初の1回だけ）
+
+### 1. Firebase 側
+1. [Firebase Console](https://console.firebase.google.com/) でプロジェクトを作成（既存のものを使ってもOK）
+2. **Build → Authentication → Sign-in method** で **「匿名」** を有効化
+3. **Build → Firestore Database** を作成（任意リージョン）
+4. **Authentication → Settings → Authorized domains** に `masakasakasama.github.io` を追加
+5. Firestore のルールに以下を追加:
+   ```txt
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /checklists/{docId} {
+         allow read, write: if request.auth != null;
+       }
+     }
+   }
+   ```
+
+### 2. このリポジトリ側
+1. **プロジェクト設定 → 全般 → マイアプリ（Web）** の SDK 構成（apiKey 等6項目）を `firebase-config.js` に貼り付け
+   - ※ apiKey 等はクライアント公開用の情報で秘密鍵ではありません（コミットしてOK）
+2. **Settings → Pages** で Source を `Deploy from a branch` にしてこのブランチ（または `main`）／`/(root)` を公開
+3. 公開URL `https://masakasakasama.github.io/Marriage_procedure/` を2人で共有
 
 ## 使い方 / Nutzung
-
-### 1. リンクを共有する（GitHub Pages）
-1. GitHub の **Settings → Pages** を開く
-2. Source を `Deploy from a branch` にして、このブランチ（または `main`）／`/ (root)` を選ぶ
-3. 数分後に出る `https://<user>.github.io/marriage_procedure/` を開く
-
-### 2. 自動同期（設定ゼロ）/ Auto-Sync (ohne Einrichtung)
-- 最初に開いた瞬間、アプリが自動で保存場所を作り、アドレスバーのURLが「共有リンク」になります。
-- ページ上部 **⚙️ 共有・同期** を開くと、その共有リンクをコピーできます。
-- **彼女にそのリンクを送るだけ。** 彼女が開けば、チェック・追加タスク・有効期限が約20秒ごとに自動で双方向同期されます。
-- トークン・ログイン・パスワードは一切不要です。
-
-> Auf Deutsch: Beim ersten Öffnen erstellt die App automatisch einen Speicher; die URL wird zum
-> gemeinsamen Link. Diesen Link teilen — danach synchronisiert alles automatisch. Kein Token, kein Login.
-
-## 同期の仕組み / Wie es funktioniert
-- データは無料・登録不要のJSON保存サービス **jsonblob.com** に置かれ、共有リンクにはそのランダムIDだけが入ります。
-- 端末ごとにフルコピーをローカル保存（オフラインでも編集可、復帰時に項目単位でマージ）。
-- ⚠️ **リンクを知っている人は内容を閲覧・編集できます。** 第三者には渡さないでください。
-- サービス側の不調や長期未使用でデータが消える可能性があるため、重要な情報は別途控えておくと安心です。
+- 2人がそれぞれ上記の素のURLを開くだけ。トークン入力や追加設定は不要。
+- 片方がチェック／追加／有効期限を変更すると、数秒でもう片方の画面に反映されます（リアルタイム双方向同期）。
+- オフラインでも編集可（端末にローカル保存）。オンライン復帰時に項目単位でマージ（後勝ち）。
+- `GROUP_KEY`（`firebase-config.js` 内）を同じにしている2人が同じリストを共有します。別リストにしたい時は鍵を変えるだけ。
 
 ## 機能 / Features
 - 7ステップの手順＋各リードタイム、進捗リング、完了で紙吹雪
 - 必要書類チェック（日本人側／ドイツ人側）と**書類ごとの有効期限管理**（残り日数・期限切れ警告）
 - 自分たちでタスクを追加／削除（日本語・ドイツ語・リードタイム・有効期限つき）
 - 日本語・ドイツ語の併記／言語切り替え
+
+> Auf Deutsch: Einmalige Einrichtung in Firebase (Projekt, anonyme Anmeldung, Firestore, Authorized
+> Domain, Regel), dann die 6 Konfigurationswerte in `firebase-config.js` einfügen und über GitHub Pages
+> veröffentlichen. Danach öffnen beide einfach die normale URL — alles synchronisiert in Echtzeit.
