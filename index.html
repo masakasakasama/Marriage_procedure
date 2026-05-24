@@ -203,6 +203,23 @@
   .flag-jp::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:13px;transform:translate(-50%,-50%);border-radius:999px;background:#dc2626}
   .flag-de{background:linear-gradient(#1a1a1a 0 33.33%,#dd0000 33.33% 66.66%,#ffce00 66.66% 100%)}
 
+  /* ---------- VALIDITY / EXPIRY ---------- */
+  .doc-item{border:1px solid var(--line);border-radius:13px;background:#fcfbff;padding:9px 11px}
+  .doc-item .check-item{border:none;background:transparent;padding:0;border-radius:0}
+  .valid-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+  .valid-guide{font-size:10.5px;color:var(--muted);font-weight:700;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+  .valid-date{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:var(--lav)}
+  .valid-date input[type=date]{border:1px solid var(--line);border-radius:9px;padding:4px 7px;font-size:12px;font-family:inherit;color:var(--text);background:#fff;min-width:120px}
+  .valid-date input[type=date]:focus{outline:none;border-color:var(--lav);box-shadow:0 0 0 3px var(--lav-soft)}
+  .valid-status{font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:999px;border:1px solid transparent}
+  .vs-none{color:var(--muted);background:#f4f1f8;border-color:var(--line)}
+  .vs-ok{color:#0f7a4e;background:var(--mint-soft);border-color:#bff0da}
+  .vs-soon{color:#92560a;background:var(--amber-soft);border-color:#ffe3a8}
+  .vs-expired{color:#b4173b;background:var(--pink-soft);border-color:#ffc9dd}
+  .expiry-alert{margin-bottom:12px;border-radius:13px;padding:9px 12px;background:var(--pink-soft);border:1px solid #ffc9dd;color:#b4173b;font-size:12.5px;font-weight:800}
+  .mini-guide{display:block;font-size:10.5px;color:#b07a12;font-weight:800;margin-top:3px}
+  .cu-status{font-size:10px;font-weight:900;padding:2px 8px;border-radius:999px;display:inline-block;margin-top:3px;margin-left:4px}
+
   /* ---------- CUSTOM TASKS ---------- */
   .custom-empty{font-size:12.5px;color:var(--muted);text-align:center;padding:10px 6px}
   .custom-empty .de{display:block;margin-top:2px}
@@ -467,10 +484,10 @@
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">パスポート・在留カード</span><span class="de">Reisepass, Aufenthaltskarte (Zairyū-Karte)</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から約6か月</span><span class="de">⏳ Gültigkeit: ca. 6 Monate ab Ausstellung</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から3〜6か月以内</span><span class="de">⏳ Gültigkeit: möglichst aktuell (3–6 Monate)</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">パスポート・在留カード</span><span class="de">Reisepass, Aufenthaltskarte (Zairyū-Karte)</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 券面の有効期限まで</span><span class="de">⏳ Gültigkeit: bis Ablauf des Dokuments</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 対象書類に準じる</span><span class="de">⏳ Gültigkeit: wie das zugehörige Dokument</span></span></span></label>
           </div>
           <div class="alert">⚠️ <span><span class="ja">ここが一番時間がかかりやすい。早めに動こう！</span><span class="de">Das dauert erfahrungsgemäß am längsten — früh starten!</span></span></div>
         </div>
@@ -513,7 +530,7 @@
           <div class="checklist">
             <label class="check-item"><input type="checkbox" data-id="s4a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届に記入する</span><span class="de">Das Eheschließungsformular ausfüllen</span></span></label>
             <label class="check-item"><input type="checkbox" data-id="s4b"><span class="box"></span><span class="ci-text"><span class="ja">証人2人に署名してもらう</span><span class="de">Zwei Trauzeugen unterschreiben lassen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">日本人側は戸籍謄本が必要な場合あり</span><span class="de">Ggf. Familienregisterauszug (Koseki) der jap. Seite</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">日本人側は戸籍謄本が必要な場合あり</span><span class="de">Ggf. Familienregisterauszug (Koseki) der jap. Seite</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から3か月以内</span><span class="de">⏳ Gültigkeit: max. 3 Monate alt</span></span></span></label>
           </div>
         </div>
       </div>
@@ -588,7 +605,13 @@
   <section class="section">
     <div class="section-title">
       <span class="pill">🗃 <span class="ja">必要書類</span><span class="de">Unterlagen</span></span>
-      <h2><span class="ja">持ち物チェック</span><span class="de">Dokumenten-Check</span></h2>
+      <h2><span class="ja">持ち物＋有効期限</span><span class="de">Dokumente + Gültigkeit</span></h2>
+    </div>
+
+    <div class="expiry-alert" id="expiryAlert" hidden></div>
+    <div class="note" style="margin:-2px 0 12px;">
+      <span class="ja">各書類の「有効期限」を入れると、残り日数と期限切れを自動でチェックします 📅</span>
+      <span class="de">Trage je Dokument „gültig bis" ein — Resttage und Ablauf werden automatisch geprüft 📅</span>
     </div>
 
     <div class="doc-card jp">
@@ -597,9 +620,30 @@
         <div class="flag-badge flag-jp"></div>
       </div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-id="djp1"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届</span><span class="de">Eheschließungsformular (Kon'in-todoke)</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="djp2"><span class="box"></span><span class="ci-text"><span class="ja">本人確認書類</span><span class="de">Ausweisdokument</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本（本籍地以外に出す場合は必要なことあり）</span><span class="de">Familienregisterauszug (Koseki) — ggf. nötig</span></span></label>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="djp1"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届</span><span class="de">Eheschließungsformular (Kon'in-todoke)</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 期限なし（早めに提出）</span><span class="de">⏳ kein Ablauf (zeitnah einreichen)</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp1"></label>
+            <span class="valid-status" data-status="djp1"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="djp2"><span class="box"></span><span class="ci-text"><span class="ja">本人確認書類</span><span class="de">Ausweisdokument</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Ablauf des Ausweises</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp2"></label>
+            <span class="valid-status" data-status="djp2"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本（本籍地以外に出す場合は必要なことあり）</span><span class="de">Familienregisterauszug (Koseki) — ggf. nötig</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から3か月以内</span><span class="de">⏳ max. 3 Monate alt</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp3"></label>
+            <span class="valid-status" data-status="djp3"></span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -609,12 +653,54 @@
         <div class="flag-badge flag-de"></div>
       </div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-id="dde1"><span class="box"></span><span class="ci-text"><span class="ja">パスポート</span><span class="de">Reisepass</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード</span><span class="de">Aufenthaltskarte (Zairyū-Karte)</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="dde3"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="dde5"><span class="box"></span><span class="ci-text"><span class="ja">日本語訳</span><span class="de">Japanische Übersetzung</span></span></label>
-        <label class="check-item"><input type="checkbox" data-id="dde6"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde1"><span class="box"></span><span class="ci-text"><span class="ja">パスポート</span><span class="de">Reisepass</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Pass-Ablauf</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde1"></label>
+            <span class="valid-status" data-status="dde1"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード</span><span class="de">Aufenthaltskarte (Zairyū-Karte)</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Ablauf der Karte</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde2"></label>
+            <span class="valid-status" data-status="dde2"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde3"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から約6か月</span><span class="de">⏳ ca. 6 Monate ab Ausstellung</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde3"></label>
+            <span class="valid-status" data-status="dde3"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から3〜6か月以内</span><span class="de">⏳ möglichst aktuell (3–6 Monate)</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde4"></label>
+            <span class="valid-status" data-status="dde4"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde5"><span class="box"></span><span class="ci-text"><span class="ja">日本語訳</span><span class="de">Japanische Übersetzung</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 原本に準じる</span><span class="de">⏳ wie das Originaldokument</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde5"></label>
+            <span class="valid-status" data-status="dde5"></span>
+          </div>
+        </div>
+        <div class="doc-item">
+          <label class="check-item"><input type="checkbox" data-id="dde6"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
+          <div class="valid-row">
+            <span class="valid-guide"><span class="ja">⏳ 目安: 対象書類に準じる</span><span class="de">⏳ wie das zugehörige Dokument</span></span>
+            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde6"></label>
+            <span class="valid-status" data-status="dde6"></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -644,6 +730,10 @@
       <div class="row">
         <label>⏱ <span class="ja">リードタイム（任意）</span><span class="de">Dauer (optional)</span></label>
         <input type="text" id="inLt" placeholder="例: 1週間 / 1 Woche">
+      </div>
+      <div class="row">
+        <label>📅 <span class="ja">有効期限（任意）</span><span class="de">gültig bis (optional)</span></label>
+        <input type="date" id="inExp">
       </div>
       <button class="add-btn" id="addBtn">＋ <span class="ja">追加する</span><span class="de">Hinzufügen</span></button>
     </div>
@@ -703,7 +793,7 @@
   var CFGKEY = "marriage_checklist_cfg";
   var DEF = { owner:"masakasakasama", repo:"marriage_procedure", branch:"main", path:"data/state.json" };
 
-  var doc = { v:2, checked:{}, custom:[], updatedAt:0 };
+  var doc = { v:3, checked:{}, custom:[], dates:{}, updatedAt:0 };
   var cfg = { token:"", owner:DEF.owner, repo:DEF.repo, branch:DEF.branch, path:DEF.path, lang:"both" };
 
   // load cfg
@@ -715,13 +805,13 @@
   // load doc (v2), or migrate from v1
   try{
     var sv = JSON.parse(localStorage.getItem(KEY));
-    if(sv && sv.checked){ doc = { v:2, checked:sv.checked||{}, custom:sv.custom||[], updatedAt:sv.updatedAt||0 }; }
+    if(sv && sv.checked){ doc = { v:3, checked:sv.checked||{}, custom:sv.custom||[], dates:sv.dates||{}, updatedAt:sv.updatedAt||0 }; }
     else {
       var old = JSON.parse(localStorage.getItem("marriage_checklist_v1"));
       if(old && typeof old==="object"){
         var ck={}; Object.keys(old.checked||{}).forEach(function(id){ if(old.checked[id]) ck[id]={v:true,t:1}; });
         var cu=(old.custom||[]).map(function(it){ return {id:it.id,ja:it.ja,de:it.de,lt:it.lt,t:1,deleted:false}; });
-        doc={ v:2, checked:ck, custom:cu, updatedAt:1 };
+        doc={ v:3, checked:ck, custom:cu, dates:{}, updatedAt:1 };
       }
     }
   }catch(e){}
@@ -735,6 +825,57 @@
   function isChecked(id){ var e=doc.checked[id]; return !!(e && e.v); }
   function setChecked(id, v){ doc.checked[id]={v:!!v, t:now()}; doc.updatedAt=now(); persistLocal(); updateProgress(); schedulePush(); }
   function activeCustom(){ return doc.custom.filter(function(x){ return !x.deleted; }); }
+  function getDate(id){ var e=doc.dates[id]; return (e && e.date) ? e.date : ""; }
+  function setDate(id, val){ doc.dates[id]={ date:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderExpiry(); schedulePush(); }
+
+  /* ---------- expiry / validity ---------- */
+  function parseDate(s){
+    if(!s) return null;
+    var p=String(s).split("-"); if(p.length!==3) return null;
+    var d=new Date(+p[0], +p[1]-1, +p[2]);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function expiryInfo(dateStr){
+    var d=parseDate(dateStr); if(!d) return { state:"none" };
+    var today=new Date(); today.setHours(0,0,0,0); d.setHours(0,0,0,0);
+    var days=Math.round((d-today)/86400000);
+    if(days<0) return { state:"expired", days:days };
+    if(days<=30) return { state:"soon", days:days };
+    return { state:"ok", days:days };
+  }
+  function statusText(info){
+    if(info.state==="expired") return { cls:"vs-expired", txt:"⛔ "+t("期限切れ","abgelaufen") };
+    if(info.state==="soon")    return { cls:"vs-soon",    txt:"⚠️ "+t("あと"+info.days+"日","noch "+info.days+" T.") };
+    if(info.state==="ok")      return { cls:"vs-ok",      txt:"✅ "+t("有効・あと"+info.days+"日","gültig · noch "+info.days+" T.") };
+    return { cls:"vs-none", txt:t("期限 未入力","kein Datum") };
+  }
+  function renderExpiry(){
+    document.querySelectorAll("[data-exp]").forEach(function(inp){
+      if(document.activeElement!==inp){ inp.value = getDate(inp.getAttribute("data-exp")); }
+    });
+    document.querySelectorAll("[data-status]").forEach(function(span){
+      var st=statusText(expiryInfo(getDate(span.getAttribute("data-status"))));
+      span.className="valid-status "+st.cls; span.textContent=st.txt;
+    });
+    updateExpiryBanner();
+  }
+  function updateExpiryBanner(){
+    var exp=0, soon=0;
+    document.querySelectorAll("[data-status]").forEach(function(span){
+      var i=expiryInfo(getDate(span.getAttribute("data-status")));
+      if(i.state==="expired") exp++; else if(i.state==="soon") soon++;
+    });
+    activeCustom().forEach(function(it){
+      if(it.exp){ var i=expiryInfo(it.exp); if(i.state==="expired") exp++; else if(i.state==="soon") soon++; }
+    });
+    var el=document.getElementById("expiryAlert");
+    if(exp+soon===0){ el.hidden=true; return; }
+    var parts=[];
+    if(exp)  parts.push(t(exp+"件 期限切れ", exp+" abgelaufen"));
+    if(soon) parts.push(t(soon+"件 まもなく期限", soon+" bald fällig"));
+    el.hidden=false;
+    el.textContent="⏰ "+parts.join(" / ")+" — "+t("書類を取り直そう","Dokument neu beschaffen");
+  }
 
   /* ---------- language ---------- */
   function applyLang(){
@@ -745,7 +886,7 @@
     });
   }
   document.querySelectorAll(".langbar button").forEach(function(b){
-    b.addEventListener("click", function(){ cfg.lang=b.getAttribute("data-lang"); applyLang(); persistCfg(); });
+    b.addEventListener("click", function(){ cfg.lang=b.getAttribute("data-lang"); applyLang(); renderExpiry(); persistCfg(); });
   });
 
   /* ---------- custom tasks ---------- */
@@ -773,6 +914,11 @@
       var de = document.createElement("span"); de.className="de"; de.textContent=item.de||item.ja||"";
       txtWrap.appendChild(ja); txtWrap.appendChild(de);
       if(item.lt){ var lt=document.createElement("span"); lt.className="lt-tag"; lt.textContent="⏱ "+item.lt; txtWrap.appendChild(lt); }
+      if(item.exp){
+        var st=statusText(expiryInfo(item.exp));
+        var cs=document.createElement("span"); cs.className="cu-status "+st.cls;
+        cs.textContent="📅 "+item.exp+" · "+st.txt; txtWrap.appendChild(cs);
+      }
 
       var clickWrap = document.createElement("label");
       clickWrap.style.cssText="display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;cursor:pointer";
@@ -793,13 +939,13 @@
   }
 
   function uid(){ return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
-  var inJa=document.getElementById("inJa"), inDe=document.getElementById("inDe"), inLt=document.getElementById("inLt");
+  var inJa=document.getElementById("inJa"), inDe=document.getElementById("inDe"), inLt=document.getElementById("inLt"), inExp=document.getElementById("inExp");
   document.getElementById("addBtn").addEventListener("click", function(){
-    var ja=inJa.value.trim(), de=inDe.value.trim(), lt=inLt.value.trim();
+    var ja=inJa.value.trim(), de=inDe.value.trim(), lt=inLt.value.trim(), exp=inExp.value;
     if(!ja && !de){ inJa.focus(); return; }
-    doc.custom.push({ id:uid(), ja:ja||de, de:de, lt:lt, t:now(), deleted:false });
+    doc.custom.push({ id:uid(), ja:ja||de, de:de, lt:lt, exp:exp, t:now(), deleted:false });
     doc.updatedAt=now();
-    inJa.value=""; inDe.value=""; inLt.value="";
+    inJa.value=""; inDe.value=""; inLt.value=""; inExp.value="";
     persistLocal(); renderCustom(); updateProgress(); schedulePush(); inJa.focus();
   });
   inJa.addEventListener("keydown", function(e){ if(e.key==="Enter"){ document.getElementById("addBtn").click(); }});
@@ -808,6 +954,11 @@
   document.querySelectorAll('.timeline [data-id], .doc-card [data-id]').forEach(function(cb){
     cb.checked = isChecked(cb.getAttribute("data-id"));
     cb.addEventListener("change", function(){ setChecked(cb.getAttribute("data-id"), cb.checked); });
+  });
+
+  /* ---------- expiry date wiring ---------- */
+  document.querySelectorAll("[data-exp]").forEach(function(inp){
+    inp.addEventListener("change", function(){ setDate(inp.getAttribute("data-exp"), inp.value); });
   });
 
   /* ---------- progress + confetti ---------- */
@@ -854,6 +1005,7 @@
       cb.checked = isChecked(cb.getAttribute("data-id"));
     });
     renderCustom();
+    renderExpiry();
     updateProgress();
   }
 
@@ -900,16 +1052,21 @@
     });
   }
 
+  function mergeMap(a,b){
+    var out={}, ids={};
+    Object.keys(a||{}).forEach(function(k){ ids[k]=1; }); Object.keys(b||{}).forEach(function(k){ ids[k]=1; });
+    Object.keys(ids).forEach(function(k){
+      var ea=(a||{})[k], eb=(b||{})[k];
+      if(!ea){ out[k]=eb; } else if(!eb){ out[k]=ea; }
+      else { out[k] = ((eb.t||0) > (ea.t||0)) ? eb : ea; }
+    });
+    return out;
+  }
   function mergeDoc(a,b){
     a=a||{}; b=b||{};
-    var m={ v:2, checked:{}, custom:[], updatedAt:Math.max(a.updatedAt||0,b.updatedAt||0) };
-    var ids={}; var ka=a.checked||{}, kb=b.checked||{};
-    Object.keys(ka).forEach(function(k){ ids[k]=1; }); Object.keys(kb).forEach(function(k){ ids[k]=1; });
-    Object.keys(ids).forEach(function(k){
-      var ea=ka[k], eb=kb[k];
-      if(!ea){ m.checked[k]=eb; } else if(!eb){ m.checked[k]=ea; }
-      else { m.checked[k] = ((eb.t||0) > (ea.t||0)) ? eb : ea; }
-    });
+    var m={ v:3, updatedAt:Math.max(a.updatedAt||0,b.updatedAt||0) };
+    m.checked = mergeMap(a.checked, b.checked);
+    m.dates   = mergeMap(a.dates, b.dates);
     var cmap={};
     (a.custom||[]).forEach(function(it){ cmap[it.id]=it; });
     (b.custom||[]).forEach(function(it){ var ex=cmap[it.id]; if(!ex || (it.t||0) > (ex.t||0)) cmap[it.id]=it; });
@@ -919,10 +1076,11 @@
   function normalize(d){
     d=d||{};
     var c={}; Object.keys(d.checked||{}).sort().forEach(function(k){ var e=d.checked[k]; c[k]=(e&&e.v)?1:0; });
+    var dt={}; Object.keys(d.dates||{}).sort().forEach(function(k){ var e=d.dates[k]; dt[k]=(e&&e.date)?e.date:""; });
     var cu=(d.custom||[]).slice().sort(function(x,y){ return x.id<y.id?-1:1; }).map(function(it){
-      return { id:it.id, ja:it.ja||"", de:it.de||"", lt:it.lt||"", d:it.deleted?1:0 };
+      return { id:it.id, ja:it.ja||"", de:it.de||"", lt:it.lt||"", exp:it.exp||"", d:it.deleted?1:0 };
     });
-    return JSON.stringify({ c:c, cu:cu });
+    return JSON.stringify({ c:c, cu:cu, dt:dt });
   }
 
   var remoteSha=null, syncing=false, pushTimer=null, pollTimer=null;
