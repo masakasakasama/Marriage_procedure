@@ -453,7 +453,7 @@
     <div class="plan-grid">
       <div class="plan-field">
         <label><span class="ja">提出予定の市区町村</span><span class="de">Geplante zuständige Gemeinde</span></label>
-        <input type="text" id="planOffice" placeholder="例: 渋谷区役所 / z. B. Stadtverwaltung Shibuya">
+        <input type="text" id="planOffice" placeholder="例: 台東区役所 戸籍住民サービス課 / z. B. Stadtverwaltung Taito">
       </div>
       <div class="plan-field">
         <label><span class="ja">婚姻届を出したい日</span><span class="de">Gewünschter Abgabetag</span></label>
@@ -464,6 +464,50 @@
     <div class="note">
       <span class="ja">提出先が決まったら、外国籍の方との婚姻に必要な書類と受付方法をその役所へ事前確認してください。</span>
       <span class="de">Sobald die Gemeinde feststeht, dort vorab die Unterlagen und Annahmebedingungen für eine Ehe mit ausländischer Beteiligung bestätigen lassen.</span>
+    </div>
+  </section>
+
+  <!-- TAITO WARD -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">🏮 <span class="ja">台東区で提出</span><span class="de">Einreichung in Taito</span></span>
+      <h2><span class="ja">ふたりの提出先メモ</span><span class="de">Eure Angaben zur Gemeinde</span></h2>
+    </div>
+    <div class="totals">
+      <div class="total-card pink">
+        <div class="label"><span class="ja">提出窓口</span><span class="de">Abgabeort</span></div>
+        <div class="value"><span class="ja">台東区役所 本庁1階</span><span class="de">Rathaus Taito, Hauptgebäude, 1. Etage</span></div>
+        <div class="desc">
+          <span class="ja">戸籍住民サービス課 届出担当<br>〒110-8615 東京都台東区東上野4丁目5番6号</span>
+          <span class="de">Koseki-/Einwohnermeldeservice, Anmeldung<br>Higashiueno 4-5-6, Taito-ku, Tokyo 110-8615</span>
+        </div>
+      </div>
+      <div class="total-card mint">
+        <div class="label"><span class="ja">問い合わせ</span><span class="de">Kontakt</span></div>
+        <div class="value">03-5246-1162</div>
+        <div class="desc">
+          <span class="ja">外国人に係る届出は国により必要書類が異なるため、ドイツ国籍の場合の追加要件を提出前に確認。</span>
+          <span class="de">Da die Anforderungen je nach Staatsangehörigkeit variieren, vorab Zusatzanforderungen für eine deutsche Partnerin bestätigen lassen.</span>
+        </div>
+      </div>
+    </div>
+    <div class="alert">
+      <span>📍</span>
+      <span>
+        <span class="ja">婚姻届の受理は台東区役所本庁のみ。区民事務所・分室・地区センターでは受理できません。</span>
+        <span class="de">Die Annahme der Eheschließungsanzeige erfolgt nur im Hauptgebäude des Rathauses Taito, nicht in Außenstellen.</span>
+      </span>
+    </div>
+    <div class="checklist" id="taitoTasks">
+      <label class="check-item"><input type="checkbox" data-id="ta1"><span class="box"></span><span class="ci-text"><span class="ja">戸籍住民サービス課へ、ドイツ国籍の場合の追加原本・アポスティーユ要否を電話確認する</span><span class="de">Beim Koseki-Service telefonisch klären, welche Originale und Apostillen für eine Deutsche zusätzlich nötig sind</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta2"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届、証人2名の署名、本人確認書類を用意する</span><span class="de">Eheschließungsanzeige, Unterschriften zweier volljähriger Zeugen und Ausweise bereitlegen</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta3"><span class="box"></span><span class="ci-text"><span class="ja">彼女の婚姻要件具備証明書・パスポート原本・日本語訳（訳者署名つき）を揃える</span><span class="de">Ihr Ehefähigkeitszeugnis, Original-Reisepass und japanische Übersetzung mit Unterschrift der übersetzenden Person zusammenstellen</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta4"><span class="box"></span><span class="ci-text"><span class="ja">夜間・休日に提出する場合は、後日審査となることを確認し、昼間つながる電話番号を届書に記載する</span><span class="de">Bei Einreichung nachts oder an Feiertagen: spätere Prüfung einplanen und eine tagsüber erreichbare Telefonnummer eintragen</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta5"><span class="box"></span><span class="ci-text"><span class="ja">受理後に婚姻届受理証明書の取得方法と必要な時期を確認する</span><span class="de">Nach Annahme klären, wann und wie die Annahmebescheinigung benötigt wird</span></span></label>
+    </div>
+    <div class="note">
+      <span class="ja">台東区公式情報の確認日: 2026年5月24日。届書の用紙は区役所1階のほか各区民事務所等でも配布されていますが、提出先は本庁です。</span>
+      <span class="de">Offizielle Informationen von Taito geprüft am 24. Mai 2026. Formulare sind auch in Außenstellen erhältlich; die Einreichung erfolgt jedoch im Hauptgebäude.</span>
     </div>
   </section>
 
@@ -843,6 +887,18 @@
         <span class="ja">駐日ドイツ大使館: 日本での婚姻、婚姻要件具備証明書、ドイツ側手続き</span>
         <span class="de">Deutsche Vertretungen in Japan: Eheschließung, Ehefähigkeitszeugnis und deutsche Folgeschritte</span>
       </a>
+      <a class="source-link" href="https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/konin.html" target="_blank" rel="noopener">
+        <span class="ja">台東区公式案内: 婚姻届と外国籍の方に必要なもの</span>
+        <span class="de">Stadt Taito: Eheschließungsanzeige und Unterlagen bei ausländischer Beteiligung</span>
+      </a>
+      <a class="source-link" href="https://www.city.taito.lg.jp/kurashi/todokede/gaikokujin/nihonjintodokede.html" target="_blank" rel="noopener">
+        <span class="ja">台東区公式案内: 日本人と外国人に関する届出</span>
+        <span class="de">Stadt Taito: Meldungen zwischen japanischen und ausländischen Staatsangehörigen</span>
+      </a>
+      <a class="source-link" href="https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/todokede.html" target="_blank" rel="noopener">
+        <span class="ja">台東区公式案内: 届出窓口・夜間休日の取扱い</span>
+        <span class="de">Stadt Taito: Abgabestelle und Behandlung nachts/an Feiertagen</span>
+      </a>
       <a class="source-link" href="https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html" target="_blank" rel="noopener">
         <span class="ja">港区公式案内: 外国籍の方が関わる婚姻の一般的な提出書類例</span>
         <span class="de">Stadt Minato: allgemeines Beispiel für Unterlagen bei ausländischer Beteiligung</span>
@@ -1069,7 +1125,7 @@
   inJa.addEventListener("keydown", function(e){ if(e.key==="Enter"){ document.getElementById("addBtn").click(); }});
 
   /* ---------- default checkbox wiring ---------- */
-  document.querySelectorAll('.timeline [data-id], .doc-card [data-id]').forEach(function(cb){
+  document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id]').forEach(function(cb){
     cb.checked = isChecked(cb.getAttribute("data-id"));
     cb.addEventListener("change", function(){ setChecked(cb.getAttribute("data-id"), cb.checked); });
   });
@@ -1086,7 +1142,7 @@
   var celebrated = false;
 
   function updateProgress(){
-    var all = document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #customList [data-id]');
+    var all = document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #customList [data-id]');
     var total = all.length, done = 0;
     all.forEach(function(cb){ if(cb.checked) done++; });
     var pct = total ? Math.round(done/total*100) : 0;
@@ -1119,7 +1175,7 @@
   }
 
   function applyDocToUI(){
-    document.querySelectorAll('.timeline [data-id], .doc-card [data-id]').forEach(function(cb){
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id]').forEach(function(cb){
       cb.checked = isChecked(cb.getAttribute("data-id"));
     });
     renderCustom();
@@ -1134,7 +1190,7 @@
       ? "Alle Häkchen zurücksetzen? (Eigene Aufgaben bleiben erhalten)"
       : "すべてのチェックを外しますか？（追加したタスクは残ります）";
     if(!confirm(msg)) return;
-    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #customList [data-id]').forEach(function(cb){
+    document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #customList [data-id]').forEach(function(cb){
       doc.checked[cb.getAttribute("data-id")] = { v:false, t:now() };
     });
     doc.updatedAt=now(); persistLocal(); applyDocToUI(); schedulePush();
