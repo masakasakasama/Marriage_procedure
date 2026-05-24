@@ -296,6 +296,16 @@
   .sp-help .de{display:block;margin-top:4px}
   .sp-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55}
   .sp-note .de{display:block;margin-top:3px}
+  .share-block{margin-top:14px;background:linear-gradient(135deg,var(--pink-soft),var(--lav-soft));border:1px solid #e7ddff;border-radius:16px;padding:13px}
+  .share-label{display:block;font-size:12px;font-weight:900;color:var(--lav);margin-bottom:8px}
+  .share-label .de{display:block;font-weight:700;color:var(--muted)}
+  body.lang-de .share-label .de{color:var(--lav);font-weight:900}
+  .share-row{display:flex;gap:8px}
+  .share-row input{flex:1;min-width:0;border:1px solid var(--line);border-radius:11px;padding:10px 12px;font-size:12px;font-family:inherit;background:#fff;color:var(--text)}
+  .share-row button{border:none;border-radius:11px;padding:10px 12px;font-size:12.5px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--pink),var(--lav));cursor:pointer;white-space:nowrap}
+  .share-row button:active{transform:scale(.98)}
+  .share-hint{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.55}
+  .share-hint .de{display:block;margin-top:3px}
 
   .footer{
     margin:14px 0 24px;padding:13px 15px;border-radius:16px;background:rgba(255,255,255,.7);
@@ -353,38 +363,43 @@
 
   <!-- SYNC PANEL -->
   <section class="sync-panel" id="syncPanel" hidden>
-    <h3><span class="ja">GitHubでふたり同期 🔗</span><span class="de">Gemeinsam über GitHub 🔗</span></h3>
+    <h3><span class="ja">リンクを送るだけで自動同期 🔗</span><span class="de">Link teilen = Auto-Sync 🔗</span></h3>
     <div class="sp-sub">
-      <span class="ja">同じリンクを開くだけで、チェックや追加タスクが自動で同期されます。</span>
-      <span class="de">Öffnet ihr beide denselben Link, werden Häkchen und Aufgaben automatisch synchronisiert.</span>
+      <span class="ja">設定もログインもトークンも不要。下の「共有リンク」を彼女に送るだけ。相手が開いた瞬間から、どの端末でも自動で同期されます。</span>
+      <span class="de">Keine Einrichtung, kein Login, kein Token. Schick ihr einfach den Link unten — ab dem Öffnen synchronisiert alles automatisch, auf jedem Gerät.</span>
     </div>
 
-    <div class="field">
-      <label>🔑 <span class="ja">アクセストークン（この端末だけに保存）</span><span class="de">Access-Token (nur auf diesem Gerät gespeichert)</span></label>
-      <input type="password" id="cfgToken" placeholder="github_pat_..." autocomplete="off" spellcheck="false">
+    <div class="share-block" id="shareBlock" hidden>
+      <span class="share-label">📲 <span class="ja">共有リンク（これを2人で使う）</span><span class="de">Gemeinsamer Link (für euch beide)</span></span>
+      <div class="share-row">
+        <input type="text" id="shareLink" readonly onclick="this.select()">
+        <button id="copyLink">📋 <span class="ja">コピー</span><span class="de">Kopieren</span></button>
+      </div>
+      <div class="share-hint">
+        <span class="ja">このページのリンクそのものが共有リンクです。彼女に送るだけ。開いた瞬間から自動同期。</span>
+        <span class="de">Der Link dieser Seite IST der gemeinsame Link. Einfach senden — ab dem Öffnen automatisch synchron.</span>
+      </div>
+    </div>
+
+    <div class="sp-actions">
+      <button class="sp-save" id="cfgRefresh">🔄 <span class="ja">今すぐ更新</span><span class="de">Jetzt aktualisieren</span></button>
     </div>
 
     <details class="sp-adv">
-      <summary><span class="ja">詳細設定（通常は変更不要）</span><span class="de">Erweitert (meist unnötig)</span></summary>
-      <div class="field"><label>Owner</label><input type="text" id="cfgOwner" autocomplete="off" spellcheck="false"></div>
-      <div class="field"><label>Repository</label><input type="text" id="cfgRepo" autocomplete="off" spellcheck="false"></div>
-      <div class="field"><label>Branch</label><input type="text" id="cfgBranch" autocomplete="off" spellcheck="false"></div>
-      <div class="field"><label>Path</label><input type="text" id="cfgPath" autocomplete="off" spellcheck="false"></div>
+      <summary><span class="ja">うまく同期しない時 / 別の共有に切り替え</span><span class="de">Probleme / anderen Link verbinden</span></summary>
+      <div class="field">
+        <label><span class="ja">既存の共有リンクに接続（リンクを貼り付け）</span><span class="de">Mit vorhandenem Link verbinden (einfügen)</span></label>
+        <input type="text" id="joinInput" placeholder="https://...#b=xxxxxxxx" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="sp-actions">
+        <button class="sp-ghost" id="joinBtn">🔌 <span class="ja">このリンクに接続</span><span class="de">Verbinden</span></button>
+        <button class="sp-ghost" id="newShare">✨ <span class="ja">新しく作り直す</span><span class="de">Neu erstellen</span></button>
+      </div>
     </details>
 
-    <div class="sp-actions">
-      <button class="sp-save" id="cfgSave">💾 <span class="ja">保存して同期</span><span class="de">Speichern & Sync</span></button>
-      <button class="sp-ghost" id="cfgRefresh">🔄 <span class="ja">今すぐ更新</span><span class="de">Jetzt aktualisieren</span></button>
-      <button class="sp-ghost" id="cfgDisconnect">⏏ <span class="ja">同期を解除</span><span class="de">Trennen</span></button>
-    </div>
-
-    <div class="sp-help">
-      <span class="ja">トークンの作り方: GitHub → Settings → Developer settings → Fine-grained tokens で、このリポジトリに対し「Contents: Read and write」を許可。作ったトークンを彼女にも教えて同じものを入れれば、同じデータを見られます。</span>
-      <span class="de">Token erstellen: GitHub → Settings → Developer settings → Fine-grained tokens → für dieses Repo „Contents: Read and write" erlauben. Gib ihr denselben Token, dann seht ihr dieselben Daten.</span>
-    </div>
     <div class="sp-note">
-      <span class="ja">※ トークンはあなたのブラウザ（localStorage）にのみ保存され、リポジトリやリンクには一切含まれません。</span>
-      <span class="de">Hinweis: Der Token wird nur in deinem Browser (localStorage) gespeichert — niemals im Repo oder im Link.</span>
+      <span class="ja">⚠️ データは無料サービス（jsonblob.com）に保存されます。リンクを知っている人は内容を見たり編集できるので、第三者には渡さないでください。</span>
+      <span class="de">⚠️ Die Daten liegen bei einem kostenlosen Dienst (jsonblob.com). Wer den Link kennt, kann Inhalte sehen/ändern — nicht an Dritte weitergeben.</span>
     </div>
   </section>
 
@@ -791,10 +806,10 @@
   ========================================================= */
   var KEY = "marriage_checklist_v2";
   var CFGKEY = "marriage_checklist_cfg";
-  var DEF = { owner:"masakasakasama", repo:"marriage_procedure", branch:"main", path:"data/state.json" };
+  var STORE = "https://jsonblob.com/api/jsonBlob";   // free, no-signup JSON store (no tokens)
 
   var doc = { v:3, checked:{}, custom:[], dates:{}, updatedAt:0 };
-  var cfg = { token:"", owner:DEF.owner, repo:DEF.repo, branch:DEF.branch, path:DEF.path, lang:"both" };
+  var cfg = { bucket:"", lang:"both" };
 
   // load cfg
   try{
@@ -1022,36 +1037,58 @@
   });
 
   /* =========================================================
-     GITHUB SYNC ENGINE
+     ZERO-SETUP SYNC
+     - Free, no-signup JSON store. No tokens, no login.
+     - The share link carries only a random store id (#b=<id>).
+     - Any device that opens the link auto-syncs.
   ========================================================= */
-  function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
-  function b64decode(b){ return decodeURIComponent(escape(atob(b))); }
-  function syncEnabled(){ return !!(cfg.token && cfg.owner && cfg.repo && cfg.path); }
-  function apiUrl(){ return "https://api.github.com/repos/"+cfg.owner+"/"+cfg.repo+"/contents/"+encodeURI(cfg.path); }
-  function ghHeaders(){ return { "Authorization":"Bearer "+cfg.token, "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28" }; }
+  var syncing=false, pushTimer=null, pollTimer=null, provisioning=null;
 
-  function ghGet(){
-    var url = apiUrl()+"?ref="+encodeURIComponent(cfg.branch)+"&_="+Date.now();
-    return fetch(url, { headers:ghHeaders(), cache:"no-store" }).then(function(r){
-      if(r.status===404) return { doc:null, sha:null };
-      if(!r.ok) throw new Error("GET "+r.status);
-      return r.json().then(function(j){
-        var parsed=null;
-        try{ parsed = JSON.parse(b64decode((j.content||"").replace(/\n/g,""))); }catch(e){ parsed=null; }
-        return { doc:parsed, sha:j.sha };
-      });
-    });
+  /* ---------- shareable link ---------- */
+  function buildShareLink(){ return location.origin + location.pathname + "#b=" + encodeURIComponent(cfg.bucket); }
+  function parseBucket(s){
+    s=String(s||"").trim(); if(!s) return "";
+    var i=s.indexOf("#b="); if(i>=0) return decodeURIComponent(s.slice(i+3)).trim();
+    i=s.indexOf("b="); if(i>=0 && (i===0 || s.charAt(i-1)==="#" || s.charAt(i-1)==="&")) return decodeURIComponent(s.slice(i+2)).trim();
+    if(/^https?:\/\//.test(s)) return s.slice(s.lastIndexOf("/")+1);
+    return s;
   }
-  function ghPut(d, sha){
-    var body = { message:"Update marriage checklist", content:b64encode(JSON.stringify(d)), branch:cfg.branch };
-    if(sha) body.sha=sha;
-    return fetch(apiUrl(), { method:"PUT", headers:ghHeaders(), body:JSON.stringify(body) }).then(function(r){
-      if(r.status===409 || r.status===422){ var e=new Error("conflict"); e.conflict=true; throw e; }
-      if(!r.ok) throw new Error("PUT "+r.status);
-      return r.json().then(function(j){ return j.content.sha; });
-    });
+  function importFromHash(){
+    var h=location.hash||""; if(h.charAt(0)==="#") h=h.slice(1);
+    if(h.indexOf("b=")!==0) return false;
+    var id=decodeURIComponent(h.slice(2)).trim();
+    if(id){ cfg.bucket=id; persistCfg(); return true; }
+    return false;
+  }
+  function updateShareBlock(){
+    var blk=document.getElementById("shareBlock");
+    if(cfg.bucket){
+      document.getElementById("shareLink").value=buildShareLink();
+      blk.hidden=false;
+      if(location.protocol.indexOf("http")===0){ try{ history.replaceState(null,"",buildShareLink()); }catch(e){} }
+    } else { blk.hidden=true; }
   }
 
+  /* ---------- store adapter (jsonblob.com) ---------- */
+  function blobId(r){
+    var id=r.headers.get("X-jsonblob");
+    if(!id){ var loc=r.headers.get("Location")||""; id=loc.slice(loc.lastIndexOf("/")+1); }
+    return (id||"").trim();
+  }
+  function storeCreate(d){
+    return fetch(STORE, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(d) })
+      .then(function(r){ if(!r.ok) throw new Error("create "+r.status); var id=blobId(r); if(!id) throw new Error("no id"); return id; });
+  }
+  function storeRead(id){
+    return fetch(STORE+"/"+encodeURIComponent(id)+"?_="+Date.now(), { headers:{ "Accept":"application/json" }, cache:"no-store" })
+      .then(function(r){ if(r.status===404) return null; if(!r.ok) throw new Error("read "+r.status); return r.json().catch(function(){ return null; }); });
+  }
+  function storeWrite(id, d){
+    return fetch(STORE+"/"+encodeURIComponent(id), { method:"PUT", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(d) })
+      .then(function(r){ if(r.status===404){ var e=new Error("gone"); e.gone=true; throw e; } if(!r.ok) throw new Error("write "+r.status); return true; });
+  }
+
+  /* ---------- conflict-free merge (per-item last-write-wins) ---------- */
   function mergeMap(a,b){
     var out={}, ids={};
     Object.keys(a||{}).forEach(function(k){ ids[k]=1; }); Object.keys(b||{}).forEach(function(k){ ids[k]=1; });
@@ -1083,81 +1120,91 @@
     return JSON.stringify({ c:c, cu:cu, dt:dt });
   }
 
-  var remoteSha=null, syncing=false, pushTimer=null, pollTimer=null;
-
   function setChip(s){
     var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
     chip.classList.remove("ok","err","work");
-    if(s==="local"){ txt.textContent = t("この端末に保存","Lokal gespeichert"); }
-    else if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
-    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("同期エラー（設定を確認）","Sync-Fehler"); }
+    if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
+    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
     else if(s==="ok"){
       chip.classList.add("ok");
       var n=new Date(), p=function(x){ return (x<10?"0":"")+x; };
       txt.textContent = t("同期済 ","Sync ")+p(n.getHours())+":"+p(n.getMinutes());
     }
+    else { txt.textContent = t("準備中…","Wird vorbereitet…"); }
   }
 
+  /* ---------- auto-provision a store id exactly once ---------- */
+  function ensureBucket(){
+    if(cfg.bucket) return Promise.resolve(cfg.bucket);
+    if(provisioning) return provisioning;
+    provisioning = storeCreate(doc).then(function(id){
+      cfg.bucket=id; persistCfg(); updateShareBlock(); provisioning=null; return id;
+    }, function(e){ provisioning=null; throw e; });
+    return provisioning;
+  }
+
+  /* ---------- core sync ---------- */
   function syncOnce(){
-    if(!syncEnabled()){ setChip("local"); return Promise.resolve(); }
     if(syncing) return Promise.resolve();
     syncing=true; setChip("work");
-    return ghGet().then(function(res){
-      var merged = mergeDoc(doc, res.doc);
-      doc = merged; persistLocal(); applyDocToUI();
-      if(normalize(merged) !== normalize(res.doc)){
-        return ghPut(merged, res.sha).then(function(sha){ remoteSha=sha; }, function(err){
-          if(err && err.conflict){
-            return ghGet().then(function(r2){
-              var m2=mergeDoc(doc, r2.doc); doc=m2; persistLocal(); applyDocToUI();
-              return ghPut(m2, r2.sha).then(function(sha){ remoteSha=sha; });
-            });
-          }
-          throw err;
-        });
-      }
-      remoteSha=res.sha;
+    return ensureBucket().then(function(id){
+      return storeRead(id).then(function(remote){
+        var merged = mergeDoc(doc, remote);
+        doc = merged; persistLocal(); applyDocToUI();
+        if(normalize(merged) !== normalize(remote)){
+          return storeWrite(id, merged).catch(function(err){
+            if(err && err.gone){ cfg.bucket=""; persistCfg(); return ensureBucket().then(function(nid){ return storeWrite(nid, doc); }); }
+            throw err;
+          });
+        }
+      });
     }).then(function(){ setChip("ok"); }, function(){ setChip("err"); })
       .then(function(){ syncing=false; });
   }
-  function schedulePush(){ if(!syncEnabled()) return; clearTimeout(pushTimer); pushTimer=setTimeout(syncOnce,1500); }
-  function startPolling(){ clearInterval(pollTimer); if(syncEnabled()){ pollTimer=setInterval(syncOnce,12000); } }
+  function schedulePush(){ clearTimeout(pushTimer); pushTimer=setTimeout(syncOnce,1500); }
+  function startPolling(){ clearInterval(pollTimer); pollTimer=setInterval(syncOnce,20000); }
 
-  /* ---------- settings panel ---------- */
+  /* ---------- sync panel ---------- */
   var panel=document.getElementById("syncPanel");
-  function fillCfgInputs(){
-    document.getElementById("cfgToken").value = cfg.token||"";
-    document.getElementById("cfgOwner").value = cfg.owner||"";
-    document.getElementById("cfgRepo").value  = cfg.repo||"";
-    document.getElementById("cfgBranch").value= cfg.branch||"";
-    document.getElementById("cfgPath").value  = cfg.path||"";
-  }
   document.getElementById("openSync").addEventListener("click", function(){
     panel.hidden = !panel.hidden;
-    if(!panel.hidden){ fillCfgInputs(); panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }
-  });
-  document.getElementById("cfgSave").addEventListener("click", function(){
-    cfg.token  = document.getElementById("cfgToken").value.trim();
-    cfg.owner  = (document.getElementById("cfgOwner").value.trim()  || DEF.owner);
-    cfg.repo   = (document.getElementById("cfgRepo").value.trim()   || DEF.repo);
-    cfg.branch = (document.getElementById("cfgBranch").value.trim() || DEF.branch);
-    cfg.path   = (document.getElementById("cfgPath").value.trim()   || DEF.path);
-    persistCfg(); startPolling(); syncOnce();
+    if(!panel.hidden){ updateShareBlock(); panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }
   });
   document.getElementById("cfgRefresh").addEventListener("click", function(){ syncOnce(); });
-  document.getElementById("cfgDisconnect").addEventListener("click", function(){
-    cfg.token=""; persistCfg(); clearInterval(pollTimer); clearTimeout(pushTimer);
-    document.getElementById("cfgToken").value=""; setChip("local");
+  document.getElementById("joinBtn").addEventListener("click", function(){
+    var id=parseBucket(document.getElementById("joinInput").value);
+    if(!id) return;
+    cfg.bucket=id; persistCfg(); document.getElementById("joinInput").value="";
+    updateShareBlock(); startPolling(); syncOnce();
+  });
+  document.getElementById("newShare").addEventListener("click", function(){
+    var msg = cfg.lang==="de" ? "Neuen, leeren gemeinsamen Link erstellen? Der alte Link wird hier getrennt."
+                              : "新しい共有リンクを作り直しますか？（今のリンクとの接続はこの端末で切れます）";
+    if(!confirm(msg)) return;
+    cfg.bucket=""; provisioning=null; persistCfg(); updateShareBlock();
+    ensureBucket().then(function(){ updateShareBlock(); syncOnce(); }, function(){ setChip("err"); });
+  });
+  document.getElementById("copyLink").addEventListener("click", function(){
+    var inp=document.getElementById("shareLink"); inp.select(); inp.setSelectionRange(0,99999);
+    var btn=document.getElementById("copyLink"); var prev=btn.innerHTML;
+    var done=function(){ btn.textContent="✓ "+t("コピーしました","Kopiert"); setTimeout(function(){ btn.innerHTML=prev; },1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(inp.value).then(done, function(){ try{document.execCommand("copy");}catch(e){} done(); });
+    } else { try{document.execCommand("copy");}catch(e){} done(); }
   });
 
-  // re-sync when the tab becomes visible again (so both phones stay fresh)
+  // re-sync when the tab becomes visible again
   document.addEventListener("visibilitychange", function(){ if(!document.hidden) syncOnce(); });
+  window.addEventListener("online", function(){ syncOnce(); });
 
   /* ---------- init ---------- */
+  importFromHash();          // opening a shared link auto-connects to its store
   applyLang();
   applyDocToUI();
-  if(syncEnabled()){ startPolling(); syncOnce(); }
-  else { setChip("local"); }
+  updateShareBlock();
+  setChip("");
+  syncOnce();                // auto-provisions a store on first run, then keeps in sync
+  startPolling();
 })();
 </script>
 </body>
