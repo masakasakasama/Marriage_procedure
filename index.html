@@ -106,6 +106,20 @@
   }
   body.all-done .celebrate{display:block}
 
+  /* ---------- SHARED PLAN ---------- */
+  .plan-grid{display:grid;gap:10px}
+  .plan-field label{display:block;font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:5px}
+  .plan-field input{
+    width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;
+    font-size:14px;font-family:inherit;background:#fcfbff;color:var(--text);
+  }
+  .plan-field input:focus{outline:none;border-color:var(--lav);box-shadow:0 0 0 3px var(--lav-soft)}
+  .countdown{
+    border-radius:15px;padding:11px 12px;background:linear-gradient(135deg,var(--pink-soft),var(--lav-soft));
+    border:1px solid #e7ddff;font-size:13px;font-weight:800;color:var(--lav);
+  }
+  .countdown .de{display:block;font-size:12px}
+
   /* ---------- LEAD TIME TOTALS ---------- */
   .section{
     margin-top:14px;background:var(--card);border:1px solid var(--line);
@@ -229,6 +243,11 @@
   }
   .custom-item .ci-text{cursor:pointer}
   .custom-item .lt-tag{font-size:10.5px;font-weight:800;color:var(--lav);background:var(--lav-soft);padding:2px 8px;border-radius:999px;display:inline-block;margin-top:3px}
+  .custom-check{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;cursor:pointer}
+  .custom-check input{display:none}
+  .custom-check input:checked ~ .box{background:var(--mint);border-color:var(--mint)}
+  .custom-check input:checked ~ .box::after{content:"✓"}
+  .custom-check input:checked ~ .ci-text{color:var(--muted);text-decoration:line-through;text-decoration-color:#cdbfe0}
   .del-btn{border:none;background:#fff0f3;color:var(--pink);width:30px;height:30px;border-radius:10px;font-size:16px;cursor:pointer;line-height:1}
   .del-btn:hover{background:#ffe0e8}
 
@@ -309,6 +328,14 @@
   .sp-adv code{background:#f0e9fb;color:var(--lav);border-radius:6px;padding:1px 5px;font-size:11px}
   .rules-box{background:#1e1b2e;color:#d6ccff;border-radius:12px;padding:11px;font-size:10.5px;line-height:1.5;overflow-x:auto;white-space:pre;margin:10px 0 0}
 
+  .sources{display:grid;gap:8px}
+  .source-link{
+    display:block;border:1px solid var(--line);background:#fcfbff;border-radius:13px;padding:10px 11px;
+    color:var(--text);text-decoration:none;font-size:12.5px;font-weight:800;
+  }
+  .source-link .de{display:block;font-size:11.5px;margin-top:2px}
+  .source-link small{display:block;color:var(--muted);font-weight:600;margin-top:3px}
+
   .footer{
     margin:14px 0 24px;padding:13px 15px;border-radius:16px;background:rgba(255,255,255,.7);
     border:1px solid var(--line);color:var(--muted);font-size:11.5px;line-height:1.6;
@@ -337,8 +364,8 @@
       <span class="de">Checkliste bis zur Heirat in Japan</span>
     </h1>
     <div class="sub">
-      <span class="ja">ふたりで進める、やることリスト。チェックは自動保存されます 💾</span>
-      <span class="de">Eure gemeinsame To-do-Liste. Häkchen werden automatisch gespeichert 💾</span>
+      <span class="ja">ふたりで進める、日独バイリンガルのやることリスト。変更は自動同期されます。</span>
+      <span class="de">Eure zweisprachige To-do-Liste. Änderungen werden automatisch synchronisiert.</span>
     </div>
 
     <div class="conclusion">
@@ -365,10 +392,10 @@
 
   <!-- SYNC PANEL -->
   <section class="sync-panel" id="syncPanel" hidden>
-    <h3><span class="ja">リンクを送るだけで自動同期 🔗</span><span class="de">Link teilen = Auto-Sync 🔗</span></h3>
+    <h3><span class="ja">同じアドレスでリアルタイム共有</span><span class="de">Echtzeit-Sync unter derselben Adresse</span></h3>
     <div class="sp-sub">
-      <span class="ja">Firebase（割り勘トラッカーと同じ仕組み）でリアルタイム同期。下のURLを彼女に送るだけ。両方の端末で開けば、チェック・追加タスク・有効期限が数秒で双方向に同期されます。</span>
-      <span class="de">Echtzeit-Sync über Firebase (gleiches Prinzip wie der Kostenteiler). Schick ihr die URL unten — auf beiden Geräten geöffnet, synchronisiert alles in Sekunden.</span>
+      <span class="ja">下の URL を彼女に送るだけ。チェック、追加タスク、提出予定日、書類期限が Firebase で端末間同期されます。</span>
+      <span class="de">Schick ihr einfach die URL unten. Häkchen, eigene Aufgaben, Wunschtermin und Dokumentfristen werden über Firebase geräteübergreifend synchronisiert.</span>
     </div>
 
     <div class="share-block">
@@ -387,25 +414,9 @@
       <button class="sp-save" id="cfgRefresh">🔄 <span class="ja">今すぐ再接続</span><span class="de">Neu verbinden</span></button>
     </div>
 
-    <details class="sp-adv">
-      <summary><span class="ja">セットアップ（最初の1回だけ）</span><span class="de">Einrichtung (einmalig)</span></summary>
-      <div class="sp-help">
-        <span class="ja">① Firebaseでプロジェクト作成 → Authenticationで「匿名」を有効化 → Firestore Database を作成<br>② プロジェクト設定のWeb SDK構成（apiKey等6項目）を <code>firebase-config.js</code> に貼り付け<br>③ Authentication → Settings → Authorized domains に <code>masakasakasama.github.io</code> を追加<br>④ Firestoreルールに下記を追加</span>
-        <span class="de">① Firebase-Projekt anlegen → Authentication „Anonym" aktivieren → Firestore erstellen<br>② Web-SDK-Konfiguration (apiKey usw.) in <code>firebase-config.js</code> einfügen<br>③ Unter Authorized domains <code>masakasakasama.github.io</code> hinzufügen<br>④ Firestore-Regel unten ergänzen</span>
-      </div>
-      <pre class="rules-box">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /checklists/{docId} {
-      allow read, write: if request.auth != null;
-    }
-  }
-}</pre>
-    </details>
-
     <div class="sp-note">
-      <span class="ja">✅ データはあなたのFirebase（Google）に保存され、変更は自動で永続化されます（消えません）。<code>firebase-config.js</code> のapiKey等はクライアント公開用の情報で、秘密鍵ではありません（保護はFirestoreルールと承認ドメインで行います）。</span>
-      <span class="de">✅ Die Daten liegen in deinem Firebase (Google) und werden dauerhaft gespeichert. Die Werte in <code>firebase-config.js</code> sind öffentliche Client-Infos, kein geheimer Schlüssel (Schutz über Firestore-Regeln & Authorized Domains).</span>
+      <span class="ja">注意: この共有ページはリンクを開ける人が編集できます。パスポート番号、住所、在留カード番号などの個人情報は入力しないでください。</span>
+      <span class="de">Hinweis: Wer diese gemeinsame Seite öffnen kann, kann sie bearbeiten. Bitte keine Passnummern, Adressen oder Ausweisnummern eintragen.</span>
     </div>
   </section>
 
@@ -425,10 +436,33 @@ service cloud.firestore {
       </div>
       <div class="progress-meta">
         <div class="pt"><span class="ja">進み具合</span><span class="de">Fortschritt</span></div>
-        <div class="pc"><span class="ja">小さな一歩でも前進 🐢</span><span class="de">Auch kleine Schritte zählen 🐢</span></div>
+        <div class="pc"><span class="ja">一歩ずつ、ふたりで準備</span><span class="de">Schritt für Schritt gemeinsam</span></div>
       </div>
     </div>
     <div class="celebrate">🎉 <span class="ja">全部おわった！おめでとう！</span><span class="de">Alles erledigt! Herzlichen Glückwunsch!</span></div>
+  </section>
+
+  <!-- SHARED PLAN -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">♡ <span class="ja">ふたりの予定</span><span class="de">Euer Plan</span></span>
+      <h2><span class="ja">まず決めて共有</span><span class="de">Gemeinsam festlegen</span></h2>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-field">
+        <label><span class="ja">提出予定の市区町村</span><span class="de">Geplante zuständige Gemeinde</span></label>
+        <input type="text" id="planOffice" placeholder="例: 渋谷区役所 / z. B. Stadtverwaltung Shibuya">
+      </div>
+      <div class="plan-field">
+        <label><span class="ja">婚姻届を出したい日</span><span class="de">Gewünschter Abgabetag</span></label>
+        <input type="date" id="planDate">
+      </div>
+      <div class="countdown" id="planCountdown"></div>
+    </div>
+    <div class="note">
+      <span class="ja">提出先が決まったら、外国籍の方との婚姻に必要な書類と受付方法をその役所へ事前確認してください。</span>
+      <span class="de">Sobald die Gemeinde feststeht, dort vorab die Unterlagen und Annahmebedingungen für eine Ehe mit ausländischer Beteiligung bestätigen lassen.</span>
+    </div>
   </section>
 
   <!-- TOTAL LEAD TIME -->
@@ -440,24 +474,24 @@ service cloud.firestore {
     <div class="totals">
       <div class="total-card pink">
         <div class="label"><span class="ja">婚姻届の受理まで</span><span class="de">Bis zur Annahme der Eheanmeldung</span></div>
-        <div class="value"><span class="ja">最短 2〜4週間</span><span class="de">frühestens 2–4 Wochen</span></div>
+        <div class="value"><span class="ja">2〜3か月前に着手</span><span class="de">2–3 Monate vorher starten</span></div>
         <div class="desc">
-          <span class="ja">現実的には 4〜8週間。ほぼドイツ側書類の回収スピードで決まる。</span>
-          <span class="de">Realistisch 4–8 Wochen — hängt v. a. vom Tempo der deutschen Dokumente ab.</span>
+          <span class="ja">婚姻要件具備証明書の申請は時間を要し得ます。提出日を決めたら最初に動く項目です。</span>
+          <span class="de">Das Ehefähigkeitszeugnis kann zeitaufwendig sein. Nach Festlegung des Termins zuerst angehen.</span>
         </div>
       </div>
       <div class="total-card mint">
         <div class="label"><span class="ja">後続手続きを含む総完了</span><span class="de">Gesamtabschluss inkl. Folgeschritte</span></div>
-        <div class="value"><span class="ja">最短 4〜6週間</span><span class="de">frühestens 4–6 Wochen</span></div>
+        <div class="value"><span class="ja">受理後も必要に応じて続く</span><span class="de">Danach optional weiter</span></div>
         <div class="desc">
-          <span class="ja">現実的には 6〜16週間。受理後の住民票・会社・在留資格・ドイツ側登録が続く。</span>
-          <span class="de">Realistisch 6–16 Wochen — danach Meldung, Arbeitgeber, Aufenthaltsstatus, Registrierung in DE.</span>
+          <span class="ja">氏の変更、在留資格、ドイツ婚姻登録などは状況と希望に応じて行います。</span>
+          <span class="de">Namensführung, Aufenthaltstitel und deutsches Eheregister hängen von eurer Situation und euren Wünschen ab.</span>
         </div>
       </div>
     </div>
     <div class="note">
-      <span class="ja">内訳: 事前確認 1〜3日 / ドイツ側書類 2〜6週間 / 日本語訳 1〜3日 / 婚姻届準備 1日 / 提出 当日〜1週間 / 受理後 当日〜1週間 / ドイツ側登録 2〜8週間</span>
-      <span class="de">Aufschlüsselung: Vorabklärung 1–3 T. / DE-Dokumente 2–6 Wo. / Übersetzung 1–3 T. / Anmeldung vorbereiten 1 T. / Einreichen 0–1 Wo. / nach Annahme 0–1 Wo. / Registrierung in DE 2–8 Wo.</span>
+      <span class="ja">表示しているリードタイムは計画用の目安です。証明書の発行期間や提出書類は担当 Standesamt と提出先市区町村の案内を優先してください。</span>
+      <span class="de">Die Zeitangaben dienen der Planung. Maßgeblich sind die Auskünfte des zuständigen Standesamts und der japanischen Gemeinde.</span>
     </div>
   </section>
 
@@ -476,7 +510,7 @@ service cloud.firestore {
           <div class="step-top">
             <div class="step-emoji">🏛️<span class="step-num">1</span></div>
             <div class="step-head">
-              <h3><span class="ja">役所に事前確認</span><span class="de">Vorab beim Rathaus nachfragen</span></h3>
+              <h3><span class="ja">提出先の役所に事前確認</span><span class="de">Vorab bei der Gemeinde nachfragen</span></h3>
               <div class="badges">
                 <span class="leadtime lt-mint">⏱ <span class="ja">当日〜3日</span><span class="de">0–3 Tage</span></span>
                 <span class="ministat" data-ministat>0/3</span>
@@ -484,9 +518,9 @@ service cloud.firestore {
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s1a"><span class="box"></span><span class="ci-text"><span class="ja">提出先の役所に必要書類を確認する</span><span class="de">Erforderliche Unterlagen beim zuständigen Amt erfragen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s1b"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ人との婚姻で必要な追加書類を確認する</span><span class="de">Zusätzliche Unterlagen für die Heirat mit dt. Staatsangehöriger klären</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s1c"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ要否・日本語訳の要否を確認する</span><span class="de">Klären, ob Apostille und japanische Übersetzung nötig sind</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s1a"><span class="box"></span><span class="ci-text"><span class="ja">提出する市区町村と窓口・受付時間を決める</span><span class="de">Zuständige japanische Gemeinde und Annahmezeiten festlegen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s1b"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ国籍の相手との婚姻に必要な原本を確認する</span><span class="de">Originalunterlagen für die Ehe mit deutscher Beteiligung bestätigen lassen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s1c"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ・日本語訳・訳者記載の要件を確認する</span><span class="de">Apostille, japanische Übersetzung und Übersetzerangabe klären</span></span></label>
           </div>
         </div>
       </div>
@@ -499,16 +533,16 @@ service cloud.firestore {
             <div class="step-head">
               <h3><span class="ja">ドイツ側の書類を集める</span><span class="de">Deutsche Dokumente beschaffen</span></h3>
               <div class="badges">
-                <span class="leadtime lt-amber">⏱ <span class="ja">2〜6週間</span><span class="de">2–6 Wochen</span></span>
+                <span class="leadtime lt-amber">⏱ <span class="ja">数週間〜</span><span class="de">mehrere Wochen+</span></span>
                 <span class="ministat" data-ministat>0/4</span>
               </div>
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から約6か月</span><span class="de">⏳ Gültigkeit: ca. 6 Monate ab Ausstellung</span></span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から3〜6か月以内</span><span class="de">⏳ Gültigkeit: möglichst aktuell (3–6 Monate)</span></span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">パスポート・在留カード</span><span class="de">Reisepass, Aufenthaltskarte (Zairyū-Karte)</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 券面の有効期限まで</span><span class="de">⏳ Gültigkeit: bis Ablauf des Dokuments</span></span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 対象書類に準じる</span><span class="de">⏳ Gültigkeit: wie das zugehörige Dokument</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">担当のドイツ Standesamt を特定し、申請書類を確認する</span><span class="de">Zuständiges deutsches Standesamt ermitteln und Unterlagenliste anfordern</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書を申請・取得する</span><span class="de">Ehefähigkeitszeugnis beantragen und erhalten</span><span class="mini-guide"><span class="ja">⏳ 発行から6か月有効</span><span class="de">⏳ ab Ausstellung sechs Monate gültig</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">彼女のパスポートと、該当する場合は在留カードを準備する</span><span class="de">Ihren Reisepass und, falls vorhanden, ihre Aufenthaltskarte bereithalten</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">提出先から求められたドイツ書類のアポスティーユを取得する</span><span class="de">Apostillen für von der Gemeinde verlangte deutsche Urkunden besorgen</span></span></label>
           </div>
           <div class="alert">⚠️ <span><span class="ja">ここが一番時間がかかりやすい。早めに動こう！</span><span class="de">Das dauert erfahrungsgemäß am längsten — früh starten!</span></span></div>
         </div>
@@ -528,8 +562,8 @@ service cloud.firestore {
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s3a"><span class="box"></span><span class="ci-text"><span class="ja">外国語書類に日本語訳を付ける</span><span class="de">Fremdsprachige Dokumente mit jap. Übersetzung versehen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s3b"><span class="box"></span><span class="ci-text"><span class="ja">訳者名を記入する</span><span class="de">Name der übersetzenden Person angeben</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s3a"><span class="box"></span><span class="ci-text"><span class="ja">市区町村に提出する外国語書類へ日本語訳を付ける</span><span class="de">Für fremdsprachige Unterlagen der Gemeinde japanische Übersetzungen erstellen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s3b"><span class="box"></span><span class="ci-text"><span class="ja">各訳文に訳者名を記載する</span><span class="de">Auf jeder Übersetzung die übersetzende Person angeben</span></span></label>
             <label class="check-item"><input type="checkbox" data-id="s3c"><span class="box"></span><span class="ci-text"><span class="ja">名前などの表記ゆれをチェックする</span><span class="de">Schreibweise von Namen auf Einheitlichkeit prüfen</span></span></label>
           </div>
         </div>
@@ -551,7 +585,7 @@ service cloud.firestore {
           <div class="checklist">
             <label class="check-item"><input type="checkbox" data-id="s4a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届に記入する</span><span class="de">Das Eheschließungsformular ausfüllen</span></span></label>
             <label class="check-item"><input type="checkbox" data-id="s4b"><span class="box"></span><span class="ci-text"><span class="ja">証人2人に署名してもらう</span><span class="de">Zwei Trauzeugen unterschreiben lassen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">日本人側は戸籍謄本が必要な場合あり</span><span class="de">Ggf. Familienregisterauszug (Koseki) der jap. Seite</span><span class="mini-guide"><span class="ja">⏳ 有効期限の目安: 発行から3か月以内</span><span class="de">⏳ Gültigkeit: max. 3 Monate alt</span></span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">戸籍証明書は原則添付不要であることを確認する</span><span class="de">Bestätigen, dass ein Koseki-Auszug grundsätzlich nicht beizufügen ist</span><span class="mini-guide"><span class="ja">2024年3月1日から原則不要。個別案内があれば従う。</span><span class="de">Seit 1. März 2024 grundsätzlich nicht nötig; Sonderhinweise beachten.</span></span></span></label>
           </div>
         </div>
       </div>
@@ -572,7 +606,7 @@ service cloud.firestore {
           <div class="checklist">
             <label class="check-item"><input type="checkbox" data-id="s5a"><span class="box"></span><span class="ci-text"><span class="ja">書類に不備がなければ受理される</span><span class="de">Bei vollständigen Unterlagen wird angenommen</span></span></label>
             <label class="check-item"><input type="checkbox" data-id="s5b"><span class="box"></span><span class="ci-text"><span class="ja">確認に時間がかかると「預かり」になることも</span><span class="de">Bei längerer Prüfung ggf. zunächst Entgegennahme zur Prüfung</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s5c"><span class="box"></span><span class="ci-text"><span class="ja">提出日が婚姻成立日になる 💑</span><span class="de">Der Einreichungstag gilt als Tag der Eheschließung 💑</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s5c"><span class="box"></span><span class="ci-text"><span class="ja">受理後、提出日が婚姻日として記録されているか確認する</span><span class="de">Nach Annahme prüfen, dass der Abgabetag als Eheschließungsdatum eingetragen ist</span></span></label>
           </div>
         </div>
       </div>
@@ -583,7 +617,7 @@ service cloud.firestore {
           <div class="step-top">
             <div class="step-emoji">🗂️<span class="step-num">6</span></div>
             <div class="step-head">
-              <h3><span class="ja">受理後の日本側の対応</span><span class="de">Nach der Annahme: japanische Seite</span></h3>
+              <h3><span class="ja">受理後の日本側の対応</span><span class="de">Nach der Annahme: Japan</span></h3>
               <div class="badges">
                 <span class="leadtime lt-lav">⏱ <span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span>
                 <span class="ministat" data-ministat>0/3</span>
@@ -591,9 +625,9 @@ service cloud.firestore {
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s6a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届受理証明書を取得する</span><span class="de">Bescheinigung über die Annahme der Ehe einholen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s6b"><span class="box"></span><span class="ci-text"><span class="ja">住民票・会社・保険などを必要に応じて更新</span><span class="de">Meldebescheinigung, Arbeitgeber, Versicherung etc. aktualisieren</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s6c"><span class="box"></span><span class="ci-text"><span class="ja">在留資格の変更を検討する</span><span class="de">Änderung des Aufenthaltsstatus prüfen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s6a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届受理証明書または婚姻記載後の戸籍証明書を取得する</span><span class="de">Annahmebescheinigung oder Koseki nach Eintragung der Ehe beschaffen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s6b"><span class="box"></span><span class="ci-text"><span class="ja">日本人側が外国人配偶者の氏を称するなら、婚姻後6か月以内の届出を確認する</span><span class="de">Falls die japanische Seite den Namen der deutschen Seite führen will: Erklärung innerhalb von sechs Monaten prüfen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s6c"><span class="box"></span><span class="ci-text"><span class="ja">希望する場合のみ「日本人の配偶者等」への在留資格変更を入管で確認・申請する</span><span class="de">Nur falls gewünscht: Änderung zum Aufenthaltstitel „Spouse of Japanese National” bei der Einwanderungsbehörde prüfen/beantragen</span></span></label>
           </div>
         </div>
       </div>
@@ -604,17 +638,17 @@ service cloud.firestore {
           <div class="step-top">
             <div class="step-emoji">🇩🇪<span class="step-num">7</span></div>
             <div class="step-head">
-              <h3><span class="ja">ドイツ側への登録・後続手続き</span><span class="de">Registrierung in Deutschland & Folgeschritte</span></h3>
+              <h3><span class="ja">ドイツ側の任意手続き</span><span class="de">Optionale Schritte in Deutschland</span></h3>
               <div class="badges">
-                <span class="leadtime lt-amber">⏱ <span class="ja">2〜8週間</span><span class="de">2–8 Wochen</span></span>
+                <span class="leadtime lt-amber">⏱ <span class="ja">必要に応じて</span><span class="de">falls gewünscht</span></span>
                 <span class="ministat" data-ministat>0/3</span>
               </div>
             </div>
           </div>
           <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s7a"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ側の婚姻登録を確認する</span><span class="de">Eheregistrierung in Deutschland klären</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s7b"><span class="box"></span><span class="ci-text"><span class="ja">必要なら氏名変更・旅券更新を行う</span><span class="de">Bei Bedarf Namensänderung & Reisepass aktualisieren</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s7c"><span class="box"></span><span class="ci-text"><span class="ja">今後の在留資格・海外手続きに備える</span><span class="de">Auf künftigen Aufenthaltsstatus & Auslandsformalitäten vorbereiten</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s7a"><span class="box"></span><span class="ci-text"><span class="ja">日本で成立した婚姻は通常ドイツでも有効で、婚姻登録は義務ではないことを確認する</span><span class="de">Festhalten: Eine wirksame japanische Ehe wird in Deutschland grundsätzlich anerkannt; eine Nachbeurkundung ist nicht verpflichtend</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s7b"><span class="box"></span><span class="ci-text"><span class="ja">必要ならドイツの婚姻登録簿への追完登録（Nachbeurkundung）を申請する</span><span class="de">Bei Bedarf die Nachbeurkundung im deutschen Eheregister beantragen</span></span></label>
+            <label class="check-item"><input type="checkbox" data-id="s7c"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ法上の氏名宣言や旅券更新が必要か大使館案内で確認する</span><span class="de">Prüfen, ob nach deutschem Recht Namenserklärung oder neuer Reisepass nötig sind</span></span></label>
           </div>
         </div>
       </div>
@@ -631,8 +665,8 @@ service cloud.firestore {
 
     <div class="expiry-alert" id="expiryAlert" hidden></div>
     <div class="note" style="margin:-2px 0 12px;">
-      <span class="ja">各書類の「有効期限」を入れると、残り日数と期限切れを自動でチェックします 📅</span>
-      <span class="de">Trage je Dokument „gültig bis" ein — Resttage und Ablauf werden automatisch geprüft 📅</span>
+      <span class="ja">下記は一般的な準備リストです。提出先が指定した書類を追加し、「有効期限」を入れると残り日数も表示できます。</span>
+      <span class="de">Dies ist eine allgemeine Vorbereitungsliste. Ergänzt Vorgaben eurer Gemeinde; mit „gültig bis” werden Resttage angezeigt.</span>
     </div>
 
     <div class="doc-card jp">
@@ -658,9 +692,9 @@ service cloud.firestore {
           </div>
         </div>
         <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本（本籍地以外に出す場合は必要なことあり）</span><span class="de">Familienregisterauszug (Koseki) — ggf. nötig</span></span></label>
+          <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍証明書（提出先から個別に求められた場合のみ）</span><span class="de">Koseki-Auszug (nur falls die Gemeinde ihn im Einzelfall verlangt)</span></span></label>
           <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から3か月以内</span><span class="de">⏳ max. 3 Monate alt</span></span>
+            <span class="valid-guide"><span class="ja">原則添付不要（2024年3月1日〜）</span><span class="de">grundsätzlich nicht beizufügen (seit 01.03.2024)</span></span>
             <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp3"></label>
             <span class="valid-status" data-status="djp3"></span>
           </div>
@@ -683,7 +717,7 @@ service cloud.firestore {
           </div>
         </div>
         <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード</span><span class="de">Aufenthaltskarte (Zairyū-Karte)</span></span></label>
+          <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード（日本在住で所持している場合）</span><span class="de">Aufenthaltskarte (falls in Japan wohnhaft und vorhanden)</span></span></label>
           <div class="valid-row">
             <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Ablauf der Karte</span></span>
             <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde2"></label>
@@ -699,9 +733,9 @@ service cloud.firestore {
           </div>
         </div>
         <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書</span><span class="de">Geburtsurkunde</span></span></label>
+          <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書など追加原本（提出先が求めた場合）</span><span class="de">Geburtsurkunde oder weitere Originale (falls von der Gemeinde verlangt)</span></span></label>
           <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から3〜6か月以内</span><span class="de">⏳ möglichst aktuell (3–6 Monate)</span></span>
+            <span class="valid-guide"><span class="ja">提出先の指定に従う</span><span class="de">nach Vorgabe der Gemeinde</span></span>
             <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde4"></label>
             <span class="valid-status" data-status="dde4"></span>
           </div>
@@ -753,7 +787,7 @@ service cloud.firestore {
         <input type="text" id="inLt" placeholder="例: 1週間 / 1 Woche">
       </div>
       <div class="row">
-        <label>📅 <span class="ja">有効期限（任意）</span><span class="de">gültig bis (optional)</span></label>
+        <label>📅 <span class="ja">タスク期限（任意）</span><span class="de">Fälligkeit (optional)</span></label>
         <input type="date" id="inExp">
       </div>
       <button class="add-btn" id="addBtn">＋ <span class="ja">追加する</span><span class="de">Hinzufügen</span></button>
@@ -787,6 +821,44 @@ service cloud.firestore {
         <div class="txt"><span class="ja">必要書類や運用が少し違う場合がある。最初の役所確認を飛ばさないこと。</span><span class="de">Unterlagen und Abläufe können sich unterscheiden. Die erste Rücksprache mit dem Amt nicht überspringen.</span></div>
       </div>
     </div>
+    <div class="pit">
+      <div class="warn">i</div>
+      <div>
+        <div class="ttl"><span class="ja">ドイツの婚姻登録</span><span class="de">Deutsches Eheregister</span></div>
+        <div class="txt"><span class="ja">日本で有効に成立した婚姻は通常ドイツでも有効。追完登録は義務ではなく、証明書や氏名手続きのため必要に応じて検討します。</span><span class="de">Eine in Japan wirksam geschlossene Ehe gilt grundsätzlich auch in Deutschland. Die Nachbeurkundung ist optional und kann für Urkunden oder Namensfragen sinnvoll sein.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFICIAL SOURCES -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">✓ <span class="ja">公的情報</span><span class="de">Offizielle Infos</span></span>
+      <h2><span class="ja">確認リンク</span><span class="de">Quellen & Prüfung</span></h2>
+    </div>
+    <div class="sources">
+      <a class="source-link" href="https://japan.diplo.de/ja-de/service/eheschliessung-in-japan-1032018" target="_blank" rel="noopener">
+        <span class="ja">駐日ドイツ大使館: 日本での婚姻、婚姻要件具備証明書、ドイツ側手続き</span>
+        <span class="de">Deutsche Vertretungen in Japan: Eheschließung, Ehefähigkeitszeugnis und deutsche Folgeschritte</span>
+      </a>
+      <a class="source-link" href="https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html" target="_blank" rel="noopener">
+        <span class="ja">港区公式案内: 外国籍の方が関わる婚姻の一般的な提出書類例</span>
+        <span class="de">Stadt Minato: allgemeines Beispiel für Unterlagen bei ausländischer Beteiligung</span>
+        <small><span class="ja">実際は提出先市区町村へ確認</span><span class="de">Entscheidend ist eure zuständige Gemeinde.</span></small>
+      </a>
+      <a class="source-link" href="https://www.city.minato.tokyo.jp/shibakoseki/kuse/kocho/faq/todokede/038.html" target="_blank" rel="noopener">
+        <span class="ja">港区公式案内: 婚姻届と戸籍証明書の原則添付不要（2024年3月1日から）</span>
+        <span class="de">Stadt Minato: Heiratsanzeige und grundsätzlich entfallener Koseki-Nachweis (seit 01.03.2024)</span>
+      </a>
+      <a class="source-link" href="https://www.moj.go.jp/isa/applications/status/spouseorchildofjapanese01.html" target="_blank" rel="noopener">
+        <span class="ja">出入国在留管理庁: 在留資格「日本人の配偶者等」</span>
+        <span class="de">Japanische Einwanderungsbehörde: Aufenthaltstitel als Ehepartner eines japanischen Staatsangehörigen</span>
+      </a>
+    </div>
+    <div class="note">
+      <span class="ja">情報確認日: 2026年5月24日。制度・自治体運用は変わり得るため、提出前に最新案内を再確認してください。</span>
+      <span class="de">Informationsstand: 24. Mai 2026. Bitte vor der Einreichung aktuelle Hinweise nochmals prüfen.</span>
+    </div>
   </section>
 
   <!-- TOOLBAR -->
@@ -795,8 +867,8 @@ service cloud.firestore {
   </div>
 
   <div class="footer">
-    <span class="ja">※ このリードタイムは一般的な目安です。実際は市区町村の運用、ドイツ側書類の発行日数、アポスティーユの要否、在留資格の状況で変わります。最終的には必ず提出先の役所・大使館で確認してください。</span>
-    <span class="de">Hinweis: Die Angaben sind grobe Richtwerte. Tatsächliche Dauer hängt von Gemeinde, Ausstellung der dt. Dokumente, Apostille und Aufenthaltsstatus ab. Bitte abschließend immer beim zuständigen Amt / der Botschaft prüfen.</span>
+    <span class="ja">※ このチェックリストは計画補助であり、法的助言ではありません。必要書類とリードタイムは市区町村、担当 Standesamt、大使館、入管の最新案内を優先してください。</span>
+    <span class="de">Hinweis: Diese Checkliste unterstützt die Planung und ist keine Rechtsberatung. Vorrang haben aktuelle Auskünfte von Gemeinde, Standesamt, Botschaft und Einwanderungsbehörde.</span>
   </div>
 
 </main>
@@ -807,12 +879,12 @@ service cloud.firestore {
 
   /* =========================================================
      STORAGE MODEL (timestamped for conflict-free 2-way merge)
-     doc = { v:2, checked:{ id:{v:bool,t:ms} }, custom:[ {id,ja,de,lt,t,deleted} ], updatedAt }
-     cfg = { token, owner, repo, branch, path, lang }   (device-local only)
+     doc = { v:4, checked:{}, custom:[], dates:{}, plan:{}, updatedAt }
+     cfg = { lang }   (device-local only)
   ========================================================= */
   var KEY = "marriage_checklist_v2";
   var CFGKEY = "marriage_checklist_cfg";
-  var doc = { v:3, checked:{}, custom:[], dates:{}, updatedAt:0 };
+  var doc = { v:4, checked:{}, custom:[], dates:{}, plan:{}, updatedAt:0 };
   var cfg = { lang:"both" };
 
   // load cfg
@@ -824,13 +896,13 @@ service cloud.firestore {
   // load doc (v2), or migrate from v1
   try{
     var sv = JSON.parse(localStorage.getItem(KEY));
-    if(sv && sv.checked){ doc = { v:3, checked:sv.checked||{}, custom:sv.custom||[], dates:sv.dates||{}, updatedAt:sv.updatedAt||0 }; }
+    if(sv && sv.checked){ doc = { v:4, checked:sv.checked||{}, custom:sv.custom||[], dates:sv.dates||{}, plan:sv.plan||{}, updatedAt:sv.updatedAt||0 }; }
     else {
       var old = JSON.parse(localStorage.getItem("marriage_checklist_v1"));
       if(old && typeof old==="object"){
         var ck={}; Object.keys(old.checked||{}).forEach(function(id){ if(old.checked[id]) ck[id]={v:true,t:1}; });
         var cu=(old.custom||[]).map(function(it){ return {id:it.id,ja:it.ja,de:it.de,lt:it.lt,t:1,deleted:false}; });
-        doc={ v:3, checked:ck, custom:cu, dates:{}, updatedAt:1 };
+        doc={ v:4, checked:ck, custom:cu, dates:{}, plan:{}, updatedAt:1 };
       }
     }
   }catch(e){}
@@ -846,6 +918,8 @@ service cloud.firestore {
   function activeCustom(){ return doc.custom.filter(function(x){ return !x.deleted; }); }
   function getDate(id){ var e=doc.dates[id]; return (e && e.date) ? e.date : ""; }
   function setDate(id, val){ doc.dates[id]={ date:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderExpiry(); schedulePush(); }
+  function getPlan(id){ var e=doc.plan[id]; return (e && e.value) ? e.value : ""; }
+  function setPlan(id, val){ doc.plan[id]={ value:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderPlan(); schedulePush(); }
 
   /* ---------- expiry / validity ---------- */
   function parseDate(s){
@@ -893,7 +967,7 @@ service cloud.firestore {
     if(exp)  parts.push(t(exp+"件 期限切れ", exp+" abgelaufen"));
     if(soon) parts.push(t(soon+"件 まもなく期限", soon+" bald fällig"));
     el.hidden=false;
-    el.textContent="⏰ "+parts.join(" / ")+" — "+t("書類を取り直そう","Dokument neu beschaffen");
+    el.textContent="⏰ "+parts.join(" / ")+" — "+t("期限を確認しよう","Frist prüfen");
   }
 
   /* ---------- language ---------- */
@@ -905,8 +979,31 @@ service cloud.firestore {
     });
   }
   document.querySelectorAll(".langbar button").forEach(function(b){
-    b.addEventListener("click", function(){ cfg.lang=b.getAttribute("data-lang"); applyLang(); renderExpiry(); persistCfg(); });
+    b.addEventListener("click", function(){ cfg.lang=b.getAttribute("data-lang"); applyLang(); renderExpiry(); renderPlan(); setChip(syncState); persistCfg(); });
   });
+
+  /* ---------- shared plan ---------- */
+  var planOffice=document.getElementById("planOffice"), planDate=document.getElementById("planDate");
+  function renderPlan(){
+    if(document.activeElement!==planOffice) planOffice.value=getPlan("office");
+    if(document.activeElement!==planDate) planDate.value=getPlan("date");
+    var date=parseDate(getPlan("date")), el=document.getElementById("planCountdown");
+    if(!date){
+      el.innerHTML='<span class="ja">希望日を入れると、あと何日か表示します。</span><span class="de">Tragt ein Wunschdatum ein, um die verbleibenden Tage zu sehen.</span>';
+      return;
+    }
+    var today=new Date(); today.setHours(0,0,0,0); date.setHours(0,0,0,0);
+    var days=Math.round((date-today)/86400000);
+    if(days>0){
+      el.innerHTML='<span class="ja">提出希望日まで あと '+days+' 日</span><span class="de">Noch '+days+' Tage bis zum Wunschtermin</span>';
+    } else if(days===0){
+      el.innerHTML='<span class="ja">今日は提出希望日です。</span><span class="de">Heute ist euer Wunschtermin.</span>';
+    } else {
+      el.innerHTML='<span class="ja">提出希望日から '+Math.abs(days)+' 日経過</span><span class="de">'+Math.abs(days)+' Tage seit dem Wunschtermin</span>';
+    }
+  }
+  planOffice.addEventListener("input", function(){ setPlan("office", planOffice.value.trim()); });
+  planDate.addEventListener("change", function(){ setPlan("date", planDate.value); });
 
   /* ---------- custom tasks ---------- */
   var customList  = document.getElementById("customList");
@@ -940,7 +1037,7 @@ service cloud.firestore {
       }
 
       var clickWrap = document.createElement("label");
-      clickWrap.style.cssText="display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center;cursor:pointer";
+      clickWrap.className="custom-check";
       clickWrap.appendChild(cb); clickWrap.appendChild(box); clickWrap.appendChild(txtWrap);
       cb.addEventListener("change", function(){ setChecked(item.id, cb.checked); });
 
@@ -1025,6 +1122,7 @@ service cloud.firestore {
     });
     renderCustom();
     renderExpiry();
+    renderPlan();
     updateProgress();
   }
 
@@ -1041,14 +1139,13 @@ service cloud.firestore {
   });
 
   /* =========================================================
-     REALTIME SYNC — Firebase Firestore
-     Same mechanism as the bill-split tracker: anonymous auth +
-     onSnapshot realtime. Data lives in your own Firebase project
-     (durable). No per-device token — config is in firebase-config.js.
+     REALTIME SYNC — Firebase Realtime Database
+     The checklist lives under its own database path, separate from
+     other shared applications. No per-device token is needed.
      The shared link is just this page's plain URL (fixed GROUP_KEY).
   ========================================================= */
-  var pushTimer=null, fbReady=false, unsub=null, writing=false, dirty=false;
-  var FB=null, GROUP_KEY="marriage-procedure";
+  var pushTimer=null, fbReady=false, hasInitialSnapshot=false, unsub=null, writing=false, dirty=false, syncState="";
+  var FB=null, GROUP_KEY="marriage-procedure", DATA_PATH="marriage-procedure/v1";
 
   /* ---------- shareable link = plain page URL ---------- */
   function buildShareLink(){ return location.origin + location.pathname; }
@@ -1067,9 +1164,10 @@ service cloud.firestore {
   }
   function mergeDoc(a,b){
     a=a||{}; b=b||{};
-    var m={ v:3, updatedAt:Math.max(a.updatedAt||0,b.updatedAt||0) };
+    var m={ v:4, updatedAt:Math.max(a.updatedAt||0,b.updatedAt||0) };
     m.checked = mergeMap(a.checked, b.checked);
     m.dates   = mergeMap(a.dates, b.dates);
+    m.plan    = mergeMap(a.plan, b.plan);
     var cmap={};
     (a.custom||[]).forEach(function(it){ cmap[it.id]=it; });
     (b.custom||[]).forEach(function(it){ var ex=cmap[it.id]; if(!ex || (it.t||0) > (ex.t||0)) cmap[it.id]=it; });
@@ -1080,13 +1178,15 @@ service cloud.firestore {
     d=d||{};
     var c={}; Object.keys(d.checked||{}).sort().forEach(function(k){ var e=d.checked[k]; c[k]=(e&&e.v)?1:0; });
     var dt={}; Object.keys(d.dates||{}).sort().forEach(function(k){ var e=d.dates[k]; dt[k]=(e&&e.date)?e.date:""; });
+    var pl={}; Object.keys(d.plan||{}).sort().forEach(function(k){ var e=d.plan[k]; pl[k]=(e&&e.value)?e.value:""; });
     var cu=(d.custom||[]).slice().sort(function(x,y){ return x.id<y.id?-1:1; }).map(function(it){
       return { id:it.id, ja:it.ja||"", de:it.de||"", lt:it.lt||"", exp:it.exp||"", d:it.deleted?1:0 };
     });
-    return JSON.stringify({ c:c, cu:cu, dt:dt });
+    return JSON.stringify({ c:c, cu:cu, dt:dt, pl:pl });
   }
 
   function setChip(s){
+    syncState=s;
     var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
     chip.classList.remove("ok","err","work");
     if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
@@ -1095,7 +1195,7 @@ service cloud.firestore {
       var n=new Date(), p=function(x){ return (x<10?"0":"")+x; };
       txt.textContent = t("同期済 ","Sync ")+p(n.getHours())+":"+p(n.getMinutes());
     }
-    else if(s==="noconfig"){ chip.classList.add("err"); txt.textContent = t("Firebase未設定","Firebase nicht konfiguriert"); }
+    else if(s==="noconfig"){ chip.classList.add("err"); txt.textContent = t("同期設定なし","Keine Sync-Konfiguration"); }
     else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
     else { txt.textContent = t("準備中…","Wird vorbereitet…"); }
   }
@@ -1105,42 +1205,43 @@ service cloud.firestore {
     setChip("work");
     Promise.all([
       import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
-      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js"),
-      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js"),
       import("./firebase-config.js?_="+Date.now())
     ]).then(function(m){
-      var appMod=m[0], authMod=m[1], fsMod=m[2], cfgMod=m[3];
+      var appMod=m[0], dbMod=m[1], cfgMod=m[2];
       var fcfg=cfgMod.firebaseConfig||{};
       if(cfgMod.GROUP_KEY) GROUP_KEY=cfgMod.GROUP_KEY;
+      if(cfgMod.DATA_PATH) DATA_PATH=cfgMod.DATA_PATH;
       try{ var g=new URLSearchParams(location.search).get("g"); if(g) GROUP_KEY=g; }catch(e){}
       if(!fcfg.apiKey || fcfg.apiKey==="PASTE_HERE"){ setChip("noconfig"); return; }
       var app=appMod.initializeApp(fcfg);
-      var auth=authMod.getAuth(app);
-      var db=fsMod.getFirestore(app);
-      FB={ ref:fsMod.doc(db,"checklists",GROUP_KEY), setDoc:fsMod.setDoc, onSnapshot:fsMod.onSnapshot };
-      return authMod.signInAnonymously(auth).then(function(){
-        fbReady=true; subscribe(); if(dirty) pushNow();
-      });
+      var db=dbMod.getDatabase(app);
+      FB={ ref:dbMod.ref(db, DATA_PATH+"/"+GROUP_KEY), set:dbMod.set, onValue:dbMod.onValue };
+      fbReady=true;
+      subscribe();
     }).catch(function(e){ setChip("err"); });
   }
 
   function subscribe(){
     if(!FB) return;
     if(unsub){ try{ unsub(); }catch(e){} }
-    unsub = FB.onSnapshot(FB.ref, function(snap){
+    hasInitialSnapshot=false;
+    unsub = FB.onValue(FB.ref, function(snap){
       var remote=null;
-      if(snap.exists()){ var d=snap.data(); if(d && d.json){ try{ remote=JSON.parse(d.json); }catch(e){ remote=null; } } }
+      if(snap.exists()){ var d=snap.val(); if(d && d.json){ try{ remote=JSON.parse(d.json); }catch(e){ remote=null; } } }
       doc = mergeDoc(doc, remote); persistLocal(); applyDocToUI();
+      var needsPush=dirty || normalize(doc) !== normalize(remote);
+      hasInitialSnapshot=true;
       setChip("ok");
-      if(normalize(doc) !== normalize(remote)) pushNow();
+      if(needsPush) pushNow();
     }, function(err){ setChip("err"); });
   }
 
   function pushNow(){
-    if(!fbReady || !FB){ dirty=true; return; }
+    if(!fbReady || !FB || !hasInitialSnapshot){ dirty=true; return; }
     if(writing){ schedulePush(); return; }
     dirty=false; writing=true;
-    FB.setDoc(FB.ref, { json: JSON.stringify(doc), at: Date.now() })
+    FB.set(FB.ref, { json: JSON.stringify(doc), at: Date.now() })
       .then(function(){ writing=false; }, function(){ writing=false; dirty=true; setChip("err"); });
   }
   function schedulePush(){ dirty=true; clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }

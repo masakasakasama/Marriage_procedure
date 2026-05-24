@@ -1,50 +1,43 @@
-# Marriage_procedure 🇯🇵💍🇩🇪
+# Marriage_procedure
 
-ドイツ人パートナーと日本で結婚するための、ふたり用バイリンガル・タスクリスト。
-Zweisprachige To-do-Liste für die Heirat in Japan mit einer deutschen Partnerin.
+ドイツ人パートナーと日本で婚姻届を提出するための、ふたり用の日独バイリンガル・チェックリストです。
+Eine zweisprachige Checkliste fuer ein deutsch-japanisches Paar, das in Japan heiraten moechte.
 
-`index.html` の1ファイル＋`firebase-config.js` で動きます（ビルド不要）。
-チェック・追加タスク・書類の有効期限を、**Firebase Firestore でリアルタイム自動同期**します
-（割り勘トラッカーと同じ仕組み：匿名ログイン＋`onSnapshot`）。データはあなたの Firebase（Google）に
-永続保存されるので消えません。共有リンクはこのページの**素のURLそのまま**です。
+公開 URL: <https://masakasakasama.github.io/Marriage_procedure/>
 
-## セットアップ（最初の1回だけ）
+## Features
 
-### 1. Firebase 側
-1. [Firebase Console](https://console.firebase.google.com/) でプロジェクトを作成（既存のものを使ってもOK）
-2. **Build → Authentication → Sign-in method** で **「匿名」** を有効化
-3. **Build → Firestore Database** を作成（任意リージョン）
-4. **Authentication → Settings → Authorized domains** に `masakasakasama.github.io` を追加
-5. Firestore のルールに以下を追加:
-   ```txt
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /checklists/{docId} {
-         allow read, write: if request.auth != null;
-       }
-     }
-   }
-   ```
+- 日本語・ドイツ語の併記と表示切替
+- 手続きの順番、計画用リードタイム、必要書類、有効期限管理
+- 提出予定の市区町村と希望日をふたりで共有
+- 自分たちのタスクを日本語・ドイツ語・期限つきで追加
+- Firebase Realtime Database による端末間のリアルタイム自動同期
 
-### 2. このリポジトリ側
-1. **プロジェクト設定 → 全般 → マイアプリ（Web）** の SDK 構成（apiKey 等6項目）を `firebase-config.js` に貼り付け
-   - ※ apiKey 等はクライアント公開用の情報で秘密鍵ではありません（コミットしてOK）
-2. **Settings → Pages** で Source を `Deploy from a branch` にしてこのブランチ（または `main`）／`/(root)` を公開
-3. 公開URL `https://masakasakasama.github.io/Marriage_procedure/` を2人で共有
+## Synchronization
 
-## 使い方 / Nutzung
-- 2人がそれぞれ上記の素のURLを開くだけ。トークン入力や追加設定は不要。
-- 片方がチェック／追加／有効期限を変更すると、数秒でもう片方の画面に反映されます（リアルタイム双方向同期）。
-- オフラインでも編集可（端末にローカル保存）。オンライン復帰時に項目単位でマージ（後勝ち）。
-- `GROUP_KEY`（`firebase-config.js` 内）を同じにしている2人が同じリストを共有します。別リストにしたい時は鍵を変えるだけ。
+`firebase-config.js` は、オーナーの既存 Firebase Web アプリ設定を利用します。婚姻チェックリストのデータは
+`marriage-procedure/v1/marriage-procedure-2f9d4c7a8e` に保存され、既存アプリのデータ領域とは分離されています。
+同じ公開 URL を開けば、チェック、追加タスク、予定日、書類期限が同期されます。
 
-## 機能 / Features
-- 7ステップの手順＋各リードタイム、進捗リング、完了で紙吹雪
-- 必要書類チェック（日本人側／ドイツ人側）と**書類ごとの有効期限管理**（残り日数・期限切れ警告）
-- 自分たちでタスクを追加／削除（日本語・ドイツ語・リードタイム・有効期限つき）
-- 日本語・ドイツ語の併記／言語切り替え
+このページはリンクを開ける人が編集できます。パスポート番号、住所、在留カード番号などの個人情報は入力しないでください。
 
-> Auf Deutsch: Einmalige Einrichtung in Firebase (Projekt, anonyme Anmeldung, Firestore, Authorized
-> Domain, Regel), dann die 6 Konfigurationswerte in `firebase-config.js` einfügen und über GitHub Pages
-> veröffentlichen. Danach öffnen beide einfach die normale URL — alles synchronisiert in Echtzeit.
+## Publication
+
+静的ファイルのみで動作します。GitHub Pages の source を `main` / `/(root)` に設定すると、同じ公開 URL で配信できます。
+
+## Procedure Notes
+
+- 提出書類と受付運用は、婚姻届を出す市区町村へ必ず事前確認してください。
+- ドイツ人パートナーの `Ehefaehigkeitszeugnis`（婚姻要件具備証明書）は発行から6か月有効で、取得に時間を要し得ます。
+- 日本人側の戸籍証明書は、2024年3月1日以降、婚姻届への添付が原則不要です。
+- 日本で有効に成立した婚姻は通常ドイツでも有効で、ドイツ婚姻登録簿への追完登録は義務ではありません。
+- 「日本人の配偶者等」への在留資格変更は、希望する場合に別途申請する手続きです。
+
+情報確認日: 2026年5月24日。これは計画補助であり、法的助言ではありません。
+
+## Official Sources
+
+- [駐日ドイツ大使館: 日本での婚姻](https://japan.diplo.de/ja-de/service/eheschliessung-in-japan-1032018)
+- [港区: 外国籍の方が関わる婚姻の必要書類例](https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html)
+- [港区: 婚姻届（戸籍証明書等の添付は原則不要）](https://www.city.minato.tokyo.jp/shibakoseki/kuse/kocho/faq/todokede/038.html)
+- [出入国在留管理庁: 在留資格「日本人の配偶者等」](https://www.moj.go.jp/isa/applications/status/spouseorchildofjapanese01.html)

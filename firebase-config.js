@@ -1,18 +1,15 @@
-// firebase-config.js
-// あなたの Firebase プロジェクトの「Web アプリ」SDK 構成をここに貼り付けてください。
-// （割り勘トラッカーと同じ仕組み。apiKey 等はクライアント公開用の情報で、秘密鍵ではありません。
-//  保護は Firestore セキュリティルールと Authorized domains で行います。）
-//
-// Firebase Console → プロジェクト設定 → 全般 → 「マイアプリ」→ Web アプリ の構成値:
+// Client-side Firebase configuration already used by the owner's shared apps.
+// These values identify the public web app; do not store private information in tasks.
 export const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE",
-  storageBucket: "PASTE_HERE",
-  messagingSenderId: "PASTE_HERE",
-  appId: "PASTE_HERE",
+  apiKey: "AIzaSyDBBD1W-zneFDNi1eZCtYqvyoXyJcmdk0k",
+  authDomain: "warikan-app-120fd.firebaseapp.com",
+  databaseURL: "https://warikan-app-120fd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "warikan-app-120fd",
+  storageBucket: "warikan-app-120fd.firebasestorage.app",
+  messagingSenderId: "43289931875",
+  appId: "1:43289931875:web:ca26551e40da813b9e4856",
 };
 
-// 2人で同じこの鍵を使うと、同じチェックリストに同期されます（変えると別リストになります）。
-// このページの素のURLを共有するだけでOK（URLにパラメータを付ける必要はありません）。
+// This data lives separately from the expense tracker data.
+export const DATA_PATH = "marriage-procedure/v1";
 export const GROUP_KEY = "marriage-procedure-2f9d4c7a8e";
