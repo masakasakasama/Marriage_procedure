@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="app-version" content="2026-05-25-1">
+<meta name="app-version" content="2026-05-25-2">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
 <script>
@@ -570,41 +570,6 @@
     <button data-lang="de">🇩🇪 Deutsch</button>
   </div>
 
-  <!-- SYNC BAR -->
-  <div class="syncbar">
-    <span class="sync-chip" id="syncChip"><span class="dot"></span><span id="syncChipText">…</span></span>
-    <button id="openSync">⚙️ <span class="ja">共有・同期</span><span class="de">Teilen & Sync</span></button>
-  </div>
-
-  <!-- SYNC PANEL -->
-  <section class="sync-panel" id="syncPanel" hidden>
-    <h3><span class="ja">同じアドレスでリアルタイム共有</span><span class="de">Echtzeit-Sync unter derselben Adresse</span></h3>
-    <div class="sp-sub">
-      <span class="ja">下の URL を彼女に送るだけ。チェック、追加タスク、提出予定日、書類期限が Firebase で端末間同期されます。</span>
-      <span class="de">Schick ihr einfach die URL unten. Häkchen, eigene Aufgaben, Wunschtermin und Dokumentfristen werden über Firebase geräteübergreifend synchronisiert.</span>
-    </div>
-
-    <div class="share-block">
-      <span class="share-label">📲 <span class="ja">共有リンク（このURLを2人で使う）</span><span class="de">Gemeinsamer Link</span></span>
-      <div class="share-row">
-        <input type="text" id="shareLink" readonly onclick="this.select()">
-        <button id="copyLink">📋 <span class="ja">コピー</span><span class="de">Kopieren</span></button>
-      </div>
-      <div class="share-hint">
-        <span class="ja">このページのURLがそのまま共有リンクです（余計なパラメータなし）。</span>
-        <span class="de">Die URL dieser Seite ist der gemeinsame Link (ohne Zusätze).</span>
-      </div>
-    </div>
-
-    <div class="sp-actions">
-      <button class="sp-save" id="cfgRefresh">🔄 <span class="ja">今すぐ再接続</span><span class="de">Neu verbinden</span></button>
-    </div>
-
-    <div class="sp-note">
-      <span class="ja">注意: この共有ページはリンクを開ける人が編集できます。パスポート番号、住所、在留カード番号などの個人情報は入力しないでください。</span>
-      <span class="de">Hinweis: Wer diese gemeinsame Seite öffnen kann, kann sie bearbeiten. Bitte keine Passnummern, Adressen oder Ausweisnummern eintragen.</span>
-    </div>
-  </section>
 
   <!-- PROGRESS -->
   <section class="progress-card">
@@ -882,110 +847,6 @@
     </div>
   </section>
 
-  <!-- DOCUMENTS -->
-  <section class="section">
-    <div class="section-title">
-      <span class="pill">🗃 <span class="ja">必要書類</span><span class="de">Unterlagen</span></span>
-      <h2><span class="ja">持ち物＋有効期限</span><span class="de">Dokumente + Gültigkeit</span></h2>
-    </div>
-
-    <div class="expiry-alert" id="expiryAlert" hidden></div>
-    <div class="note" style="margin:-2px 0 12px;">
-      <span class="ja">下記は一般的な準備リストです。提出先が指定した書類を追加し、「有効期限」を入れると残り日数も表示できます。</span>
-      <span class="de">Dies ist eine allgemeine Vorbereitungsliste. Ergänzt Vorgaben eurer Gemeinde; mit „gültig bis” werden Resttage angezeigt.</span>
-    </div>
-
-    <div class="doc-card jp">
-      <div class="doc-head">
-        <div class="doc-title"><span class="ja">あなた（日本人）</span><span class="de">Du (japanische Seite)</span></div>
-        <div class="flag-badge flag-jp"></div>
-      </div>
-      <div class="checklist">
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="djp1"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届</span><span class="de">Eheschließungsformular (Kon'in-todoke)</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 期限なし（早めに提出）</span><span class="de">⏳ kein Ablauf (zeitnah einreichen)</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp1"></label>
-            <span class="valid-status" data-status="djp1"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="djp2"><span class="box"></span><span class="ci-text"><span class="ja">本人確認書類</span><span class="de">Ausweisdokument</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Ablauf des Ausweises</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp2"></label>
-            <span class="valid-status" data-status="djp2"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="djp3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍証明書（提出先から個別に求められた場合のみ）</span><span class="de">Koseki-Auszug (nur falls die Gemeinde ihn im Einzelfall verlangt)</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">原則添付不要（2024年3月1日〜）</span><span class="de">grundsätzlich nicht beizufügen (seit 01.03.2024)</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="djp3"></label>
-            <span class="valid-status" data-status="djp3"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="doc-card de">
-      <div class="doc-head">
-        <div class="doc-title"><span class="ja">彼女（ドイツ人）</span><span class="de">Sie (deutsche Seite)</span></div>
-        <div class="flag-badge flag-de"></div>
-      </div>
-      <div class="checklist">
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde1"><span class="box"></span><span class="ci-text"><span class="ja">パスポート</span><span class="de">Reisepass</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Pass-Ablauf</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde1"></label>
-            <span class="valid-status" data-status="dde1"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde2"><span class="box"></span><span class="ci-text"><span class="ja">在留カード（日本在住で所持している場合）</span><span class="de">Aufenthaltskarte (falls in Japan wohnhaft und vorhanden)</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 券面の有効期限まで</span><span class="de">⏳ bis Ablauf der Karte</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde2"></label>
-            <span class="valid-status" data-status="dde2"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde3"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書</span><span class="de">Ehefähigkeitszeugnis</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 発行から約6か月</span><span class="de">⏳ ca. 6 Monate ab Ausstellung</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde3"></label>
-            <span class="valid-status" data-status="dde3"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde4"><span class="box"></span><span class="ci-text"><span class="ja">出生証明書など追加原本（提出先が求めた場合）</span><span class="de">Geburtsurkunde oder weitere Originale (falls von der Gemeinde verlangt)</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">提出先の指定に従う</span><span class="de">nach Vorgabe der Gemeinde</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde4"></label>
-            <span class="valid-status" data-status="dde4"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde5"><span class="box"></span><span class="ci-text"><span class="ja">日本語訳</span><span class="de">Japanische Übersetzung</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 原本に準じる</span><span class="de">⏳ wie das Originaldokument</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde5"></label>
-            <span class="valid-status" data-status="dde5"></span>
-          </div>
-        </div>
-        <div class="doc-item">
-          <label class="check-item"><input type="checkbox" data-id="dde6"><span class="box"></span><span class="ci-text"><span class="ja">必要に応じてアポスティーユ</span><span class="de">Apostille (falls erforderlich)</span></span></label>
-          <div class="valid-row">
-            <span class="valid-guide"><span class="ja">⏳ 目安: 対象書類に準じる</span><span class="de">⏳ wie das zugehörige Dokument</span></span>
-            <label class="valid-date"><span class="vd-label ja">有効期限</span><span class="vd-label de">gültig bis</span><input type="date" data-exp="dde6"></label>
-            <span class="valid-status" data-status="dde6"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CUSTOM TASKS -->
   <section class="section">
     <div class="section-title">
@@ -1208,6 +1069,7 @@
       if(it.exp){ var i=expiryInfo(it.exp); if(i.state==="expired") exp++; else if(i.state==="soon") soon++; }
     });
     var el=document.getElementById("expiryAlert");
+    if(!el) return;
     if(exp+soon===0){ el.hidden=true; return; }
     var parts=[];
     if(exp)  parts.push(t(exp+"件 期限切れ", exp+" abgelaufen"));
@@ -1451,6 +1313,7 @@
   function setChip(s){
     syncState=s;
     var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
+    if(!chip||!txt) return;
     chip.classList.remove("ok","err","work");
     if(s==="work"){ chip.classList.add("work"); txt.textContent = t("同期中…","Synchronisiere…"); }
     else if(s==="ok"){
@@ -1509,31 +1372,12 @@
   }
   function schedulePush(){ dirty=true; clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
 
-  /* ---------- sync panel ---------- */
-  var panel=document.getElementById("syncPanel");
-  document.getElementById("openSync").addEventListener("click", function(){
-    panel.hidden = !panel.hidden;
-    if(!panel.hidden){ updateShareBlock(); panel.scrollIntoView({behavior:"smooth",block:"nearest"}); }
-  });
-  document.getElementById("cfgRefresh").addEventListener("click", function(){
-    if(fbReady){ subscribe(); pushNow(); } else { startFirebase(); }
-  });
-  document.getElementById("copyLink").addEventListener("click", function(){
-    var inp=document.getElementById("shareLink"); inp.select(); inp.setSelectionRange(0,99999);
-    var btn=document.getElementById("copyLink"); var prev=btn.innerHTML;
-    var done=function(){ btn.textContent="✓ "+t("コピーしました","Kopiert"); setTimeout(function(){ btn.innerHTML=prev; },1600); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(inp.value).then(done, function(){ try{document.execCommand("copy");}catch(e){} done(); });
-    } else { try{document.execCommand("copy");}catch(e){} done(); }
-  });
-
   document.addEventListener("visibilitychange", function(){ if(!document.hidden && !fbReady) startFirebase(); });
   window.addEventListener("online", function(){ if(!fbReady) startFirebase(); });
 
   /* ---------- init ---------- */
   applyLang();
   applyDocToUI();
-  updateShareBlock();
   setChip("");
   startFirebase();
 })();
