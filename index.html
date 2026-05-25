@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="app-version" content="2026-05-25-1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
+<script>
+(function(){
+  var meta=document.querySelector('meta[name="app-version"]');
+  var V=meta?meta.content:"";
+  function check(){
+    fetch(location.pathname+"?_av="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(h){
+      var m=h.match(/name="app-version"\s+content="([^"]*)"/);
+      if(m && m[1] && m[1]!==V){ var k="av-"+m[1]; if(!sessionStorage.getItem(k)){ sessionStorage.setItem(k,"1"); location.reload(); } }
+    }).catch(function(){});
+  }
+  check();
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden) check(); });
+})();
+</script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
 <style>
@@ -682,11 +698,11 @@
   <!-- DOSSENHEIM EHEFAEHIGKEITSZEUGNIS -->
   <section class="section">
     <div class="section-title">
-      <span class="pill">🇩🇪 <span class="ja">Dossenheim へ申請</span><span class="de">Antrag in Dossenheim</span></span>
-      <h2><span class="ja">書類ごとの逆算ロードマップ</span><span class="de">Dokumenten-Roadmap bis zur Einreichung</span></h2>
+      <span class="pill">🗺️ <span class="ja">全工程・逆算</span><span class="de">Ablauf rückwärts</span></span>
+      <h2><span class="ja">何の前に何が要る？提出までの道のり</span><span class="de">Was zuerst? Der Weg bis zur Einreichung</span></h2>
     </div>
     <div class="route-intro">
-      <span class="ja">上の「婚姻届を出したい日」を入れると、書類ごとの取得・申請・翻訳・発送の目標日が一つのグラフに表示されます。以下は余裕を持った計画用の期限で、Dossenheim の正式な処理期限ではありません。</span>
+      <span class="ja">⬇ 上から順に進めます。各工程は「ひとつ上の工程が終わってから」＝それが前提です。「婚姻届を出したい日」を入れると、各工程の目標日が逆算で表示されます。週数は余裕を持った計画用で、正式な処理期限ではありません。</span>
       <span class="de">Nach Eingabe eures Wunschtermins zeigt eine Grafik die Zieltermine für Beschaffung, Antrag, Übersetzung und Versand. Das sind Planungspuffer, keine amtlichen Bearbeitungsfristen von Dossenheim.</span>
     </div>
     <div class="route-contact">
@@ -802,11 +818,25 @@
         <div class="route-detail"><span class="ja">婚姻届、旅券原本、証明書原本・アポスティーユ・日本語訳を確認。</span><span class="de">Heiratsanzeige, Originalpass, Zeugnis, Apostille und Übersetzung prüfen.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor7"><span class="box"></span><span><span class="ja">最終確認完了</span><span class="de">Vorprüfung erledigt</span></span></label>
       </div>
-      <div class="route-step last">
+      <div class="route-step">
         <div class="route-when"><span class="ja">提出日</span><span class="de">Abgabetag</span> <strong id="dosDueFile">希望日を入力</strong></div>
         <h3><span class="ja">台東区役所 本庁1階へ提出</span><span class="de">Im Rathaus Taito einreichen</span></h3>
         <div class="route-detail"><span class="ja">受理されると提出日が婚姻日。夜間・休日提出は後日の審査を見込む。</span><span class="de">Nach Annahme ist der Abgabetag das Heiratsdatum; außerhalb der Öffnungszeiten erfolgt die Prüfung später.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor8"><span class="box"></span><span><span class="ja">提出完了</span><span class="de">Einreichung erledigt</span></span></label>
+      </div>
+      <div class="route-step">
+        <div class="phase-label"><span class="ja">受理後（日本側）</span><span class="de">Nach der Annahme (Japan)</span></div>
+        <div class="route-when"><span class="ja">提出後すぐ〜1週間</span><span class="de">direkt danach – 1 Woche</span></div>
+        <h3><span class="ja">受理証明書・住民票・在留資格</span><span class="de">Annahmebescheinigung, Meldung, Aufenthaltsstatus</span></h3>
+        <div class="route-detail"><span class="ja">婚姻届受理証明書を取得し、住民票・会社・保険を更新。希望すれば「日本人の配偶者等」への在留資格変更を申請。</span><span class="de">Annahmebescheinigung holen; Meldung, Arbeitgeber, Versicherung aktualisieren; bei Bedarf Aufenthaltsstatus „Ehegatte eines Japaners" beantragen.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="post1"><span class="box"></span><span><span class="ja">日本側の手続き完了</span><span class="de">Japanische Schritte erledigt</span></span></label>
+      </div>
+      <div class="route-step last">
+        <div class="phase-label"><span class="ja">ドイツ側（後続）</span><span class="de">Deutsche Seite (danach)</span></div>
+        <div class="route-when"><span class="ja">落ち着いてから</span><span class="de">wenn es passt</span></div>
+        <h3><span class="ja">ドイツへの反映・氏名・旅券</span><span class="de">Anerkennung in DE, Name, Reisepass</span></h3>
+        <div class="route-detail"><span class="ja">日本で成立した婚姻は通常ドイツでも有効で、追完登録は義務ではない。氏名宣言や旅券更新が必要か大使館案内で確認。</span><span class="de">Die in Japan geschlossene Ehe ist i. d. R. auch in Deutschland gültig; eine Nachregistrierung ist nicht verpflichtend. Namenserklärung/Reisepass ggf. prüfen.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="post2"><span class="box"></span><span><span class="ja">確認・必要手続き完了</span><span class="de">Geprüft / erledigt</span></span></label>
       </div>
     </div>
 
@@ -849,167 +879,6 @@
     <div class="note">
       <span class="ja">表示しているリードタイムは計画用の目安です。証明書の発行期間や提出書類は担当 Standesamt と提出先市区町村の案内を優先してください。</span>
       <span class="de">Die Zeitangaben dienen der Planung. Maßgeblich sind die Auskünfte des zuständigen Standesamts und der japanischen Gemeinde.</span>
-    </div>
-  </section>
-
-  <!-- STEPS -->
-  <section class="section">
-    <div class="section-title">
-      <span class="pill">📋 <span class="ja">手順</span><span class="de">Schritte</span></span>
-      <h2><span class="ja">やることを順番に</span><span class="de">Aufgaben der Reihe nach</span></h2>
-    </div>
-
-    <div class="timeline" id="steps">
-
-      <!-- STEP 1 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">🏛️<span class="step-num">1</span></div>
-            <div class="step-head">
-              <h3><span class="ja">提出先の役所に事前確認</span><span class="de">Vorab bei der Gemeinde nachfragen</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-mint">⏱ <span class="ja">当日〜3日</span><span class="de">0–3 Tage</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s1a"><span class="box"></span><span class="ci-text"><span class="ja">提出する市区町村と窓口・受付時間を決める</span><span class="de">Zuständige japanische Gemeinde und Annahmezeiten festlegen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s1b"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ国籍の相手との婚姻に必要な原本を確認する</span><span class="de">Originalunterlagen für die Ehe mit deutscher Beteiligung bestätigen lassen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s1c"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ・日本語訳・訳者記載の要件を確認する</span><span class="de">Apostille, japanische Übersetzung und Übersetzerangabe klären</span></span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">📑<span class="step-num">2</span></div>
-            <div class="step-head">
-              <h3><span class="ja">ドイツ側の書類を集める</span><span class="de">Deutsche Dokumente beschaffen</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-amber">⏱ <span class="ja">数週間〜</span><span class="de">mehrere Wochen+</span></span>
-                <span class="ministat" data-ministat>0/4</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s2a"><span class="box"></span><span class="ci-text"><span class="ja">担当のドイツ Standesamt を特定し、申請書類を確認する</span><span class="de">Zuständiges deutsches Standesamt ermitteln und Unterlagenliste anfordern</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2b"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書を申請・取得する</span><span class="de">Ehefähigkeitszeugnis beantragen und erhalten</span><span class="mini-guide"><span class="ja">⏳ 発行から6か月有効</span><span class="de">⏳ ab Ausstellung sechs Monate gültig</span></span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2c"><span class="box"></span><span class="ci-text"><span class="ja">彼女のパスポートと、該当する場合は在留カードを準備する</span><span class="de">Ihren Reisepass und, falls vorhanden, ihre Aufenthaltskarte bereithalten</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s2d"><span class="box"></span><span class="ci-text"><span class="ja">提出先から求められたドイツ書類のアポスティーユを取得する</span><span class="de">Apostillen für von der Gemeinde verlangte deutsche Urkunden besorgen</span></span></label>
-          </div>
-          <div class="alert">⚠️ <span><span class="ja">ここが一番時間がかかりやすい。早めに動こう！</span><span class="de">Das dauert erfahrungsgemäß am längsten — früh starten!</span></span></div>
-        </div>
-      </div>
-
-      <!-- STEP 3 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">🈂️<span class="step-num">3</span></div>
-            <div class="step-head">
-              <h3><span class="ja">日本語訳を作る</span><span class="de">Japanische Übersetzung erstellen</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-mint">⏱ <span class="ja">1〜3日</span><span class="de">1–3 Tage</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s3a"><span class="box"></span><span class="ci-text"><span class="ja">市区町村に提出する外国語書類へ日本語訳を付ける</span><span class="de">Für fremdsprachige Unterlagen der Gemeinde japanische Übersetzungen erstellen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s3b"><span class="box"></span><span class="ci-text"><span class="ja">各訳文に訳者名を記載する</span><span class="de">Auf jeder Übersetzung die übersetzende Person angeben</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s3c"><span class="box"></span><span class="ci-text"><span class="ja">名前などの表記ゆれをチェックする</span><span class="de">Schreibweise von Namen auf Einheitlichkeit prüfen</span></span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">📝<span class="step-num">4</span></div>
-            <div class="step-head">
-              <h3><span class="ja">婚姻届を準備する</span><span class="de">Eheanmeldung (Kon'in-todoke) vorbereiten</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-mint">⏱ <span class="ja">1日</span><span class="de">1 Tag</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s4a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届に記入する</span><span class="de">Das Eheschließungsformular ausfüllen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s4b"><span class="box"></span><span class="ci-text"><span class="ja">証人2人に署名してもらう</span><span class="de">Zwei Trauzeugen unterschreiben lassen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s4c"><span class="box"></span><span class="ci-text"><span class="ja">戸籍証明書は原則添付不要であることを確認する</span><span class="de">Bestätigen, dass ein Koseki-Auszug grundsätzlich nicht beizufügen ist</span><span class="mini-guide"><span class="ja">2024年3月1日から原則不要。個別案内があれば従う。</span><span class="de">Seit 1. März 2024 grundsätzlich nicht nötig; Sonderhinweise beachten.</span></span></span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 5 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">📮<span class="step-num">5</span></div>
-            <div class="step-head">
-              <h3><span class="ja">役所へ提出する</span><span class="de">Beim Standesamt einreichen</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-lav">⏱ <span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s5a"><span class="box"></span><span class="ci-text"><span class="ja">書類に不備がなければ受理される</span><span class="de">Bei vollständigen Unterlagen wird angenommen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s5b"><span class="box"></span><span class="ci-text"><span class="ja">確認に時間がかかると「預かり」になることも</span><span class="de">Bei längerer Prüfung ggf. zunächst Entgegennahme zur Prüfung</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s5c"><span class="box"></span><span class="ci-text"><span class="ja">受理後、提出日が婚姻日として記録されているか確認する</span><span class="de">Nach Annahme prüfen, dass der Abgabetag als Eheschließungsdatum eingetragen ist</span></span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 6 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">🗂️<span class="step-num">6</span></div>
-            <div class="step-head">
-              <h3><span class="ja">受理後の日本側の対応</span><span class="de">Nach der Annahme: Japan</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-lav">⏱ <span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s6a"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届受理証明書または婚姻記載後の戸籍証明書を取得する</span><span class="de">Annahmebescheinigung oder Koseki nach Eintragung der Ehe beschaffen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s6b"><span class="box"></span><span class="ci-text"><span class="ja">日本人側が外国人配偶者の氏を称するなら、婚姻後6か月以内の届出を確認する</span><span class="de">Falls die japanische Seite den Namen der deutschen Seite führen will: Erklärung innerhalb von sechs Monaten prüfen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s6c"><span class="box"></span><span class="ci-text"><span class="ja">希望する場合のみ「日本人の配偶者等」への在留資格変更を入管で確認・申請する</span><span class="de">Nur falls gewünscht: Änderung zum Aufenthaltstitel „Spouse of Japanese National” bei der Einwanderungsbehörde prüfen/beantragen</span></span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 7 -->
-      <div class="step" data-step>
-        <div class="step-card">
-          <div class="step-top">
-            <div class="step-emoji">🇩🇪<span class="step-num">7</span></div>
-            <div class="step-head">
-              <h3><span class="ja">ドイツ側の任意手続き</span><span class="de">Optionale Schritte in Deutschland</span></h3>
-              <div class="badges">
-                <span class="leadtime lt-amber">⏱ <span class="ja">必要に応じて</span><span class="de">falls gewünscht</span></span>
-                <span class="ministat" data-ministat>0/3</span>
-              </div>
-            </div>
-          </div>
-          <div class="checklist">
-            <label class="check-item"><input type="checkbox" data-id="s7a"><span class="box"></span><span class="ci-text"><span class="ja">日本で成立した婚姻は通常ドイツでも有効で、婚姻登録は義務ではないことを確認する</span><span class="de">Festhalten: Eine wirksame japanische Ehe wird in Deutschland grundsätzlich anerkannt; eine Nachbeurkundung ist nicht verpflichtend</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s7b"><span class="box"></span><span class="ci-text"><span class="ja">必要ならドイツの婚姻登録簿への追完登録（Nachbeurkundung）を申請する</span><span class="de">Bei Bedarf die Nachbeurkundung im deutschen Eheregister beantragen</span></span></label>
-            <label class="check-item"><input type="checkbox" data-id="s7c"><span class="box"></span><span class="ci-text"><span class="ja">ドイツ法上の氏名宣言や旅券更新が必要か大使館案内で確認する</span><span class="de">Prüfen, ob nach deutschem Recht Namenserklärung oder neuer Reisepass nötig sind</span></span></label>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
