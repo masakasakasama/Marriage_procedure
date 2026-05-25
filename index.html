@@ -425,6 +425,96 @@
   /* confetti */
   .confetti{position:fixed;top:-10px;width:10px;height:14px;border-radius:2px;z-index:99;pointer-events:none;animation:fall linear forwards}
   @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
+
+  /* ============================================================
+     MOBILE-FRIENDLY & CUTER REFINEMENTS (readability + roundness)
+     ============================================================ */
+  html,body{
+    font-family:"Hiragino Maru Gothic ProN","Hiragino Maru Gothic Pro",-apple-system,BlinkMacSystemFont,"Segoe UI","Rounded Mplus 1c","Noto Sans JP","Hiragino Sans",Arial,sans-serif;
+    line-height:1.62;
+    -webkit-text-size-adjust:100%;
+  }
+  body{padding:16px}
+  .page{max-width:500px}
+
+  /* rounder, softer cards */
+  .hero{border-radius:30px;padding:24px 18px 20px}
+  .section{border-radius:28px;padding:18px 16px}
+  .step-card{border-radius:22px;padding:16px}
+  .check-item,.custom-item,.doc-item{border-radius:16px}
+
+  /* headings bigger */
+  .hero h1{font-size:26px}
+  .hero h1 .de{font-size:16px}
+  .hero .sub{font-size:14px;line-height:1.6}
+  .conclusion{border-radius:20px;padding:14px}
+  .conclusion .main{font-size:17px}
+  .conclusion .main .de{font-size:14px}
+  .section-title h2{font-size:20px}
+  .section-title h2 .de{font-size:13.5px}
+  .section-title .pill{font-size:13px;padding:5px 12px}
+
+  /* step cards */
+  .step-emoji{width:54px;height:54px;border-radius:17px;font-size:28px}
+  .step-num{width:24px;height:24px;font-size:12px}
+  .step-head h3{font-size:18.5px}
+  .step-head h3 .de{font-size:13.5px}
+  .leadtime{font-size:13px;padding:6px 12px}
+  .ministat{font-size:13px;padding:5px 11px}
+
+  /* checklist — bigger text & tap targets */
+  .check-item{grid-template-columns:28px 1fr;gap:13px;padding:12px 13px}
+  .custom-item{grid-template-columns:28px 1fr auto;gap:12px;padding:12px 13px}
+  .custom-check{grid-template-columns:28px 1fr;gap:13px}
+  .box{width:28px;height:28px;border-radius:9px;font-size:17px}
+  .ci-text{font-size:15.5px;line-height:1.5}
+  .ci-text .de{font-size:13px;margin-top:2px}
+
+  /* totals */
+  .total-card{border-radius:20px;padding:15px}
+  .total-card .label{font-size:13px}
+  .total-card .value{font-size:22px}
+  .total-card .desc{font-size:14px}
+  .note{font-size:13px;line-height:1.7}
+
+  /* docs + validity */
+  .doc-card{border-radius:20px;padding:14px}
+  .doc-title{font-size:17px}
+  .doc-title .de{font-size:13px}
+  .valid-guide{font-size:12px;padding:4px 10px}
+  .valid-status{font-size:12px;padding:4px 10px}
+  .valid-date{font-size:12px}
+  .valid-date input[type=date]{font-size:14px;padding:8px 10px;border-radius:11px}
+  .mini-guide{font-size:12px;margin-top:4px}
+  .cu-status{font-size:12px;padding:3px 9px}
+  .expiry-alert{font-size:13.5px;padding:11px 13px;border-radius:15px}
+
+  /* alerts / pitfalls */
+  .alert{font-size:14px;padding:11px 13px;border-radius:15px}
+  .pit{border-radius:18px;padding:14px}
+  .pit .ttl{font-size:16px}
+  .pit .txt{font-size:13.5px}
+  .warn{width:40px;height:40px;font-size:20px;border-radius:13px}
+
+  /* forms / buttons — bigger, friendlier */
+  .langbar button{font-size:14px;padding:9px 16px}
+  .plan-field input{font-size:15px;padding:12px 13px;border-radius:13px}
+  .plan-field label{font-size:13px}
+  .countdown{font-size:14px;border-radius:16px;padding:12px 13px}
+  .countdown .de{font-size:13px}
+  .add-form{border-radius:18px;padding:14px}
+  .add-form input{font-size:15px;padding:12px 13px;border-radius:13px}
+  .add-form label{font-size:13px}
+  .add-btn{font-size:16px;padding:14px;border-radius:15px}
+  .tools button{font-size:14px;padding:13px;border-radius:15px}
+  .del-btn{width:38px;height:38px;font-size:18px;border-radius:12px}
+
+  /* sync + misc */
+  .sync-chip{font-size:12.5px;padding:7px 13px}
+  .syncbar > button{font-size:12.5px;padding:7px 13px}
+  .source-link{font-size:13.5px;border-radius:15px;padding:11px 12px}
+  .source-link .de{font-size:12.5px}
+  .footer{font-size:12.5px;border-radius:18px;line-height:1.7}
 </style>
 </head>
 <body class="lang-both">
