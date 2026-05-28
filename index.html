@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="app-version" content="2026-05-25-2">
+<meta name="app-version" content="2026-05-28-1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
 <script>
@@ -531,6 +531,32 @@
   .source-link{font-size:13.5px;border-radius:15px;padding:11px 12px}
   .source-link .de{font-size:12.5px}
   .footer{font-size:12.5px;border-radius:18px;line-height:1.7}
+  /* ---------- BRANCH (条件分岐) ---------- */
+  .branch-intro{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.65}
+  .branch-intro .de{display:block;margin-top:3px}
+  .branch{border:1px solid var(--line);border-radius:18px;background:#fcfbff;padding:14px;box-shadow:var(--shadow-sm);margin-bottom:12px}
+  .branch:last-child{margin-bottom:0}
+  .branch-q{font-size:15.5px;font-weight:900;color:var(--lav);margin-bottom:10px;line-height:1.4}
+  .branch-q .de{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin-top:2px}
+  body.lang-de .branch-q .de{font-size:14px;color:var(--lav)}
+  .branch-opt{border:1px dashed #d9cfe6;border-radius:14px;padding:11px 12px;margin-bottom:8px;background:#fff}
+  .branch-opt:last-child{margin-bottom:0}
+  .branch-opt.bad{border-color:#ffc9dd;background:linear-gradient(180deg,#fff5f7,#fff)}
+  .branch-opt.warn{border-color:#ffe3a8;background:linear-gradient(180deg,#fffaf0,#fff)}
+  .branch-opt.good{border-color:#bff0da;background:linear-gradient(180deg,#f3fff9,#fff)}
+  .branch-if{display:inline-block;font-size:11.5px;font-weight:800;color:#fff;background:var(--lav);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+  .branch-opt.bad .branch-if{background:var(--pink)}
+  .branch-opt.warn .branch-if{background:#b07a12}
+  .branch-opt.good .branch-if{background:var(--mint)}
+  .branch-if .de{display:block;font-weight:700;margin-top:1px;opacity:.92}
+  .branch-label{font-size:14.5px;font-weight:900;line-height:1.4}
+  .branch-label .de{display:block;font-size:12.5px;font-weight:700;color:var(--lav);margin-top:2px}
+  .branch-then{margin-top:7px;font-size:13.5px;font-weight:700;line-height:1.55;color:var(--text)}
+  .branch-then .arrow{display:inline-block;margin-right:4px;color:var(--muted);font-weight:900}
+  .branch-then .de{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-top:3px}
+  body.lang-de .branch-then .de{font-size:13.5px;color:var(--text)}
+  .branch-note{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.6;background:#faf8ff;border-radius:11px;padding:8px 10px}
+  .branch-note .de{display:block;margin-top:3px}
 </style>
 </head>
 <body class="lang-both">
@@ -648,15 +674,104 @@
       </span>
     </div>
     <div class="checklist" id="taitoTasks">
-      <label class="check-item"><input type="checkbox" data-id="ta1"><span class="box"></span><span class="ci-text"><span class="ja">戸籍住民サービス課へ、ドイツ国籍の場合の追加原本・アポスティーユ要否を電話確認する</span><span class="de">Beim Koseki-Service telefonisch klären, welche Originale und Apostillen für eine Deutsche zusätzlich nötig sind</span></span></label>
-      <label class="check-item"><input type="checkbox" data-id="ta2"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届、証人2名の署名、本人確認書類を用意する</span><span class="de">Eheschließungsanzeige, Unterschriften zweier volljähriger Zeugen und Ausweise bereitlegen</span></span></label>
-      <label class="check-item"><input type="checkbox" data-id="ta3"><span class="box"></span><span class="ci-text"><span class="ja">彼女の婚姻要件具備証明書・パスポート原本・日本語訳（訳者署名つき）を揃える</span><span class="de">Ihr Ehefähigkeitszeugnis, Original-Reisepass und japanische Übersetzung mit Unterschrift der übersetzenden Person zusammenstellen</span></span></label>
-      <label class="check-item"><input type="checkbox" data-id="ta4"><span class="box"></span><span class="ci-text"><span class="ja">夜間・休日に提出する場合は、後日審査となることを確認し、昼間つながる電話番号を届書に記載する</span><span class="de">Bei Einreichung nachts oder an Feiertagen: spätere Prüfung einplanen und eine tagsüber erreichbare Telefonnummer eintragen</span></span></label>
-      <label class="check-item"><input type="checkbox" data-id="ta5"><span class="box"></span><span class="ci-text"><span class="ja">受理後に婚姻届受理証明書の取得方法と必要な時期を確認する</span><span class="de">Nach Annahme klären, wann und wie die Annahmebescheinigung benötigt wird</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta1"><span class="box"></span><span class="ci-text"><span class="ja">提出日を電話で予約する（提出1週間前まで・03-5246-1162）</span><span class="de">Abgabetermin telefonisch reservieren (bis 1 Woche vorher · 03-5246-1162)</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta2"><span class="box"></span><span class="ci-text"><span class="ja">婚姻届に記入＋ふたりとも自書、証人2名の署名</span><span class="de">Eheschließungsanzeige ausfüllen, beide selbst unterschreiben, zwei Trauzeugen unterschreiben</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta3"><span class="box"></span><span class="ci-text"><span class="ja">日本人側: 顔写真付き本人確認書類（運転免許証・マイナンバーカード等）※戸籍謄本の添付は不要</span><span class="de">Japanische Seite: Ausweis mit Foto (Führerschein / My Number Card o. Ä.) — Familienregister NICHT erforderlich</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta4"><span class="box"></span><span class="ci-text"><span class="ja">婚姻要件具備証明書＋日本語訳（全訳・本人が訳して自署でOK）</span><span class="de">Ehefähigkeitszeugnis + japanische Vollübersetzung (Selbstübersetzung der Antragstellerin mit Unterschrift erlaubt)</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta5"><span class="box"></span><span class="ci-text"><span class="ja">パスポート原本＋顔写真ページの日本語訳</span><span class="de">Reisepass im Original + japanische Übersetzung der Lichtbildseite</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta6"><span class="box"></span><span class="ci-text"><span class="ja">在留カード原本</span><span class="de">Aufenthaltskarte (Zairyū-Karte) im Original</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta7"><span class="box"></span><span class="ci-text"><span class="ja">（離別・死別歴がある場合のみ）本国発行の離死別証明書＋日本語訳</span><span class="de">(nur falls frühere Ehe / verwitwet) deutsche Urkunde zur Scheidung/Verwitwung + japanische Übersetzung</span></span></label>
+      <label class="check-item"><input type="checkbox" data-id="ta8"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ要否を確定（本国発行→必要 / 在日ドイツ大使館発行→不要）</span><span class="de">Apostille klären (Ausstellung in Deutschland → nötig / Ausstellung über die Botschaft Tokio → nicht nötig)</span></span></label>
     </div>
     <div class="note">
-      <span class="ja">台東区公式情報の確認日: 2026年5月24日。届書の用紙は区役所1階のほか各区民事務所等でも配布されていますが、提出先は本庁です。</span>
-      <span class="de">Offizielle Informationen von Taito geprüft am 24. Mai 2026. Formulare sind auch in Außenstellen erhältlich; die Einreichung erfolgt jedoch im Hauptgebäude.</span>
+      <span class="ja">出典: 台東区戸籍住民サービス課からの公式メール回答（2026-05-28）。日本側戸籍謄本は不要、彼女側は婚姻要件具備証明書＋全訳・パスポート原本＋顔写真ページ訳・在留カード原本が基本セット。離別/死別がある場合のみ本国発行の証明書＋訳を追加。日本住民票・ドイツ住民登録証明は台東区提出に不要。和訳は本人が訳して自署OK。本国発行の証明書にはアポスティーユ必要（在日ドイツ大使館発行ならアポ不要）。届書の用紙は各区民事務所等でも配布されているが、提出先は本庁1階のみ。</span>
+      <span class="de">Quelle: offizielle E-Mail-Antwort des Standesamts Taito (28.05.2026). Kein japanisches Familienregister nötig; für die deutsche Seite Ehefähigkeitszeugnis + Vollübersetzung, Pass-Original + Übersetzung der Lichtbildseite, Aufenthaltskarte als Basis. Nur bei früherer Ehe/Verwitwung zusätzlich deutsche Urkunde + Übersetzung. Japanische und deutsche Meldebescheinigungen für die Einreichung in Taito NICHT erforderlich. Übersetzung darf von der Antragstellerin selbst angefertigt und unterschrieben werden. Bei in Deutschland ausgestellten Urkunden Apostille nötig; bei Ausstellung über die Botschaft Tokio nicht.</span>
+    </div>
+  </section>
+
+  <!-- BRANCH (条件分岐) -->
+  <section class="section">
+    <div class="section-title">
+      <span class="pill">⚖ <span class="ja">条件分岐</span><span class="de">Verzweigungen</span></span>
+      <h2><span class="ja">何がどうなら何をする</span><span class="de">Was tun, wenn …</span></h2>
+    </div>
+    <div class="branch-intro">
+      <span class="ja">条件で必要な書類や工程が変わるところをまとめました。根拠は台東区戸籍住民サービス課の公式回答（2026-05-28）。</span>
+      <span class="de">Fälle, in denen sich Unterlagen oder Schritte unterscheiden. Grundlage: offizielle Antwort des Standesamts Taito (28.05.2026).</span>
+    </div>
+
+    <div class="branch">
+      <div class="branch-q">📜 <span class="ja">婚姻要件具備証明書をどこで取る？</span><span class="de">Wo wird das Ehefähigkeitszeugnis ausgestellt?</span></div>
+      <div class="branch-opt warn">
+        <span class="branch-if"><span class="ja">本国（Dossenheim）発行</span><span class="de">in Deutschland (Dossenheim)</span></span>
+        <div class="branch-label"><span class="ja">ドイツの戸籍役場から取り寄せ</span><span class="de">Bezug vom deutschen Standesamt</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">アポスティーユ必要・海外配送あり・到着後に和訳</span><span class="de">Apostille nötig + internationaler Versand + danach japanische Übersetzung</span></div>
+      </div>
+      <div class="branch-opt good">
+        <span class="branch-if"><span class="ja">在日ドイツ大使館発行</span><span class="de">über die deutsche Botschaft Tokio</span></span>
+        <div class="branch-label"><span class="ja">在日大使館で取得</span><span class="de">Ausstellung in Tokio</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">アポスティーユ不要・海外配送なし・工程が大幅に短縮</span><span class="de">keine Apostille, kein Versand – Ablauf deutlich kürzer</span></div>
+      </div>
+      <div class="branch-note">
+        <span class="ja">在日大使館で発行できるかは住所地によって変わります。可能なら断然こちらが楽。Dossenheim／在日大使館に要確認。</span>
+        <span class="de">Ob die Botschaft Tokio ausstellt, hängt vom Wohnsitz ab. Wenn ja: deutlich einfacher. Vorher bei Dossenheim/Botschaft klären.</span>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-q">💔 <span class="ja">離別・死別の歴がある？</span><span class="de">Frühere Ehe (geschieden / verwitwet)?</span></div>
+      <div class="branch-opt good">
+        <span class="branch-if"><span class="ja">なし</span><span class="de">nein</span></span>
+        <div class="branch-label"><span class="ja">追加書類なし</span><span class="de">keine zusätzlichen Unterlagen</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">婚姻要件具備証明書＋全訳でOK</span><span class="de">Ehefähigkeitszeugnis mit Vollübersetzung genügt</span></div>
+      </div>
+      <div class="branch-opt warn">
+        <span class="branch-if"><span class="ja">あり</span><span class="de">ja</span></span>
+        <div class="branch-label"><span class="ja">本国発行の離死別証明書</span><span class="de">deutsche Urkunde zur Scheidung/Verwitwung</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">本国発行＋日本語訳（本国発行ならアポスティーユも）</span><span class="de">Original aus Deutschland + japanische Übersetzung (bei Bezug aus DE auch Apostille)</span></div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-q">🕙 <span class="ja">いつ提出する？</span><span class="de">Wann einreichen?</span></div>
+      <div class="branch-opt good">
+        <span class="branch-if"><span class="ja">平日昼間</span><span class="de">werktags tagsüber</span></span>
+        <div class="branch-label"><span class="ja">予約時間に窓口へ</span><span class="de">zum reservierten Termin am Schalter</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">その場で内容確認・受理判定。混雑時は待ち時間あり</span><span class="de">Prüfung & Annahme vor Ort; bei Andrang Wartezeit</span></div>
+      </div>
+      <div class="branch-opt warn">
+        <span class="branch-if"><span class="ja">夜間・土日祝・年末年始</span><span class="de">nachts / Wochenende / Feiertage</span></span>
+        <div class="branch-label"><span class="ja">受付のみ・後日審査</span><span class="de">nur Entgegennahme – spätere Prüfung</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">要件を満たせば提出日に遡って受理。届書に昼間つながる電話番号を記載</span><span class="de">Bei Vollständigkeit Rückwirkung auf den Abgabetag. Tagsüber erreichbare Nummer eintragen.</span></div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-q">⚠️ <span class="ja">内容に不備があったら？</span><span class="de">Wenn Angaben unvollständig sind?</span></div>
+      <div class="branch-opt warn">
+        <span class="branch-if"><span class="ja">軽微</span><span class="de">geringfügig</span></span>
+        <div class="branch-label"><span class="ja">その場で訂正</span><span class="de">Korrektur vor Ort</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">通常はその日のうちに受理可能</span><span class="de">In der Regel noch am selben Tag annehmbar</span></div>
+      </div>
+      <div class="branch-opt bad">
+        <span class="branch-if"><span class="ja">受理可否を台東区で判断できない</span><span class="de">Taito kann nicht entscheiden</span></span>
+        <div class="branch-label"><span class="ja">法務局へ照会</span><span class="de">Anfrage beim Justizministerium</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">数か月かかる場合あり。提出日が婚姻日にならない可能性</span><span class="de">Kann mehrere Monate dauern; Abgabetag wird ggf. nicht zum Heiratsdatum</span></div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-q">📄 <span class="ja">受理証明書はその日にもらえる？</span><span class="de">Annahmebescheinigung am gleichen Tag?</span></div>
+      <div class="branch-opt good">
+        <span class="branch-if"><span class="ja">通常</span><span class="de">Normalfall</span></span>
+        <div class="branch-label"><span class="ja">当日取得可</span><span class="de">am gleichen Tag erhältlich</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">時間に余裕を持って窓口へ</span><span class="de">Mit Zeitpuffer ans Amt gehen</span></div>
+      </div>
+      <div class="branch-opt warn">
+        <span class="branch-if"><span class="ja">混雑・審査長引き</span><span class="de">Andrang / lange Prüfung</span></span>
+        <div class="branch-label"><span class="ja">後日取得</span><span class="de">an einem späteren Tag</span></div>
+        <div class="branch-then"><span class="arrow">→</span><span class="ja">必要時期から逆算して再訪</span><span class="de">Vom Bedarfsdatum aus zurückrechnen und erneut besuchen</span></div>
+      </div>
     </div>
   </section>
 
@@ -665,6 +780,13 @@
     <div class="section-title">
       <span class="pill">🗺️ <span class="ja">全工程・逆算</span><span class="de">Ablauf rückwärts</span></span>
       <h2><span class="ja">何の前に何が要る？提出までの道のり</span><span class="de">Was zuerst? Der Weg bis zur Einreichung</span></h2>
+    </div>
+    <div class="alert">
+      <span>⏳</span>
+      <span>
+        <span class="ja">Dossenheim 側の要件（必要書類・独訳の方式・在日大使館発行の可否）は現在問い合わせ中。回答が来たら工程を更新します。</span>
+        <span class="de">Anforderungen von Dossenheim (Unterlagen, Art der Übersetzung, Ausstellung über die Botschaft Tokio) werden gerade angefragt. Aktualisierung folgt.</span>
+      </span>
     </div>
     <div class="route-intro">
       <span class="ja">⬇ 上から順に進めます。各工程は「ひとつ上の工程が終わってから」＝それが前提です。「婚姻届を出したい日」を入れると、各工程の目標日が逆算で表示されます。週数は余裕を持った計画用で、正式な処理期限ではありません。</span>
@@ -690,6 +812,7 @@
         <div class="phase-label"><span class="ja">Dossenheim 申請に使う原本</span><span class="de">Originale für den Antrag</span></div>
         <div class="route-when"><span class="ja">14週前まで</span><span class="de">bis 14 Wochen vorher</span> <strong id="dosDueGather">希望日を入力</strong></div>
         <h3><span class="ja">各書類を取得する</span><span class="de">Dokumente einzeln beschaffen</span></h3>
+        <div class="route-detail"><span class="ja">⏳ パスポートコピー以外（出生登録簿・ドイツ住民登録・日本住民票・戸籍謄本・独身証明書）は Dossenheim が要求する場合のみ。要件は問い合わせ中。台東区への提出には不要（公式回答 5/28）。</span><span class="de">⏳ Außer Reisepasskopien sind die übrigen Dokumente nur nötig, falls Dossenheim sie verlangt (in Klärung). Für die Einreichung in Taito NICHT erforderlich (Antwort Taito 28.05.).</span></div>
         <div class="doc-stack">
           <div class="road-doc">
             <label class="check-item"><input type="checkbox" data-id="dos1"><span class="box"></span><span class="ci-text"><span class="ja">パスポートコピー（2人分）</span><span class="de">Reisepasskopien (beide)</span></span></label>
@@ -768,7 +891,7 @@
         <div class="route-when"><span class="ja">6週前まで</span><span class="de">bis 6 Wochen vorher</span> <strong id="dosDueTranslate">希望日を入力</strong></div>
         <h3><span class="ja">日本語訳を作成</span><span class="de">Japanische Übersetzung erstellen</span></h3>
         <div class="road-meta"><span class="road-chip"><span class="ja">担当: お父さま → 翻訳者</span><span class="de">Vater → Übersetzer</span></span><span class="road-chip time"><span class="ja">目安: 1週間確保</span><span class="de">Puffer: 1 Woche</span></span></div>
-        <div class="route-detail"><span class="ja">証明書とアポスティーユを渡し、台東区用の訳文に翻訳者署名を入れる。</span><span class="de">Zeugnis samt Apostille übergeben; Übersetzung für Taito mit Unterschrift versehen.</span></div>
+        <div class="route-detail"><span class="ja">台東区への和訳は本人（彼女）が訳して自署でOK（公式回答 5/28）。父→ドイツ公認翻訳者ルートは必須ではない。アポスティーユ済みの証明書全文＋パスポート顔写真ページを和訳。</span><span class="de">Die japanische Übersetzung für Taito darf sie selbst anfertigen und unterschreiben (Auskunft Taito 28.05.). Vereidigte:r Übersetzer:in nicht zwingend. Zu übersetzen: Zeugnis (mit Apostille) komplett + Lichtbildseite des Passes.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor5"><span class="box"></span><span><span class="ja">翻訳完了</span><span class="de">Übersetzung erledigt</span></span></label>
       </div>
       <div class="route-step">
