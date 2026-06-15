@@ -557,6 +557,19 @@
   body.lang-de .branch-then .de{font-size:13.5px;color:var(--text)}
   .branch-note{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.6;background:#faf8ff;border-radius:11px;padding:8px 10px}
   .branch-note .de{display:block;margin-top:3px}
+
+  /* ---------- PARENT TASK GROUP ---------- */
+  .road-parent-header{display:flex;align-items:center;gap:8px}
+  .road-parent-header>.check-item{flex:1;min-width:0}
+  .road-parent-header>.check-item input{pointer-events:none}
+  .parent-progress{flex:0 0 auto;font-size:10.5px;font-weight:900;color:var(--lav);background:var(--lav-soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .parent-progress.all-done{color:#0f7a4e;background:var(--mint-soft)}
+  .road-sub-tasks{margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--line);display:grid;gap:6px}
+  .road-sub-item.check-item{grid-template-columns:22px 1fr;padding:8px 10px 8px 14px;background:#faf8ff;border-radius:12px;border-color:#e8e2f3}
+  .road-sub-item .box{width:22px;height:22px;border-radius:7px;font-size:13px}
+  .road-sub-item .ci-text{font-size:13px}
+  .road-sub-item .ci-text .de{font-size:11.5px}
+  .road-action a,.note a{color:var(--lav);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 </style>
 </head>
 <body class="lang-both">
@@ -683,8 +696,8 @@
       <label class="check-item"><input type="checkbox" data-id="ta8"><span class="box"></span><span class="ci-text"><span class="ja">Standesamt 申請時にアポスティーユも同時依頼する（本紙にはどの経路でも必須）</span><span class="de">Apostille beim Standesamt-Antrag mit beantragen (in beiden Wegen erforderlich)</span></span></label>
     </div>
     <div class="note">
-      <span class="ja">出典: 台東区戸籍住民サービス課からの公式メール回答（2026-05-28）。日本側戸籍謄本は不要、彼女側は婚姻要件具備証明書＋全訳・パスポート原本＋顔写真ページ訳・在留カード原本。日本住民票・ドイツ住民登録証明は台東区提出に不要。和訳は本人が訳して自署OK。Ehefähigkeitszeugnis 本紙にはどの経路でもアポスティーユ必要（駐日ドイツ大使館は「アポ発行不可・領事認証で代替できない」と公式明示）。発行元は常にドイツの Standesamt で、大使館は取次ぎ・パスポート/署名認証のみ。Standesamt 申請時にアポも同時依頼するのが基本。届書の用紙は各区民事務所等でも配布されているが、提出先は本庁1階のみ。</span>
-      <span class="de">Quelle: offizielle E-Mail-Antwort des Standesamts Taito (28.05.2026). Kein japanisches Familienregister nötig; für die deutsche Seite Ehefähigkeitszeugnis + Vollübersetzung, Pass-Original + Übersetzung der Lichtbildseite, Aufenthaltskarte als Basis. Japanische und deutsche Meldebescheinigungen für die Einreichung in Taito NICHT erforderlich. Übersetzung darf von der Antragstellerin selbst angefertigt und unterschrieben werden. Bei in Deutschland ausgestellten Urkunden Apostille nötig; bei Ausstellung über die Botschaft Tokio nicht. ※ Diese Ausnahme gilt nicht für das Ehefähigkeitszeugnis – es wird stets vom deutschen Standesamt (nicht von der Botschaft) ausgestellt, daher ist die Apostille in beiden Wegen (direkt/über Botschaft) erforderlich. Die Botschaft Tokio kann keine Apostille ausstellen; konsularische Beglaubigung ersetzt sie nicht (offizielle Auskunft der Botschaft Tokio). → Details siehe Verzweigung unten.</span>
+      <span class="ja">出典: <a href="https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/konin.html" target="_blank" rel="noopener">台東区戸籍住民サービス課</a>からの公式メール回答（2026-05-28）。日本側戸籍謄本は不要、彼女側は婚姻要件具備証明書＋全訳・パスポート原本＋顔写真ページ訳・在留カード原本。日本住民票・ドイツ住民登録証明は台東区提出に不要。和訳は本人が訳して自署OK。Ehefähigkeitszeugnis 本紙にはどの経路でもアポスティーユ必要（駐日ドイツ大使館は「アポ発行不可・領事認証で代替できない」と公式明示）。発行元は常にドイツの Standesamt で、大使館は取次ぎ・パスポート/署名認証のみ。Standesamt 申請時にアポも同時依頼するのが基本。届書の用紙は各区民事務所等でも配布されているが、提出先は本庁1階のみ。</span>
+      <span class="de">Quelle: offizielle E-Mail-Antwort des <a href="https://www.city.taito.lg.jp/kurashi/todokede/koseki/kosekitodokede/konin.html" target="_blank" rel="noopener">Standesamts Taito</a> (28.05.2026). Kein japanisches Familienregister nötig; für die deutsche Seite Ehefähigkeitszeugnis + Vollübersetzung, Pass-Original + Übersetzung der Lichtbildseite, Aufenthaltskarte als Basis. Japanische und deutsche Meldebescheinigungen für die Einreichung in Taito NICHT erforderlich. Übersetzung darf von der Antragstellerin selbst angefertigt und unterschrieben werden. Bei in Deutschland ausgestellten Urkunden Apostille nötig; bei Ausstellung über die Botschaft Tokio nicht. ※ Diese Ausnahme gilt nicht für das Ehefähigkeitszeugnis – es wird stets vom deutschen Standesamt (nicht von der Botschaft) ausgestellt, daher ist die Apostille in beiden Wegen (direkt/über Botschaft) erforderlich. Die Botschaft Tokio kann keine Apostille ausstellen; konsularische Beglaubigung ersetzt sie nicht (offizielle Auskunft der Botschaft Tokio). → Details siehe Verzweigung unten.</span>
     </div>
   </section>
 
@@ -813,21 +826,50 @@
             <div class="road-meta"><span class="road-chip"><span class="ja">担当: 彼女</span><span class="de">deutsche Partnerin</span></span><span class="road-chip time"><span class="ja">1〜2週間</span><span class="de">1–2 Wochen</span></span></div>
             <div class="road-action"><span class="ja">DOCXで彼女側のみチェック。取得先: 出生地の Standesamt。</span><span class="de">Nur für Frau Geier angekreuzt. Zu erhalten beim Standesamt des Geburtsortes.</span></div>
           </div>
-          <div class="road-doc">
-            <label class="check-item"><input type="checkbox" data-id="dos3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍謄本＋婚姻状況証明、外務省アポスティーユ、ドイツ語翻訳（あなた）</span><span class="de">Aktueller Auszug aus dem Familienregister mit Nachweis des Familienstandes, Apostille durch das japanische Außenministerium (MOFA) und Übersetzung</span></span></label>
-            <div class="road-meta"><span class="road-chip"><span class="ja">担当: あなた</span><span class="de">Herr Kawamura</span></span><span class="road-chip time"><span class="ja">1〜3週間</span><span class="de">1–3 Wochen</span></span></div>
-            <div class="road-action"><span class="ja">DOCXであなた側のみチェック。戸籍全部事項証明書を市区町村で取得後、日本の外務省でアポスティーユを付け、ドイツ語翻訳まで一体で管理。</span><span class="de">Nur für Herrn Kawamura angekreuzt. Nach Ausstellung des japanischen Familienregisterauszugs bei der Gemeinde die Apostille beim japanischen Außenministerium (MOFA) einholen und anschließend die deutsche Übersetzung mitplanen.</span></div>
-            <div class="road-action"><span class="ja">※ 日本発行の戸籍系書類のアポスティーユは、ドイツ大使館ではなく日本の外務省で取得します。</span><span class="de">※ Die Apostille für japanische Familienregister-Dokumente wird nicht von der Deutschen Botschaft, sondern vom japanischen Außenministerium (MOFA) ausgestellt.</span></div>
+          <!-- 親タスク1: 日本側書類を取得する -->
+          <div class="road-doc road-parent-group">
+            <div class="road-parent-header">
+              <label class="check-item"><input type="checkbox" data-parent-id="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">日本側書類を取得する</span><span class="de">Japanische Dokumente beschaffen</span></span></label>
+              <span class="parent-progress" id="prog-dos3p1">0/5</span>
+            </div>
+            <div class="road-meta"><span class="road-chip"><span class="ja">担当: あなた＋彼女</span><span class="de">beide</span></span><span class="road-chip time"><span class="ja">当日〜3日</span><span class="de">0–3 Tage</span></span></div>
+            <div class="road-sub-tasks">
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p1c1" data-parent="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">戸籍全部事項証明書を2通取得</span><span class="de">Aktuellen Familienregisterauszug (2 Exemplare) beantragen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p1c2" data-parent="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">婚姻事項がないことを確認</span><span class="de">Bestätigen, dass kein Eheeintrag vorhanden ist</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p1c3" data-parent="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">あなたの住民票を取得</span><span class="de">Eigene Meldebescheinigung (Jūminhyō) beantragen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p1c4" data-parent="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">彼女の住民票を取得</span><span class="de">Meldebescheinigung der deutschen Partnerin beantragen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p1c5" data-parent="dos3p1"><span class="box"></span><span class="ci-text"><span class="ja">住民票にマイナンバーが記載されていないことを確認</span><span class="de">Prüfen, dass die My-Number nicht auf der Meldebescheinigung erscheint</span></span></label>
+            </div>
           </div>
-          <div class="road-doc">
-            <label class="check-item"><input type="checkbox" data-id="dos4"><span class="box"></span><span class="ci-text"><span class="ja">日本住所の住民票/登録証明＋翻訳（2人分）</span><span class="de">Meldebescheinigung (Wohnsitz Japan) mit Übersetzung</span></span></label>
-            <div class="road-meta"><span class="road-chip"><span class="ja">担当: ふたり</span><span class="de">beide</span></span><span class="road-chip time"><span class="ja">当日〜1週間</span><span class="de">0–1 Woche</span></span></div>
-            <div class="road-action"><span class="ja">DOCXで2人ともチェック。取得先: 日本の住民登録窓口。翻訳も必要。</span><span class="de">Für beide angekreuzt. Zu erhalten beim Einwohnermeldeamt Japan; Übersetzung erforderlich.</span></div>
+          <!-- 親タスク2: アポスティーユ -->
+          <div class="road-doc road-parent-group">
+            <div class="road-parent-header">
+              <label class="check-item"><input type="checkbox" data-parent-id="dos3p2"><span class="box"></span><span class="ci-text"><span class="ja">日本側書類にアポスティーユを付ける</span><span class="de">Apostille für die japanischen Dokumente einholen</span></span></label>
+              <span class="parent-progress" id="prog-dos3p2">0/3</span>
+            </div>
+            <div class="road-meta"><span class="road-chip"><span class="ja">担当: あなた</span><span class="de">Herr Kawamura</span></span><span class="road-chip time"><span class="ja">1〜2週間</span><span class="de">1–2 Wochen</span></span></div>
+            <div class="road-action"><span class="ja">※ 日本発行の書類のアポスティーユは<a href="https://www.mofa.go.jp/mofaj/ca/ao/page22_001264.html" target="_blank" rel="noopener">外務省（公式案内）</a>で取得します。ドイツ大使館では発行不可。</span><span class="de">※ Apostille für japanische Dokumente beim <a href="https://www.mofa.go.jp/mofaj/ca/ao/page22_001264.html" target="_blank" rel="noopener">japanischen Außenministerium MOFA (offizielle Seite)</a> beantragen — nicht bei der Deutschen Botschaft.</span></div>
+            <div class="road-sub-tasks">
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p2c1" data-parent="dos3p2"><span class="box"></span><span class="ci-text"><span class="ja">外務省アポスティーユ申請方法を確認</span><span class="de">Antragsverfahren beim MOFA prüfen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p2c2" data-parent="dos3p2"><span class="box"></span><span class="ci-text"><span class="ja">戸籍のアポスティーユを申請</span><span class="de">Apostille für den Familienregisterauszug beantragen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p2c3" data-parent="dos3p2"><span class="box"></span><span class="ci-text"><span class="ja">アポスティーユ付き戸籍を受領</span><span class="de">Familienregisterauszug mit Apostille empfangen</span></span></label>
+            </div>
           </div>
-          <div class="road-doc">
-            <label class="check-item"><input type="checkbox" data-id="dos5"><span class="box"></span><span class="ci-text"><span class="ja">外国語書類の認証翻訳・原本との綴じ込み</span><span class="de">Beglaubigte Übersetzungen aller fremdsprachigen Urkunden</span></span></label>
-            <div class="road-meta"><span class="road-chip"><span class="ja">担当: あなた側書類</span><span class="de">Herr Kawamura</span></span><span class="road-chip time"><span class="ja">1〜2週間</span><span class="de">1–2 Wochen</span></span></div>
-            <div class="road-action"><span class="ja">DOCXであなた側にチェック。ドイツで裁判所認定/宣誓翻訳者が作成し、原本と翻訳を固定・封印する指定。</span><span class="de">Für Herrn Kawamura angekreuzt. Von einem in Deutschland gerichtlich vereidigten Dolmetscher/Übersetzer; Originalurkunden müssen mit der Übersetzung fest verbunden/gesiegelt sein.</span></div>
+          <!-- 親タスク3: 翻訳・綴じ込み -->
+          <div class="road-doc road-parent-group">
+            <div class="road-parent-header">
+              <label class="check-item"><input type="checkbox" data-parent-id="dos3p3"><span class="box"></span><span class="ci-text"><span class="ja">日本側書類をドイツ語翻訳・綴じ込みする</span><span class="de">Japanische Dokumente ins Deutsche übersetzen und binden</span></span></label>
+              <span class="parent-progress" id="prog-dos3p3">0/4</span>
+            </div>
+            <div class="road-meta"><span class="road-chip"><span class="ja">担当: あなた</span><span class="de">Herr Kawamura</span></span><span class="road-chip time"><span class="ja">1〜2週間</span><span class="de">1–2 Wochen</span></span></div>
+            <div class="road-action"><span class="ja">※ Dossenheim 用はドイツの裁判所認定/宣誓翻訳者による認証翻訳が必要。原本と翻訳は固定・封印。台東区用（本人翻訳OK）とは別要件。</span><span class="de">※ Für Dossenheim: Übersetzung durch gerichtlich vereidigten Übersetzer:in in Deutschland; Originale fest verbunden/gesiegelt. Andere Anforderung als die japanische Selbstübersetzung für Taito.</span></div>
+            <div class="road-sub-tasks">
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p3c1" data-parent="dos3p3"><span class="box"></span><span class="ci-text"><span class="ja">Dossenheim へ翻訳者の条件を確認</span><span class="de">Übersetzungsanforderungen mit Standesamt Dossenheim klären</span></span></label>
+              <div class="road-action" style="margin:2px 0 4px 29px"><span class="ja">→ <a href="https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt" target="_blank" rel="noopener">Standesamt Dossenheim 公式</a></span><span class="de">→ <a href="https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt" target="_blank" rel="noopener">Standesamt Dossenheim (offiziell)</a></span></div>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p3c2" data-parent="dos3p3"><span class="box"></span><span class="ci-text"><span class="ja">ドイツの宣誓翻訳者を選ぶ</span><span class="de">Vereidigten Übersetzer:in in Deutschland auswählen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p3c3" data-parent="dos3p3"><span class="box"></span><span class="ci-text"><span class="ja">戸籍・住民票の翻訳を依頼</span><span class="de">Übersetzung von Familienregisterauszug und Meldebescheinigungen beauftragen</span></span></label>
+              <label class="check-item road-sub-item"><input type="checkbox" data-id="dos3p3c4" data-parent="dos3p3"><span class="box"></span><span class="ci-text"><span class="ja">原本・アポスティーユ・翻訳をセットで保管</span><span class="de">Original, Apostille und Übersetzung zusammen aufbewahren</span></span></label>
+            </div>
           </div>
           <div class="road-doc">
             <label class="check-item"><input type="checkbox" data-id="dos6"><span class="box"></span><span class="ci-text"><span class="ja">未チェック書類を集めない確認</span><span class="de">Nicht angekreuzte Unterlagen bewusst auslassen</span></span></label>
@@ -1122,6 +1164,11 @@
     }
   }catch(e){}
 
+  // Set initial state: 戸籍取得 is pre-done (only if key was never touched)
+  if(doc.checked["dos3p1c1"] === undefined){
+    doc.checked["dos3p1c1"] = { v:true, t:1 };
+  }
+
   function persistLocal(){ try{ localStorage.setItem(KEY, JSON.stringify(doc)); }catch(e){} }
   function persistCfg(){ try{ localStorage.setItem(CFGKEY, JSON.stringify(cfg)); }catch(e){} }
   function now(){ return Date.now(); }
@@ -1299,11 +1346,36 @@
   });
   inJa.addEventListener("keydown", function(e){ if(e.key==="Enter"){ document.getElementById("addBtn").click(); }});
 
+  /* ---------- parent task helpers ---------- */
+  var PARENT_IDS = ["dos3p1", "dos3p2", "dos3p3"];
+
+  function updateParentTask(parentId){
+    var children = document.querySelectorAll('#dossenheimSchedule [data-parent="' + parentId + '"][data-id]');
+    var total = children.length, done = 0;
+    children.forEach(function(cb){ if(cb.checked) done++; });
+    var pBox = document.querySelector('[data-parent-id="' + parentId + '"]');
+    if(pBox){ pBox.checked = (total > 0 && done === total); }
+    var prog = document.getElementById("prog-" + parentId);
+    if(prog){
+      prog.textContent = done + "/" + total;
+      prog.classList.toggle("all-done", total > 0 && done === total);
+    }
+  }
+
+  function updateAllParentTasks(){
+    PARENT_IDS.forEach(function(id){ updateParentTask(id); });
+  }
+
   /* ---------- default checkbox wiring ---------- */
   document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimSchedule [data-id]').forEach(function(cb){
     cb.checked = isChecked(cb.getAttribute("data-id"));
-    cb.addEventListener("change", function(){ setChecked(cb.getAttribute("data-id"), cb.checked); });
+    cb.addEventListener("change", function(){
+      setChecked(cb.getAttribute("data-id"), cb.checked);
+      var parent = cb.getAttribute("data-parent");
+      if(parent) updateParentTask(parent);
+    });
   });
+  updateAllParentTasks();
 
   /* ---------- expiry date wiring ---------- */
   document.querySelectorAll("[data-exp]").forEach(function(inp){
@@ -1353,6 +1425,7 @@
     document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimSchedule [data-id]').forEach(function(cb){
       cb.checked = isChecked(cb.getAttribute("data-id"));
     });
+    updateAllParentTasks();
     renderCustom();
     renderExpiry();
     renderPlan();
@@ -1368,7 +1441,7 @@
     document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimSchedule [data-id], #customList [data-id]').forEach(function(cb){
       doc.checked[cb.getAttribute("data-id")] = { v:false, t:now() };
     });
-    doc.updatedAt=now(); persistLocal(); applyDocToUI(); schedulePush();
+    doc.updatedAt=now(); persistLocal(); applyDocToUI(); updateAllParentTasks(); schedulePush();
   });
 
   /* =========================================================
