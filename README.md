@@ -49,7 +49,7 @@ Eine zweisprachige Checkliste fuer ein deutsch-japanisches Paar, das in Japan he
 - ドイツ側の申請先は、彼女の担当である `Standesamt / Friedhofsverwaltung Dossenheim`, Rathausplatz 1, 69221 Dossenheim（担当電話 `+49 (0)6221 8651-331`, `-332`）を前提に更新しました。
 - 指定DOCX原本でチェックされている Dossenheim 申請用書類（彼女側の出生登録簿謄本、あなた側の戸籍/婚姻状況証明＋アポスティーユ＋翻訳、日本住所の住民票/登録証明＋翻訳、双方の認証済みパスポートコピー、外国語書類のドイツ宣誓翻訳者による認証翻訳）をチェック項目化しました。
 - 指定PDF原本の `Antrag auf Ausstellung eines Ehefähigkeitszeugnisses` は、Dossenheim / Vorgang Nr. 4/26 の申請書として扱います。個人住所・メール等は公開ページには載せません。
-- 台東区への希望提出日を基準に、指定DOCX/PDFに基づく各書類の担当・やること・所要時間と、Dossenheim への申請、証明書のアポスティーユ取得、日本への発送、台東区提出までを、スマホ向けの一本の縦型工程グラフで表示します。
+- 台東区への希望提出日を基準に、指定DOCX/PDFに基づく各書類の担当・やること・所要時間と、Dossenheim への申請、アポスティーユ付き証明書のお父さま受領、日本への発送、到着後の本人訳、台東区提出までを、予定日と実績日付きのスマホ向け縦型工程グラフで表示します。
 - Baden-Württemberg の公式案内では `Ehefaehigkeitszeugnis` は発行日から6か月有効で、処理期間は個別事情によります。表示する週数は公式締切ではなく、父親経由と海外配送を含めた計画用の余裕です。
 - 台東区提出用の和訳は本人訳＋自署でOKですが、Dossenheim 用DOCXでは外国語書類について、ドイツで裁判所認定/宣誓翻訳者が作成し、原本と翻訳を固定・封印する条件がチェックされています。台東区用とDossenheim用で翻訳条件を分けて表示します。
 

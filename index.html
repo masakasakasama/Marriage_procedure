@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="app-version" content="2026-06-15-3">
+<meta name="app-version" content="2026-08-02-1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>結婚までのチェックリスト | Hochzeits-Checkliste 🇯🇵💍🇩🇪</title>
 <script>
@@ -166,10 +166,27 @@
   }
   .route-step.last::before{background:var(--mint)}
   .route-when{
-    display:inline-flex;gap:6px;align-items:center;border-radius:999px;padding:3px 9px;
-    background:var(--lav-soft);color:var(--lav);font-size:11px;font-weight:900;margin-bottom:5px;
+    display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;align-items:center;width:100%;
+    box-sizing:border-box;border-radius:13px;padding:5px 10px;
+    background:var(--lav-soft);color:var(--lav);font-size:11px;font-weight:900;
   }
-  .route-when strong{font-size:11.5px}
+  .route-when .ja{grid-column:1;grid-row:1}
+  .route-when .de{grid-column:1;grid-row:2;font-size:9.5px;font-weight:800}
+  .route-when strong{grid-column:2;grid-row:1 / span 2;font-size:11.5px;white-space:nowrap}
+  .route-dates{display:grid;gap:5px;margin-bottom:7px}
+  .route-actual{
+    display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;box-sizing:border-box;
+    border:1px solid #c7f0dd;border-radius:13px;padding:5px 9px;
+    background:var(--mint-soft);color:#0f7a4e;font-size:11px;font-weight:900;
+  }
+  .route-actual input{
+    width:116px;border:0;background:transparent;color:var(--text);font:inherit;font-size:11px;padding:0;
+  }
+  .route-actual input:focus{outline:none}
+  .route-delta{justify-self:start;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:999px;background:#f4f1f8;color:var(--muted)}
+  .route-delta.ok{background:var(--mint-soft);color:#0f7a4e}
+  .route-delta.late{background:var(--pink-soft);color:#b4173b}
+  .route-delta.soon{background:var(--amber-soft);color:#92560a}
   .route-step h3{font-size:14px;line-height:1.4;margin:0 0 3px}
   .route-step h3 .de{display:block;font-size:12px}
   body.lang-de .route-step h3 .de{font-size:14px}
@@ -214,6 +231,7 @@
     .vertical-schedule{padding-left:21px}
     .route-step::before{left:-20px}
     .road-meta,.road-action{margin-left:0}
+    .route-actual input{width:128px}
   }
 
   /* ---------- LEAD TIME TOTALS ---------- */
@@ -804,7 +822,11 @@
     <div class="vertical-schedule" id="dossenheimSchedule">
       <div class="route-step">
         <div class="phase-label"><span class="ja">要件確認</span><span class="de">Anforderungen klären</span></div>
-        <div class="route-when"><span class="ja">16週前まで</span><span class="de">bis 16 Wochen vorher</span> <strong id="dosDueConfirm">希望日を入力</strong></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・16週前</span><span class="de">Plan · 16 Wochen vorher</span> <strong id="dosDueConfirm">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor1"></label>
+          <span class="route-delta" data-delta-for="dor1" data-plan-ref="dosDueConfirm"></span>
+        </div>
         <h3><span class="ja">必要書類と代理受領の条件を確認</span><span class="de">Unterlagen und Empfang durch Vater klären</span></h3>
         <div class="route-detail"><span class="ja">認証コピー、アポスティーユ、宣誓翻訳者による翻訳・原本との綴じ込み方式を<a href="https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt" target="_blank" rel="noopener">Dossenheim</a> に確認。台東区用の和訳とは別要件です。</span><span class="de">Beglaubigte Kopien, Apostille sowie Übersetzung durch beeidigte Übersetzer:innen und feste Verbindung mit Originalen bei <a href="https://buergerservice.dossenheim.de/kontakt-info/organigramm/6004215/standesamt" target="_blank" rel="noopener">Dossenheim</a> klären. Das ist getrennt von der japanischen Übersetzung für Taito.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor1"><span class="box"></span><span><span class="ja">問い合わせ完了</span><span class="de">Anfragen erledigt</span></span></label>
@@ -812,7 +834,11 @@
 
       <div class="route-step">
         <div class="phase-label"><span class="ja">Dossenheim 申請に使う原本</span><span class="de">Originale für den Antrag</span></div>
-        <div class="route-when"><span class="ja">14週前まで</span><span class="de">bis 14 Wochen vorher</span> <strong id="dosDueGather">希望日を入力</strong></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・14週前</span><span class="de">Plan · 14 Wochen vorher</span> <strong id="dosDueGather">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor2"></label>
+          <span class="route-delta" data-delta-for="dor2" data-plan-ref="dosDueGather"></span>
+        </div>
         <h3><span class="ja">各書類を取得する</span><span class="de">Dokumente einzeln beschaffen</span></h3>
         <div class="route-detail"><span class="ja">⏳ 全書類は原本提出。台東区への提出書類とは別に管理します。</span><span class="de">⏳ Alle Dokumente sind im Original vorzulegen und getrennt von den Taito-Unterlagen zu verwalten.</span></div>
         <div class="doc-stack">
@@ -882,7 +908,11 @@
 
       <div class="route-step">
         <div class="phase-label"><span class="ja">申請パッケージ</span><span class="de">Antragspaket</span></div>
-        <div class="route-when"><span class="ja">12週前まで</span><span class="de">bis 12 Wochen vorher</span> <strong id="dosDueApply">希望日を入力</strong></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・12週前</span><span class="de">Plan · 12 Wochen vorher</span> <strong id="dosDueApply">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor3"></label>
+          <span class="route-delta" data-delta-for="dor3" data-plan-ref="dosDueApply"></span>
+        </div>
         <h3><span class="ja">Dossenheim へ一式を提出</span><span class="de">Vollständig in Dossenheim einreichen</span></h3>
         <div class="doc-stack">
           <div class="road-doc">
@@ -901,40 +931,55 @@
 
       <div class="route-step result-doc">
         <div class="phase-label"><span class="ja">発行される重要書類</span><span class="de">Ausgestellte Schlüsselurkunde</span></div>
-        <div class="route-when"><span class="ja">8週前を目標</span><span class="de">Ziel: 8 Wochen vorher</span> <strong id="dosDueIssue">希望日を入力</strong></div>
-        <h3><span class="ja">婚姻要件具備証明書をお父さまが受領</span><span class="de">Ehefähigkeitszeugnis durch den Vater empfangen</span></h3>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・8週前</span><span class="de">Plan · 8 Wochen vorher</span> <strong id="dosDueIssue">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor4"></label>
+          <span class="route-delta" data-delta-for="dor4" data-plan-ref="dosDueIssue"></span>
+        </div>
+        <h3><span class="ja">アポスティーユ付き婚姻要件具備証明書をお父さまが受領</span><span class="de">Vater empfängt das Ehefähigkeitszeugnis mit Apostille</span></h3>
         <div class="road-meta"><span class="road-chip"><span class="ja">担当: Dossenheim → お父さま</span><span class="de">Dossenheim → Vater</span></span><span class="road-chip time"><span class="ja">処理期間は個別</span><span class="de">Dauer individuell</span></span></div>
-        <div class="route-detail"><span class="ja">発行後6か月有効。本人以外への交付・郵送と委任状要否は申請前に確認。</span><span class="de">Sechs Monate ab Ausstellung gültig. Empfang/Versand an den Vater und Vollmacht vorher klären.</span></div>
+        <div class="route-detail"><span class="ja">今回の手配では証明書にアポスティーユが付いた状態で受領するため、別の取得日程は設けません。発行後6か月有効。</span><span class="de">In diesem Verfahren wird das Zeugnis bereits mit Apostille empfangen; dafür ist kein separater Termin eingeplant. Sechs Monate ab Ausstellung gültig.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor4"><span class="box"></span><span><span class="ja">受領完了</span><span class="de">Erhalt erledigt</span></span></label>
+        <label class="route-check"><input type="checkbox" data-id="dorApostille"><span class="box"></span><span><span class="ja">アポスティーユ付きであることを確認</span><span class="de">Apostille am Zeugnis bestätigt</span></span></label>
       </div>
       <div class="route-step">
-        <div class="route-when"><span class="ja">7週前まで</span><span class="de">bis 7 Wochen vorher</span> <strong id="dosDueApostille">希望日を入力</strong></div>
-        <h3><span class="ja">証明書にアポスティーユを付ける</span><span class="de">Apostille für das Zeugnis beschaffen</span></h3>
-        <div class="road-meta"><span class="road-chip"><span class="ja">担当: お父さま側で手配</span><span class="de">Organisation durch Vater</span></span><span class="road-chip time"><span class="ja">目安: 1週間確保</span><span class="de">Puffer: 1 Woche</span></span></div>
-        <div class="route-detail"><span class="ja">日本での婚姻では通常、翻訳前にアポスティーユが必要。</span><span class="de">Für die Eheschließung in Japan in der Regel vor der Übersetzung erforderlich.</span></div>
-        <label class="route-check"><input type="checkbox" data-id="dorApostille"><span class="box"></span><span><span class="ja">アポスティーユ取得完了</span><span class="de">Apostille erledigt</span></span></label>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・5週前</span><span class="de">Plan · 5 Wochen vorher</span> <strong id="dosDueShip">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor6"></label>
+          <span class="route-delta" data-delta-for="dor6" data-plan-ref="dosDueShip"></span>
+        </div>
+        <h3><span class="ja">日本へ発送し、彼女が原本を受領</span><span class="de">Nach Japan senden; Original wird von ihr empfangen</span></h3>
+        <div class="road-meta"><span class="road-chip"><span class="ja">お父さま → 日本の彼女</span><span class="de">Vater → Partnerin in Japan</span></span><span class="road-chip time"><span class="ja">追跡発送・約2週間確保</span><span class="de">Sendungsverfolgung · ca. 2 Wochen</span></span></div>
+        <div class="route-detail"><span class="ja">送る物はアポスティーユ付き証明書の原本。日本語訳はまだ作らず、彼女が日本で原本を受け取ってから作成します。</span><span class="de">Versandt wird das Originalzeugnis mit Apostille. Die japanische Übersetzung wird erst nach Eingang des Originals in Japan erstellt.</span></div>
+        <label class="route-check"><input type="checkbox" data-id="dor6"><span class="box"></span><span><span class="ja">日本で原本受領</span><span class="de">Original in Japan erhalten</span></span></label>
       </div>
       <div class="route-step">
-        <div class="route-when"><span class="ja">6週前まで</span><span class="de">bis 6 Wochen vorher</span> <strong id="dosDueTranslate">希望日を入力</strong></div>
-        <h3><span class="ja">日本語訳を作成</span><span class="de">Japanische Übersetzung erstellen</span></h3>
-        <div class="road-meta"><span class="road-chip"><span class="ja">担当: お父さま → 翻訳者</span><span class="de">Vater → Übersetzer</span></span><span class="road-chip time"><span class="ja">目安: 1週間確保</span><span class="de">Puffer: 1 Woche</span></span></div>
-        <div class="route-detail"><span class="ja">台東区への和訳は本人（彼女）が訳して自署でOK（公式回答 5/28）。父→ドイツ公認翻訳者ルートは必須ではない。アポスティーユ済みの証明書全文＋パスポート顔写真ページを和訳。</span><span class="de">Die japanische Übersetzung für Taito darf sie selbst anfertigen und unterschreiben (Auskunft Taito 28.05.). Vereidigte:r Übersetzer:in nicht zwingend. Zu übersetzen: Zeugnis (mit Apostille) komplett + Lichtbildseite des Passes.</span></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・4週前</span><span class="de">Plan · 4 Wochen vorher</span> <strong id="dosDueTranslate">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor5"></label>
+          <span class="route-delta" data-delta-for="dor5" data-plan-ref="dosDueTranslate"></span>
+        </div>
+        <h3><span class="ja">彼女が日本語訳を作成・自署</span><span class="de">Sie erstellt und unterschreibt die japanische Übersetzung</span></h3>
+        <div class="road-meta"><span class="road-chip"><span class="ja">担当: 日本にいる彼女</span><span class="de">Zuständig: Partnerin in Japan</span></span><span class="road-chip time"><span class="ja">原本到着後・約1週間</span><span class="de">nach Eingang · ca. 1 Woche</span></span></div>
+        <div class="route-detail"><span class="ja">台東区への和訳は本人（彼女）が訳して自署でOK（公式回答 5/28）。アポスティーユを含む証明書全文＋パスポート顔写真ページを和訳。</span><span class="de">Für Taito darf sie die Übersetzung selbst anfertigen und unterschreiben (Auskunft Taito 28.05.). Das vollständige Zeugnis einschließlich Apostille sowie die Lichtbildseite des Passes übersetzen.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor5"><span class="box"></span><span><span class="ja">翻訳完了</span><span class="de">Übersetzung erledigt</span></span></label>
       </div>
       <div class="route-step">
-        <div class="route-when"><span class="ja">4週前まで</span><span class="de">bis 4 Wochen vorher</span> <strong id="dosDueShip">希望日を入力</strong></div>
-        <h3><span class="ja">日本へ追跡発送</span><span class="de">Nach Japan mit Sendungsverfolgung senden</span></h3>
-        <div class="road-meta"><span class="road-chip"><span class="ja">送る物: 原本＋アポスティーユ＋訳文</span><span class="de">Original + Apostille + Übersetzung</span></span><span class="road-chip time"><span class="ja">2週間余裕</span><span class="de">2 Wochen Puffer</span></span></div>
-        <label class="route-check"><input type="checkbox" data-id="dor6"><span class="box"></span><span><span class="ja">日本到着を確認</span><span class="de">Ankunft in Japan bestätigt</span></span></label>
-      </div>
-      <div class="route-step">
-        <div class="route-when"><span class="ja">2週前まで</span><span class="de">bis 2 Wochen vorher</span> <strong id="dosDuePrecheck">希望日を入力</strong></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・2週前</span><span class="de">Plan · 2 Wochen vorher</span> <strong id="dosDuePrecheck">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor7"></label>
+          <span class="route-delta" data-delta-for="dor7" data-plan-ref="dosDuePrecheck"></span>
+        </div>
         <h3><span class="ja">台東区に最終確認</span><span class="de">Letzte Prüfung mit Taito</span></h3>
         <div class="route-detail"><span class="ja">婚姻届、旅券原本、証明書原本・アポスティーユ・日本語訳を確認。</span><span class="de">Heiratsanzeige, Originalpass, Zeugnis, Apostille und Übersetzung prüfen.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor7"><span class="box"></span><span><span class="ja">最終確認完了</span><span class="de">Vorprüfung erledigt</span></span></label>
       </div>
       <div class="route-step">
-        <div class="route-when"><span class="ja">提出日</span><span class="de">Abgabetag</span> <strong id="dosDueFile">希望日を入力</strong></div>
+        <div class="route-dates">
+          <div class="route-when"><span class="ja">予定・提出日</span><span class="de">Plan · Abgabetag</span> <strong id="dosDueFile">希望日を入力</strong></div>
+          <label class="route-actual"><span class="ja">実績</span><span class="de">Ist</span><input type="date" data-actual="dor8"></label>
+          <span class="route-delta" data-delta-for="dor8" data-plan-ref="dosDueFile"></span>
+        </div>
         <h3><span class="ja">台東区役所 本庁1階へ提出</span><span class="de">Im Rathaus Taito einreichen</span></h3>
         <div class="route-detail"><span class="ja">受理されると提出日が婚姻日。夜間・休日提出は後日の審査を見込む。</span><span class="de">Nach Annahme ist der Abgabetag das Heiratsdatum; außerhalb der Öffnungszeiten erfolgt die Prüfung später.</span></div>
         <label class="route-check"><input type="checkbox" data-id="dor8"><span class="box"></span><span><span class="ja">提出完了</span><span class="de">Einreichung erledigt</span></span></label>
@@ -978,8 +1023,8 @@
         <div class="label"><span class="ja">婚姻届の受理まで</span><span class="de">Bis zur Annahme der Eheanmeldung</span></div>
         <div class="value"><span class="ja">4か月前に確認開始</span><span class="de">4 Monate vorher starten</span></div>
         <div class="desc">
-          <span class="ja">Dossenheim での審査、お父さま経由の受領・翻訳・日本発送を含むため、16週前から準備する計画です。</span>
-          <span class="de">Die Planung beginnt 16 Wochen vorher und berücksichtigt Prüfung in Dossenheim, Übergabe über ihren Vater, Übersetzung und Versand nach Japan.</span>
+          <span class="ja">Dossenheim での審査、アポスティーユ付き証明書のお父さま受領、日本発送、到着後の本人訳を含むため、16週前から準備する計画です。</span>
+          <span class="de">Die Planung beginnt 16 Wochen vorher und berücksichtigt die Prüfung in Dossenheim, den Empfang des Zeugnisses mit Apostille durch ihren Vater, den Versand nach Japan und die anschließende Selbstübersetzung.</span>
         </div>
       </div>
       <div class="total-card mint">
@@ -1174,13 +1219,18 @@
   function persistCfg(){ try{ localStorage.setItem(CFGKEY, JSON.stringify(cfg)); }catch(e){} }
   function now(){ return Date.now(); }
   function t(ja,de){ return cfg.lang==="de" ? de : ja; }
+  function dateISO(d){
+    var pad=function(n){ return n<10 ? "0"+n : String(n); };
+    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+  }
+  function todayISO(){ return dateISO(new Date()); }
 
   /* ---------- accessors ---------- */
   function isChecked(id){ var e=doc.checked[id]; return !!(e && e.v); }
   function setChecked(id, v){ doc.checked[id]={v:!!v, t:now()}; doc.updatedAt=now(); persistLocal(); updateProgress(); schedulePush(); }
   function activeCustom(){ return doc.custom.filter(function(x){ return !x.deleted; }); }
   function getDate(id){ var e=doc.dates[id]; return (e && e.date) ? e.date : ""; }
-  function setDate(id, val){ doc.dates[id]={ date:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderExpiry(); schedulePush(); }
+  function setDate(id, val){ doc.dates[id]={ date:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderExpiry(); renderRouteProgress(); schedulePush(); }
   function getPlan(id){ var e=doc.plan[id]; return (e && e.value) ? e.value : ""; }
   function setPlan(id, val){ doc.plan[id]={ value:val||"", t:now() }; doc.updatedAt=now(); persistLocal(); renderPlan(); schedulePush(); }
 
@@ -1271,16 +1321,51 @@
   function scheduleDate(date, offsetDays){
     if(!date) return "";
     var d=new Date(date.getFullYear(), date.getMonth(), date.getDate()+offsetDays);
-    var pad=function(n){ return n<10 ? "0"+n : String(n); };
-    return d.getFullYear()+"."+pad(d.getMonth()+1)+"."+pad(d.getDate());
+    return dateISO(d).replace(/-/g,".");
+  }
+  function scheduleISO(date, offsetDays){
+    if(!date) return "";
+    return dateISO(new Date(date.getFullYear(), date.getMonth(), date.getDate()+offsetDays));
   }
   function renderDossenheimSchedule(date){
     [
       ["dosDueConfirm",-112], ["dosDueGather",-98], ["dosDueApply",-84], ["dosDueIssue",-56],
-      ["dosDueApostille",-49], ["dosDueTranslate",-42], ["dosDueShip",-28], ["dosDuePrecheck",-14], ["dosDueFile",0]
+      ["dosDueShip",-35], ["dosDueTranslate",-28], ["dosDuePrecheck",-14], ["dosDueFile",0]
     ].forEach(function(item){
       var target=document.getElementById(item[0]);
-      if(target) target.textContent=date ? scheduleDate(date,item[1]) : t("希望日を入力","Datum eingeben");
+      if(target){
+        target.textContent=date ? scheduleDate(date,item[1]) : t("希望日を入力","Datum eingeben");
+        target.setAttribute("data-plan-date", date ? scheduleISO(date,item[1]) : "");
+      }
+    });
+    renderRouteProgress();
+  }
+  function renderRouteProgress(){
+    document.querySelectorAll("[data-actual]").forEach(function(inp){
+      if(document.activeElement!==inp) inp.value=getDate("actual:"+inp.getAttribute("data-actual"));
+    });
+    document.querySelectorAll("[data-delta-for]").forEach(function(el){
+      var id=el.getAttribute("data-delta-for");
+      var planEl=document.getElementById(el.getAttribute("data-plan-ref"));
+      var plan=parseDate(planEl ? planEl.getAttribute("data-plan-date") : "");
+      var actual=parseDate(getDate("actual:"+id));
+      var cls="route-delta", txt=t("未入力","offen");
+      if(actual && plan){
+        var diff=Math.round((actual-plan)/86400000);
+        if(diff<=0){ cls+=" ok"; txt=t("予定内","im Plan"); }
+        else { cls+=" late"; txt=t("予定より"+diff+"日後",diff+" T. später"); }
+      } else if(actual){
+        cls+=" ok"; txt=t("実績入力済み","Ist erfasst");
+      } else if(isChecked(id)){
+        cls+=" ok"; txt=t("完了・日付未入力","erledigt · Datum fehlt");
+      } else if(plan){
+        var today=new Date(); today.setHours(0,0,0,0);
+        var left=Math.round((plan-today)/86400000);
+        if(left<0){ cls+=" late"; txt=t("予定から"+Math.abs(left)+"日経過",Math.abs(left)+" T. über Plan"); }
+        else if(left<=7){ cls+=" soon"; txt=t("あと"+left+"日","noch "+left+" T."); }
+        else { txt=t("あと"+left+"日","noch "+left+" T."); }
+      }
+      el.className=cls; el.textContent=txt;
     });
   }
   planOffice.addEventListener("input", function(){ setPlan("office", planOffice.value.trim()); });
@@ -1371,9 +1456,13 @@
   document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimSchedule [data-id]').forEach(function(cb){
     cb.checked = isChecked(cb.getAttribute("data-id"));
     cb.addEventListener("change", function(){
-      setChecked(cb.getAttribute("data-id"), cb.checked);
+      var id=cb.getAttribute("data-id");
+      setChecked(id, cb.checked);
       var parent = cb.getAttribute("data-parent");
       if(parent) updateParentTask(parent);
+      var actual=document.querySelector('[data-actual="'+id+'"]');
+      if(actual){ setDate("actual:"+id, cb.checked ? (getDate("actual:"+id)||todayISO()) : ""); }
+      else { renderRouteProgress(); }
     });
   });
   updateAllParentTasks();
@@ -1381,6 +1470,15 @@
   /* ---------- expiry date wiring ---------- */
   document.querySelectorAll("[data-exp]").forEach(function(inp){
     inp.addEventListener("change", function(){ setDate(inp.getAttribute("data-exp"), inp.value); });
+  });
+  document.querySelectorAll("[data-actual]").forEach(function(inp){
+    inp.addEventListener("change", function(){
+      var id=inp.getAttribute("data-actual"), value=inp.value;
+      setDate("actual:"+id, value);
+      var cb=document.querySelector('#dossenheimSchedule [data-id="'+id+'"]');
+      if(cb && cb.checked!==!!value){ cb.checked=!!value; setChecked(id, !!value); }
+      renderRouteProgress();
+    });
   });
 
   /* ---------- progress + confetti ---------- */
@@ -1441,6 +1539,9 @@
     if(!confirm(msg)) return;
     document.querySelectorAll('.timeline [data-id], .doc-card [data-id], #taitoTasks [data-id], #dossenheimSchedule [data-id], #customList [data-id]').forEach(function(cb){
       doc.checked[cb.getAttribute("data-id")] = { v:false, t:now() };
+    });
+    document.querySelectorAll("[data-actual]").forEach(function(inp){
+      doc.dates["actual:"+inp.getAttribute("data-actual")] = { date:"", t:now() };
     });
     doc.updatedAt=now(); persistLocal(); applyDocToUI(); updateAllParentTasks(); schedulePush();
   });
