@@ -64,3 +64,20 @@ Eine zweisprachige Checkliste fuer ein deutsch-japanisches Paar, das in Japan he
 - [港区: 外国籍の方が関わる婚姻の必要書類例](https://www.city.minato.tokyo.jp/easyjp/moving/residentregistration/familyregistrysystem.html)
 - [港区: 婚姻届（戸籍証明書等の添付は原則不要）](https://www.city.minato.tokyo.jp/shibakoseki/kuse/kocho/faq/todokede/038.html)
 - [出入国在留管理庁: 在留資格「日本人の配偶者等」](https://www.moj.go.jp/isa/applications/status/spouseorchildofjapanese01.html)
+
+## 同期の回帰検証
+
+`npm ci && npm test` で接続復帰の単体検証を実行する。
+ローカルのFirebase Realtime Database Emulatorを9000番で起動し、
+`npx playwright install chromium` の後 `npm run test:emulator` を実行すると、
+実際のSDKとブラウザで次を検証する。
+
+- 保存拒否後の端末データ保持とonline復帰の再送
+- 2端末のオフライン編集のマージ、再読込による復元
+- 未保存の変更の再起動復元と再試行
+- 応答前は「同期中」、保存成功後は「同期済」の表示
+
+検証は毎回固有のdemo namespaceと仮の設定を使い、完了後に削除する。
+HTTP/WebSocketはlocalhostに限定し、本番の共有チェックリストを書き換えない。
+`FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000` で接続先を指定できる。
+既存Chromeを使う場合は `CHROMIUM_EXECUTABLE_PATH` を指定する。

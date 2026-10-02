@@ -1,0 +1,14 @@
+{
+  "name": "marriage-procedure-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test scripts/sync-recovery.test.mjs",
+    "test:emulator": "node scripts/emulator-sync.test.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0",
+    "esbuild": "0.25.9",
+    "firebase": "10.7.0"
+  }
+}

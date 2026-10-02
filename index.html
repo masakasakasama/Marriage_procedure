@@ -628,6 +628,8 @@
   </div>
 
 
+  <div class="syncbar"><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
+
   <!-- PROGRESS -->
   <section class="progress-card">
     <div class="ring-wrap">
@@ -1641,7 +1643,7 @@
       doc = mergeDoc(doc, remote); persistLocal(); applyDocToUI();
       var needsPush=dirty || normalize(doc) !== normalize(remote);
       hasInitialSnapshot=true;
-      setChip("ok");
+      setChip(writing || needsPush ? "work" : "ok");
       if(needsPush) pushNow();
     }, function(err){ setChip("err"); });
   }
@@ -1649,11 +1651,11 @@
   function pushNow(){
     if(!fbReady || !FB || !hasInitialSnapshot){ dirty=true; return; }
     if(writing){ schedulePush(); return; }
-    dirty=false; writing=true;
+    dirty=false; writing=true; setChip("work");
     FB.set(FB.ref, { json: JSON.stringify(doc), at: Date.now() })
-      .then(function(){ writing=false; }, function(){ writing=false; dirty=true; setChip("err"); });
+      .then(function(){ writing=false; setChip(dirty ? "work" : "ok"); }, function(){ writing=false; dirty=true; setChip("err"); });
   }
-  function schedulePush(){ dirty=true; clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
+  function schedulePush(){ dirty=true; setChip("work"); clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
 
   function resumeSync(){
     if(!fbReady) startFirebase();
