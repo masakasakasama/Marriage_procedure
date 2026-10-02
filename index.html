@@ -1655,8 +1655,12 @@
   }
   function schedulePush(){ dirty=true; clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
 
-  document.addEventListener("visibilitychange", function(){ if(!document.hidden && !fbReady) startFirebase(); });
-  window.addEventListener("online", function(){ if(!fbReady) startFirebase(); });
+  function resumeSync(){
+    if(!fbReady) startFirebase();
+    else if(dirty) schedulePush();
+  }
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden) resumeSync(); });
+  window.addEventListener("online", resumeSync);
 
   /* ---------- init ---------- */
   applyLang();
