@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test scripts/sync-recovery.test.mjs",
+    "test": "node --test scripts/sync-recovery.test.mjs scripts/merge-conflict.test.mjs",
     "test:emulator": "node scripts/emulator-sync.test.mjs"
   },
   "devDependencies": {

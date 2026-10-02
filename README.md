@@ -81,3 +81,9 @@ Eine zweisprachige Checkliste fuer ein deutsch-japanisches Paar, das in Japan he
 HTTP/WebSocketはlocalhostに限定し、本番の共有チェックリストを書き換えない。
 `FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000` で接続先を指定できる。
 既存Chromeを使う場合は `CHROMIUM_EXECUTABLE_PATH` を指定する。
+
+端末保存が失敗すると画面に日独の通知と「端末に再保存」「変更を書き出す」を表示する。
+クラウド同期が成功しても端末保存失敗の通知を隠さない。端末・クラウド双方が失敗した場合、
+変更は画面内だけにあることを示し「端末に保存」と表示しない。
+競合は項目の時刻を優先し、同時刻はキー順を固定した値の比較で端末間を一致させる。
+customの同時刻削除はtombstoneを優先し、それより新しい明示復元は保持する。

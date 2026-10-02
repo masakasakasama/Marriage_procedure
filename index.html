@@ -630,6 +630,12 @@
 
   <div class="syncbar"><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
 
+  <div id="localSaveError" class="sync-panel" role="alert" hidden>
+    <p id="localSaveErrorText"></p>
+    <button id="retryLocalSave" type="button"><span class="ja">端末に再保存</span><span class="de">Lokal erneut speichern</span></button>
+    <button id="exportUnsaved" type="button"><span class="ja">変更を書き出す</span><span class="de">Änderungen exportieren</span></button>
+  </div>
+
   <!-- PROGRESS -->
   <section class="progress-card">
     <div class="ring-wrap">
@@ -1217,7 +1223,28 @@
     doc.checked["dos3p1c1"] = { v:true, t:1 };
   }
 
-  function persistLocal(){ try{ localStorage.setItem(KEY, JSON.stringify(doc)); }catch(e){} }
+  var localSaveFailed=false;
+  function renderLocalSaveStatus(){
+    var panel=document.getElementById("localSaveError"), text=document.getElementById("localSaveErrorText");
+    if(!panel || !text) return;
+    panel.hidden=!localSaveFailed;
+    text.textContent=t("端末に保存できません。変更は画面に保持しています。画面を閉じずに、空き容量を確保して再保存するか、変更を書き出してください。", "Auf diesem Gerät konnte nicht gespeichert werden. Änderungen bleiben auf dieser Seite. Die Seite geöffnet lassen, Speicherplatz freigeben und erneut speichern oder Änderungen exportieren.");
+  }
+  function persistLocal(){
+    try{ localStorage.setItem(KEY, JSON.stringify(doc)); localSaveFailed=false; }
+    catch(e){ localSaveFailed=true; }
+    renderLocalSaveStatus();
+    return !localSaveFailed;
+  }
+  document.getElementById("retryLocalSave").addEventListener("click", function(){
+    persistLocal(); setChip(syncState); resumeSync();
+  });
+  document.getElementById("exportUnsaved").addEventListener("click", function(){
+    var blob=new Blob([JSON.stringify(doc,null,2)], {type:"application/json"});
+    var url=URL.createObjectURL(blob), link=document.createElement("a");
+    link.href=url; link.download="marriage-checklist-recovery.json"; link.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  });
   function persistCfg(){ try{ localStorage.setItem(CFGKEY, JSON.stringify(cfg)); }catch(e){} }
   function now(){ return Date.now(); }
   function t(ja,de){ return cfg.lang==="de" ? de : ja; }
@@ -1562,13 +1589,20 @@
   function updateShareBlock(){ var el=document.getElementById("shareLink"); if(el) el.value=buildShareLink(); }
 
   /* ---------- conflict-free merge (per-item last-write-wins) ---------- */
+  function newestEntry(a,b){
+    if(!a || !b) return a || b;
+    if((a.t||0)!==(b.t||0)) return (a.t||0)>(b.t||0) ? a : b;
+    if(!!a.deleted!==!!b.deleted) return a.deleted ? a : b;
+    var stable=function(entry){ var out={}; Object.keys(entry).sort().forEach(function(k){ out[k]=entry[k]; }); return JSON.stringify(out); };
+    return stable(a)>=stable(b) ? a : b;
+  }
   function mergeMap(a,b){
     var out={}, ids={};
     Object.keys(a||{}).forEach(function(k){ ids[k]=1; }); Object.keys(b||{}).forEach(function(k){ ids[k]=1; });
     Object.keys(ids).forEach(function(k){
       var ea=(a||{})[k], eb=(b||{})[k];
       if(!ea){ out[k]=eb; } else if(!eb){ out[k]=ea; }
-      else { out[k] = ((eb.t||0) > (ea.t||0)) ? eb : ea; }
+      else { out[k] = newestEntry(ea,eb); }
     });
     return out;
   }
@@ -1580,7 +1614,7 @@
     m.plan    = mergeMap(a.plan, b.plan);
     var cmap={};
     (a.custom||[]).forEach(function(it){ cmap[it.id]=it; });
-    (b.custom||[]).forEach(function(it){ var ex=cmap[it.id]; if(!ex || (it.t||0) > (ex.t||0)) cmap[it.id]=it; });
+    (b.custom||[]).forEach(function(it){ cmap[it.id]=newestEntry(cmap[it.id],it); });
     m.custom = Object.keys(cmap).map(function(k){ return cmap[k]; });
     return m;
   }
@@ -1597,6 +1631,7 @@
 
   function setChip(s){
     syncState=s;
+    renderLocalSaveStatus();
     var chip=document.getElementById("syncChip"), txt=document.getElementById("syncChipText");
     if(!chip||!txt) return;
     chip.classList.remove("ok","err","work");
@@ -1607,7 +1642,7 @@
       txt.textContent = t("同期済 ","Sync ")+p(n.getHours())+":"+p(n.getMinutes());
     }
     else if(s==="noconfig"){ chip.classList.add("err"); txt.textContent = t("同期設定なし","Keine Sync-Konfiguration"); }
-    else if(s==="err"){ chip.classList.add("err"); txt.textContent = t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
+    else if(s==="err"){ chip.classList.add("err"); txt.textContent = localSaveFailed ? t("オフライン（画面に保持）","Offline (auf dieser Seite)") : t("オフライン（端末に保存）","Offline (lokal gesichert)"); }
     else { txt.textContent = t("準備中…","Wird vorbereitet…"); }
   }
 

@@ -74,6 +74,18 @@ try {
   await rules(true);await a.evaluate(()=>window.dispatchEvent(new Event('online')));
   await until(async()=>Boolean((await read()).checked.ta4?.v));await a.waitForSelector('#syncChip.ok');
   console.log('unsaved change survives restart and is retried after permission recovery');
+  const beforeQuota=await a.evaluate(()=>localStorage.getItem('marriage_checklist_v2'));
+  await rules(false);
+  await a.evaluate(()=>{window.fixtureQuota=true;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(window.fixtureQuota&&key==='marriage_checklist_v2')throw new DOMException('Fixture full','QuotaExceededError');return original.call(this,key,value)}});
+  await a.locator('label:has(input[data-id="ta5"])').click();await a.waitForSelector('#localSaveError');await a.waitForSelector('#syncChip.err');
+  assert.equal(await a.evaluate(()=>localStorage.getItem('marriage_checklist_v2')),beforeQuota);
+  assert.ok(!(await a.locator('#syncChipText').innerText()).includes('端末に保存'));
+  await a.locator('[data-lang="de"]').click();assert.ok((await a.locator('#localSaveErrorText').innerText()).includes('Auf diesem Gerät'));
+  const downloadPromise=a.waitForEvent('download');await a.locator('#exportUnsaved').click();const exported=JSON.parse(readFileSync(await (await downloadPromise).path(),'utf8'));assert.equal(exported.checked.ta5.v,true);
+  await a.evaluate(()=>window.fixtureQuota=false);await rules(true);await a.locator('#retryLocalSave').click();await a.waitForSelector('#localSaveError',{state:'hidden'});
+  await until(async()=>Boolean((await read()).checked.ta5?.v));
+  assert.equal(await a.evaluate(()=>JSON.parse(localStorage.getItem('marriage_checklist_v2')).checked.ta5.v),true);
+  console.log('quota + cloud failure: visible localized warning, unchanged prior storage, export, local retry and cloud recovery passed');
   assert.deepEqual(blocked,[],'All Firebase traffic must stay on localhost');assert.deepEqual(errors,[]);
   console.log('PASS: emulator sync recovery; no production requests or real checklist data used');
 } finally {
