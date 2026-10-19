@@ -4,7 +4,7 @@ import { createServer } from 'node:http';
 import { randomUUID } from 'node:crypto';
 import { build } from 'esbuild';
 import { chromium } from '@playwright/test';
-const host = process.env.FIREBASE_DATABASE_EMULATOR_HOST || '127.0.0.1:9000';
+const host = process.env.FIREBASE_DATABASE_EMULATOR_HOST || '127.0.0.1:19000';
 assert.match(host, /^(127\.0\.0\.1|localhost):\d+$/, 'Only a local emulator is permitted');
 const [hostname, port] = host.split(':');
 const namespace = 'demo-marriage-' + randomUUID();
@@ -21,16 +21,18 @@ async function until(predicate) {
   while(!await predicate()) { if(Date.now()-began>15000)throw Error('Emulator condition timed out');await new Promise(r=>setTimeout(r,100)); }
 }
 await rules(true);
-const sdk = await build({stdin:{contents:"import firebase from 'firebase/compat/app'; import 'firebase/compat/database'; window.firebase=firebase;",resolveDir:process.cwd()},bundle:true,format:'iife',write:false});
+const sdk = await build({stdin:{contents:"import firebase from 'firebase/compat/app'; import 'firebase/compat/database'; window.firebase=firebase; firebase.auth=function(){};",resolveDir:process.cwd()},bundle:true,format:'iife',write:false});
 const original=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.ok(original.includes('var ref = app.database().ref('));
 const html=original.replace(/<script src="https:\/\/www.gstatic.com\/firebasejs\/[^\"]+"><\/script>/g,'')
+  .replace('var auth = app.auth();', 'var auth = {onAuthStateChanged:function(callback){callback({uid: \"local-fixture\",isAnonymous:false});}};')
   .replace('</head>','<script src="/sdk.js"></script></head>')
   .replace('var ref = app.database().ref(',`var database = app.database(); database.useEmulator(${JSON.stringify(hostname)},${Number(port)}); var ref = database.ref(`);
 const config=`export const firebaseConfig=${JSON.stringify({apiKey:'fixture-only',projectId:namespace,databaseURL:`https://${namespace}.firebaseio.com`})}; export const GROUP_KEY='fixture'; export const DATA_PATH='qa';`;
 const server=createServer((req,res)=>{
   const url=new URL(req.url,'http://127.0.0.1');
-  if(url.pathname==='/sdk.js'){res.setHeader('Content-Type','text/javascript');res.end(sdk.outputFiles[0].text)}
+  if(url.pathname==='/data-backup.js'){res.setHeader('Content-Type','text/javascript');res.end(readFileSync(new URL('../data-backup.js',import.meta.url),'utf8'))}
+  else if(url.pathname==='/sdk.js'){res.setHeader('Content-Type','text/javascript');res.end(sdk.outputFiles[0].text)}
   else if(url.pathname==='/firebase-config.js'){res.setHeader('Content-Type','text/javascript');res.end(config)}
   else if(url.pathname==='/favicon.ico'){res.writeHead(204);res.end()}
   else {res.setHeader('Content-Type','text/html');res.end(html)}
