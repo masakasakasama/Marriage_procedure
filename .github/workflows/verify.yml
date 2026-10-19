@@ -1,0 +1,21 @@
+name: Validate marriage app security changes
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Check inline JavaScript syntax
+        run: |
+          node -e "const fs=require('fs'),vm=require('vm'),html=fs.readFileSync('index.html','utf8'); const blocks=[...html.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/g)]; for(const block of blocks) new vm.Script(block[1]);"
