@@ -9,6 +9,6 @@
   "devDependencies": {
     "@playwright/test": "1.55.0",
     "esbuild": "0.25.9",
-    "firebase": "10.7.0"
+    "firebase": "10.14.1"
   }
 }
