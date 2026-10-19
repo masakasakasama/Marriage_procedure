@@ -1660,7 +1660,7 @@
       var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(fcfg);
       if (!firebase.auth) { setChip("err"); return; }
       var auth = app.auth();
-      var loginButton=document.getElementById("syncLoginButton");
+      var loginButton=(typeof document.getElementById==="function") ? document.getElementById("syncLoginButton") : null;
       auth.onAuthStateChanged(function(user){
         if (loginButton) loginButton.hidden=!!user;
         if (!user) {
@@ -1711,7 +1711,7 @@
   document.addEventListener("visibilitychange", function(){ if(!document.hidden) resumeSync(); });
   window.addEventListener("online", resumeSync);
 
-  var loginButton=document.getElementById("syncLoginButton");
+  var loginButton=(typeof document.getElementById==="function") ? document.getElementById("syncLoginButton") : null;
   if (loginButton) loginButton.addEventListener("click",function(){
     if (!window.firebase || !firebase.auth) { setChip("err"); return; }
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
