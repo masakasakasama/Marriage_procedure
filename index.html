@@ -22,6 +22,7 @@
 </script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
 <style>
   :root{
     --bg1:#fff1f6;
@@ -628,7 +629,7 @@
   </div>
 
 
-  <div class="syncbar"><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
+  <div class="syncbar"><button id="syncLoginButton" type="button" hidden>Googleでログイン / Mit Google anmelden</button><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
 
   <div id="localSaveError" class="sync-panel" role="alert" hidden>
     <p id="localSaveErrorText"></p>
@@ -1578,7 +1579,7 @@
   /* =========================================================
      REALTIME SYNC — Firebase Realtime Database
      The checklist lives under its own database path, separate from
-     other shared applications. No per-device token is needed.
+     other shared applications. Authenticated, allowlisted Firebase accounts only.
      The shared link is just this page's plain URL (fixed GROUP_KEY).
   ========================================================= */
   var pushTimer=null, fbReady=false, hasInitialSnapshot=false, unsub=null, writing=false, dirty=false, syncState="";
@@ -1653,18 +1654,29 @@
       var fcfg=cfgMod.firebaseConfig||{};
       if(cfgMod.GROUP_KEY) GROUP_KEY=cfgMod.GROUP_KEY;
       if(cfgMod.DATA_PATH) DATA_PATH=cfgMod.DATA_PATH;
-      try{ var g=new URLSearchParams(location.search).get("g"); if(g) GROUP_KEY=g; }catch(e){}
+      // Ignore public query parameters when selecting the synchronized group.
       if(!fcfg.apiKey || fcfg.apiKey==="PASTE_HERE"){ setChip("noconfig"); return; }
       if(!window.firebase || !firebase.database){ setChip("err"); return; }
       var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(fcfg);
-      var ref = app.database().ref(DATA_PATH+"/"+GROUP_KEY);
-      FB={
-        ref:ref,
-        set:function(dbRef, value){ return dbRef.set(value); },
-        onValue:function(dbRef, receive, reject){ dbRef.on("value", receive, reject); return function(){ dbRef.off("value", receive); }; }
-      };
-      fbReady=true;
-      subscribe();
+      if (!firebase.auth) { setChip("err"); return; }
+      var auth = app.auth();
+      var loginButton=document.getElementById("syncLoginButton");
+      auth.onAuthStateChanged(function(user){
+        if (loginButton) loginButton.hidden=!!user;
+        if (!user) {
+          fbReady=false; FB=null;
+          if (unsub) { try { unsub(); } catch(e){} unsub=null; }
+          setChip("err"); return; // The local checklist remains usable offline.
+        }
+        var ref = app.database().ref(DATA_PATH+"/"+GROUP_KEY);
+        FB={
+          ref:ref,
+          set:function(dbRef, value){ return dbRef.set(value); },
+          onValue:function(dbRef, receive, reject){ dbRef.on("value", receive, reject); return function(){ dbRef.off("value", receive); }; }
+        };
+        fbReady=true;
+        subscribe();
+      },function(){ setChip("err"); });
     }).catch(function(e){ setChip("err"); });
   }
 
@@ -1698,6 +1710,13 @@
   }
   document.addEventListener("visibilitychange", function(){ if(!document.hidden) resumeSync(); });
   window.addEventListener("online", resumeSync);
+
+  var loginButton=document.getElementById("syncLoginButton");
+  if (loginButton) loginButton.addEventListener("click",function(){
+    if (!window.firebase || !firebase.auth) { setChip("err"); return; }
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .catch(function(){ setChip("err"); });
+  });
 
   /* ---------- init ---------- */
   applyLang();

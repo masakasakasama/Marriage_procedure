@@ -1,0 +1,16 @@
+{
+  "marriage-procedure": {
+    "v1": {
+      "$group": {
+        ".read": "auth != null && auth.uid != null && $group === 'marriage-procedure-2f9d4c7a8e' && root.child('approvedMarriageUsers').child(auth.uid).val() === true",
+        ".write": "auth != null && auth.uid != null && $group === 'marriage-procedure-2f9d4c7a8e' && root.child('approvedMarriageUsers').child(auth.uid).val() === true"
+      }
+    }
+  },
+  "approvedMarriageUsers": {
+    "$uid": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
