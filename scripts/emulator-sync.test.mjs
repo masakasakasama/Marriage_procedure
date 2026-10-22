@@ -32,6 +32,7 @@ const config=`export const firebaseConfig=${JSON.stringify({apiKey:'fixture-only
 const server=createServer((req,res)=>{
   const url=new URL(req.url,'http://127.0.0.1');
   if(url.pathname==='/data-backup.js'){res.setHeader('Content-Type','text/javascript');res.end(readFileSync(new URL('../data-backup.js',import.meta.url),'utf8'))}
+  else if(url.pathname==='/sw.js'){res.setHeader('Content-Type','text/javascript');res.end(readFileSync(new URL('../sw.js',import.meta.url),'utf8'))}
   else if(url.pathname==='/sdk.js'){res.setHeader('Content-Type','text/javascript');res.end(sdk.outputFiles[0].text)}
   else if(url.pathname==='/firebase-config.js'){res.setHeader('Content-Type','text/javascript');res.end(config)}
   else if(url.pathname==='/favicon.ico'){res.writeHead(204);res.end()}

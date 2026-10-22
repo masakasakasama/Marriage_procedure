@@ -1196,6 +1196,9 @@
      cfg = { lang }   (device-local only)
   ========================================================= */
   DataBackup.recover(localStorage, "marriage:backup");
+  if (!DataBackup.ensureReadable({ app: "marriage", shapes: {
+    marriage_checklist_v2: "marriage", marriage_checklist_v1: "marriageLegacy", marriage_checklist_cfg: "object"
+  } })) return;
   var KEY = "marriage_checklist_v2";
   var CFGKEY = "marriage_checklist_cfg";
   var doc = { v:4, checked:{}, custom:[], dates:{}, plan:{}, updatedAt:0 };
@@ -1742,6 +1745,15 @@
     }
   });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(function () {
+      // The app's local storage remains available if offline caching is unsupported.
+    });
+  });
+}
 </script>
 </body>
 </html>
