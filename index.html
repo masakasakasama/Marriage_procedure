@@ -20,8 +20,9 @@
   document.addEventListener("visibilitychange",function(){ if(!document.hidden) check(); });
 })();
 </script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.0.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/13.0.0/firebase-auth-compat.js"></script>
 <style>
   :root{
     --bg1:#fff1f6;
@@ -589,6 +590,7 @@
   .road-sub-item .ci-text .de{font-size:11.5px}
   .road-action a,.note a{color:var(--lav);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 </style>
+<script src="data-backup.js"></script>
 </head>
 <body class="lang-both">
 <main class="page">
@@ -628,7 +630,7 @@
   </div>
 
 
-  <div class="syncbar"><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
+  <div class="syncbar"><button id="syncLoginButton" type="button" hidden>Googleでログイン / Mit Google anmelden</button><span id="syncChip" class="sync-chip" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="syncChipText">準備中…</span></span></div>
 
   <div id="localSaveError" class="sync-panel" role="alert" hidden>
     <p id="localSaveErrorText"></p>
@@ -1193,6 +1195,10 @@
      doc = { v:4, checked:{}, custom:[], dates:{}, plan:{}, updatedAt }
      cfg = { lang }   (device-local only)
   ========================================================= */
+  DataBackup.recover(localStorage, "marriage:backup");
+  if (!DataBackup.ensureReadable({ app: "marriage", shapes: {
+    marriage_checklist_v2: "marriage", marriage_checklist_v1: "marriageLegacy", marriage_checklist_cfg: "object"
+  } })) return;
   var KEY = "marriage_checklist_v2";
   var CFGKEY = "marriage_checklist_cfg";
   var doc = { v:4, checked:{}, custom:[], dates:{}, plan:{}, updatedAt:0 };
@@ -1578,7 +1584,7 @@
   /* =========================================================
      REALTIME SYNC — Firebase Realtime Database
      The checklist lives under its own database path, separate from
-     other shared applications. No per-device token is needed.
+     other shared applications. Authenticated, allowlisted Firebase accounts only.
      The shared link is just this page's plain URL (fixed GROUP_KEY).
   ========================================================= */
   var pushTimer=null, fbReady=false, hasInitialSnapshot=false, unsub=null, writing=false, dirty=false, syncState="";
@@ -1648,23 +1654,39 @@
 
   /* ---------- Firebase (loaded lazily so the UI never breaks) ---------- */
   function startFirebase(){
+    if(localStorage.getItem("marriage:backup:hold")) { setChip("err"); return; }
     setChip("work");
     import("./firebase-config.js?_="+Date.now()).then(function(cfgMod){
       var fcfg=cfgMod.firebaseConfig||{};
       if(cfgMod.GROUP_KEY) GROUP_KEY=cfgMod.GROUP_KEY;
       if(cfgMod.DATA_PATH) DATA_PATH=cfgMod.DATA_PATH;
-      try{ var g=new URLSearchParams(location.search).get("g"); if(g) GROUP_KEY=g; }catch(e){}
+      // Ignore public query parameters when selecting the synchronized group.
       if(!fcfg.apiKey || fcfg.apiKey==="PASTE_HERE"){ setChip("noconfig"); return; }
       if(!window.firebase || !firebase.database){ setChip("err"); return; }
       var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(fcfg);
-      var ref = app.database().ref(DATA_PATH+"/"+GROUP_KEY);
-      FB={
-        ref:ref,
-        set:function(dbRef, value){ return dbRef.set(value); },
-        onValue:function(dbRef, receive, reject){ dbRef.on("value", receive, reject); return function(){ dbRef.off("value", receive); }; }
-      };
-      fbReady=true;
-      subscribe();
+      if (!firebase.auth) { setChip("err"); return; }
+      var auth = app.auth();
+      var loginButton=(typeof document.getElementById==="function") ? document.getElementById("syncLoginButton") : null;
+      auth.onAuthStateChanged(function(user){
+        if (loginButton) loginButton.hidden=!!user;
+        if (!user || user.isAnonymous) {
+          fbReady=false; FB=null;
+          if (unsub) { try { unsub(); } catch(e){} unsub=null; }
+          setChip("err"); return; // The local checklist remains usable offline.
+        }
+        var ref = app.database().ref(DATA_PATH+"/"+GROUP_KEY);
+        FB={
+          ref:ref,
+          commit:function(dbRef, local){ return dbRef.transaction(function(current){
+            var remote=null;
+            if(current && current.json) { try { remote=JSON.parse(current.json); } catch(e) { throw Error("Invalid remote checklist; refusing to overwrite"); } }
+            return {json:JSON.stringify(mergeDoc(local,remote)),at:Date.now()};
+          }, undefined, false); },
+          onValue:function(dbRef, receive, reject){ dbRef.on("value", receive, reject); return function(){ dbRef.off("value", receive); }; }
+        };
+        fbReady=true;
+        subscribe();
+      },function(){ setChip("err"); });
     }).catch(function(e){ setChip("err"); });
   }
 
@@ -1673,6 +1695,7 @@
     if(unsub){ try{ unsub(); }catch(e){} }
     hasInitialSnapshot=false;
     unsub = FB.onValue(FB.ref, function(snap){
+      if(!fbReady) return;
       var remote=null;
       if(snap.exists()){ var d=snap.val(); if(d && d.json){ try{ remote=JSON.parse(d.json); }catch(e){ remote=null; } } }
       doc = mergeDoc(doc, remote); persistLocal(); applyDocToUI();
@@ -1687,7 +1710,7 @@
     if(!fbReady || !FB || !hasInitialSnapshot){ dirty=true; return; }
     if(writing){ schedulePush(); return; }
     dirty=false; writing=true; setChip("work");
-    FB.set(FB.ref, { json: JSON.stringify(doc), at: Date.now() })
+    FB.commit(FB.ref, JSON.parse(JSON.stringify(doc)))
       .then(function(){ writing=false; setChip(dirty ? "work" : "ok"); }, function(){ writing=false; dirty=true; setChip("err"); });
   }
   function schedulePush(){ dirty=true; setChip("work"); clearTimeout(pushTimer); pushTimer=setTimeout(pushNow, 800); }
@@ -1699,12 +1722,38 @@
   document.addEventListener("visibilitychange", function(){ if(!document.hidden) resumeSync(); });
   window.addEventListener("online", resumeSync);
 
+  var loginButton=(typeof document.getElementById==="function") ? document.getElementById("syncLoginButton") : null;
+  if (loginButton) loginButton.addEventListener("click",function(){
+    if (!window.firebase || !firebase.auth) { setChip("err"); return; }
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .catch(function(){ setChip("err"); });
+  });
+
   /* ---------- init ---------- */
   applyLang();
   applyDocToUI();
   setChip("");
   startFirebase();
+  DataBackup.mount({ app: "marriage", keys: [KEY, CFGKEY, "marriage_checklist_v1"], persist: persistLocal,
+    pause: function(){ fbReady=false; FB=null; clearTimeout(pushTimer); if(unsub) {unsub();unsub=null;} },
+    validate: function(entries) {
+      var restored=JSON.parse(entries[KEY]);
+      if(!restored || !restored.checked || !Array.isArray(restored.custom) || !restored.dates || !restored.plan || restored.v!==4) throw Error("形式不一致");
+      var ids=new Set(); restored.custom.forEach(function(item){ if(!item.id || ids.has(item.id)) throw Error("タスクID重複"); ids.add(item.id); });
+      if(entries[CFGKEY]!==null) { var conf=JSON.parse(entries[CFGKEY]); if(!conf || !["ja","de","both"].includes(conf.lang)) throw Error("設定不一致"); }
+      return "チェック: "+Object.keys(restored.checked).length+"、追加タスク: "+restored.custom.length+"、日付: "+Object.keys(restored.dates).length+"、計画: "+Object.keys(restored.plan).length;
+    }
+  });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(function () {
+      // The app's local storage remains available if offline caching is unsupported.
+    });
+  });
+}
 </script>
 </body>
 </html>
